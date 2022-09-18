@@ -20,7 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('compras/', include('apps.ventas_compras.compras.urls')),
     path('ventas/', include('apps.ventas_compras.ventas.urls')),
-    path('almacenes/', include('apps.almacenes.urls')),
+    path('almacenes/', include('apps.almacen.urls')),
     path('finanzas/', include('apps.finanzas.urls')),
     
 ]

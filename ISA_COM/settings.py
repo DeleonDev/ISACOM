@@ -39,9 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.almacen.apps.AlmacenConfig',
     'apps.finanzas.apps.FinanzasConfig',
-    # 'apps.ventas_compras.apps.VentasComprasConfig'
-    'apps.ventas_compras.ventas.VentasConfig',
-    'apps.ventas_compras.compras.ComprasConfig',
+    'apps.ventas_compras.ventas.apps.VentasConfig',
+    'apps.ventas_compras.compras.apps.ComprasConfig',
 ]
 
 MIDDLEWARE = [
