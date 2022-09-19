@@ -1,4 +1,10 @@
-# Django #
+################# ? React #################
+node_modules/
+build/
+.DS_Store
+
+
+################# ? Django #################
 *.log
 *.pot
 *.pyc
