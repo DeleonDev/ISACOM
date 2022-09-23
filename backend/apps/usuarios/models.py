@@ -20,7 +20,7 @@ class Agente(models.Model):
     discapacidad = models.CharField(choices=disability_options(), max_length=50, default=None, verbose_name='Discapacidad')
     
     def __str__(self):
-        return f'{self.usuario.get_full_name()} / {self.usuario.groups}'
+        return f'{self.usuario.get_full_name()} / {self.usuario.groups.all()[0].name}'
     
     class Meta:
         db_table = "ISACOM_AGENTE"
