@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from .models import Perfil
+from .models import Agente
 
-class PerfilSerializer(serializers.ModelSerializer):
+class AgenteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Perfil
+        model = Agente
         fields = '__all__'
