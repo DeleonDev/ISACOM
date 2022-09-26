@@ -5,7 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 # Create your views here.
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, SignUpForm
 
 
@@ -28,7 +28,7 @@ def login_view(request):
         else:
             msg = 'Error validating the form'
 
-    return render(request, "accounts/login.html", {"form": form, "msg": msg, "GITHUB_AUTH": 'GITHUB_AUTH'})
+    return render(request, "accounts/login.html", {"form": form, "msg": msg})
 
 
 def register_user(request):
@@ -46,7 +46,7 @@ def register_user(request):
             msg = 'Account created successfully.'
             success = True
 
-            # return redirect("/login/")
+            return redirect("/login/")
 
         else:
             msg = 'Form is not valid'
@@ -54,3 +54,7 @@ def register_user(request):
         form = SignUpForm()
 
     return render(request, "accounts/register.html", {"form": form, "msg": msg, "success": success})
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
