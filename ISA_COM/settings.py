@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,14 +27,10 @@ SECRET_KEY = 'django-insecure-+@@-c1!orflj58#&&x^%*6h-i7wvf24gm)$i2^s6p@$gq1gm_(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # White listing the localhost:3000 port
 # for React
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-]
-
 
 # Application definition
 INSTALLED_APPS = [
@@ -42,13 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.home.apps.MyConfig',
+    'apps.authentication.apps.AuthConfig',
     'apps.usuarios.apps.UsuariosConfig',
     'apps.almacen.apps.AlmacenConfig',
     'apps.finanzas.apps.FinanzasConfig',
     'apps.ventas_compras.ventas.apps.VentasConfig',
     'apps.ventas_compras.compras.apps.ComprasConfig',
-    'corsheaders',
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -59,15 +57,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'ISA_COM.urls'
+TEMPLATE_DIR = os.path.join(CORE_DIR, 'apps/templates')
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,8 +127,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles', )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
