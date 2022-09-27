@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %} Sign UP {% endblock %}
+{% block title %} Registrarse {% endblock %}
 
 
 {% block stylesheets %}{% endblock stylesheets %}
@@ -19,14 +19,14 @@
                     <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                         <div class="text-center text-md-center mb-4 mt-md-0">
                             <h1 class="mb-0 h3">
-                                Sign UP
+                                Registrarse
                             </h1>
                             <br />
                             <p>
                                 {% if msg %}
                                 {{ msg | safe }}
                                 {% else %}
-                                Add your credentials
+                                
                                 {% endif %}
                             </p>
                         </div>
@@ -34,7 +34,7 @@
                         {% if success %}
 
                         <div class="d-grid">
-                            <a href="{% url 'login' %}" class="btn btn-gray-800">Sign IN</a>
+                            <a href="{% url 'login' %}" class="btn btn-gray-800">Iniciar sesión</a>
                         </div>
 
                         {% else %}
@@ -44,7 +44,7 @@
                             {% csrf_token %}
 
                             <div class="form-group mb-4">
-                                <label for="email">Username</label>
+                                <label for="email">Nombre de usuario</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">
                                         <span class="fas fa-user-circle"></span>
@@ -56,7 +56,7 @@
 
                             <!-- Form -->
                             <div class="form-group mb-4">
-                                <label for="email">Your Email</label>
+                                <label for="email">Correo electronico</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">
                                         <span class="fas fa-envelope"></span>
@@ -70,7 +70,7 @@
 
                                 <!-- Form -->
                                 <div class="form-group mb-4">
-                                    <label for="password">Your Password</label>
+                                    <label for="password">Contraseña</label>
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon2">
                                             <span class="fas fa-unlock-alt"></span>
@@ -92,14 +92,14 @@
 
                             </div>
                             <div class="d-grid">
-                                <button type="submit" name="register" class="btn btn-gray-800">Sign UP</button>
+                                <button type="submit" name="register" class="btn btn-gray-800">Registrarse</button>
                             </div>
                         </form>
                         <br />
                         <div class="d-flex justify-content-center align-items-center mt-4">
                             <span class="fw-normal">
-                                Already have an account?
-                                <a href="{% url 'login' %}" class="fw-bold">Sign IN</a>
+                                Ya tienes una cuenta?
+                                <a href="{% url 'login' %}" class="fw-bold">Iniciar sesión</a>
                             </span>
                         </div>
 
