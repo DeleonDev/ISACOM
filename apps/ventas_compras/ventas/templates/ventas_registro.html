@@ -1,18 +1,71 @@
 {% extends "layouts/base.html" %}
-
 {% load static %}
-
-{% block title %} Dashboard {% endblock %}
-
-
+{% block title %} Ventas - Registro{% endblock %}
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
+<div>
+    <br>
+    <a href="{% url 'registro'%}" class="btn btn-success" style="margin-left: 20px;">Agregar cliente</a>
+</div>
 
-<h1>Ventas registro</h1>
+<div class="container-fluid py-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="header">
+                <h6 class="text-center">Registro de Ventas</h6>
+            </div>
+            <table class="table table-bordered table-striped text-center">
+                <thead>
+                    <tr>
+                        <th>Agente</th>
+                        <th>Cliente</th>
+                        <th>P.O.</th>
+                        <th>No.cotización</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>User</td>
+                        <td>People 1</td>
+                        <td>P.O.-123</td>
+                        <td>C-123</td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-default btn-add" data-toggle="modal"
+                                data-target="modal_add">
+                                Detalles
+                            </button>
+                        </td>
+                    </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal_add">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
 
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
 
 
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+<script>
+    $('.btn-add').on('click', function () {
+        var id = $(this).data('id');
+        $.ajax({
+            url: "registro-ventas/detalle/" + id,
+            type: "get",
+            success: function (data) {
+
+                $('#modal_add .modal-content').html(data);
+                $('#modal_add').modal("show");
+            },
+        });
+    });
+</script>
+{% endblock javascripts %}
