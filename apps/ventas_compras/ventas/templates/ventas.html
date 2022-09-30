@@ -10,312 +10,268 @@
 {% block content %}
 
 <h1>Registro de ventas</h1>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive py-4">
+            <table class="table table-bordered table-striped text-center" id="datatable">
+                <thead>
+                    <tr>
+                        <th>Consecutivo</th>
+                        <th>Vendedor</th>
+                        <th>Cliente</th>
+                        <th>Clasificacion</th>
+                        <th>Descripcion</th>
+                        <th>#Cotizacion</th>
+                        <th>OC</th>
+                        <th>Fecha OC</th>
+                        <th>Monto USD</th>
+                        <th>Monto MN</th>
 
-<div class="table-responsive py-4">
-    <table class="table table-flush" id="datatable">
-        <thead class="thead-light">
-        <tr>
-            <th>Consecutivo</th>
-            <th>RC</th>
-            <th>Cliente</th>
-            <th>Clasificacion</th>
-            <th>Descripcion</th>
-            <th>#Cotizacion</th>
-            <th>OC</th>
-            <th>Fecha OC</th>
-            <th>Monto USD</th>
-            <th>Monto MN</th>
+                    </tr>
+                </thead>
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>644</td>
-            <td>VH</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$320,800</td>
-            <td>$320,800</td>
-            <td>2011/04/25</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
+                <tr>
+                    <td>648</td>
+                    <td>RC</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>02/04/2021</td>
+                    <td>20,000.00</td>
+                    <td>0.00</td>
+                </tr>
+                <tr>
+                    <td>648</td>
+                    <td>RC</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>02/04/2021</td>
+                    <td>20,000.00</td>
+                    <td>0.00</td>
+                </tr>
+                <tr>
+                    <td>648</td>
+                    <td>RC</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>02/04/2021</td>
+                    <td>20,000.00</td>
+                    <td>0.00</td>
+                </tr>
+                <tr>
+                    <td>648</td>
+                    <td>RC</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>02/04/2021</td>
+                    <td>20,000.00</td>
+                    <td>0.00</td>
+                </tr>
+                <tr>
+                    <td>648</td>
+                    <td>RC</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum</td>
+                    <td>02/04/2021</td>
+                    <td>20,000.00</td>
+                    <td>0.00</td>
+                </tr>
 
-        </tr>
-        <tr>
-            <td>644</td>
-            <td>LM</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$170,750</td>
-            <td>$170,750</td>
-            <td>2011/07/25</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-        <tr>
-            <td>644</td>
-            <td>RC</td>
-            <td>San Francisco</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-            <td>2009/01/1</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-        <tr>
-            <td>644</td>
-            <td>LM</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$433,060</td>
-            <td>$433,060</td>
-            <td>2012/03/29</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-        <tr>
-            <td>644</td>
-            <td>VH</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$162,700</td>
-            <td>$162,700</td>
-            <td>2008/11/28</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-
-        <tr>
-            <td>644</td>
-            <td>LM</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$433,060</td>
-            <td>$433,060</td>
-            <td>2012/03/29</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-        <tr>
-            <td>644</td>
-            <td>VH</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$162,700</td>
-            <td>$162,700</td>
-            <td>2008/11/28</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-
-        <tr>
-            <td>644</td>
-            <td>LM</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$433,060</td>
-            <td>$433,060</td>
-            <td>2012/03/29</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-        <tr>
-            <td>644</td>
-            <td>VH</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$162,700</td>
-            <td>$162,700</td>
-            <td>2008/11/28</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-
-        <tr>
-            <td>644</td>
-            <td>LM</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$433,060</td>
-            <td>$433,060</td>
-            <td>2012/03/29</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-        <tr>
-            <td>644</td>
-            <td>VH</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$162,700</td>
-            <td>$162,700</td>
-            <td>2008/11/28</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-
-        <tr>
-            <td>644</td>
-            <td>LM</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$433,060</td>
-            <td>$433,060</td>
-            <td>2012/03/29</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-        <tr>
-            <td>644</td>
-            <td>VH</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$162,700</td>
-            <td>$162,700</td>
-            <td>2008/11/28</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-
-        <tr>
-            <td>644</td>
-            <td>LM</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$433,060</td>
-            <td>$433,060</td>
-            <td>2012/03/29</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-        <tr>
-            <td>644</td>
-            <td>VH</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$162,700</td>
-            <td>$162,700</td>
-            <td>2008/11/28</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-
-        <tr>
-            <td>644</td>
-            <td>LM</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$433,060</td>
-            <td>$433,060</td>
-            <td>2012/03/29</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-        <tr>
-            <td>644</td>
-            <td>VH</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$162,700</td>
-            <td>$162,700</td>
-            <td>2008/11/28</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-
-        <tr>
-            <td>644</td>
-            <td>LM</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$433,060</td>
-            <td>$433,060</td>
-            <td>2012/03/29</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-        <tr>
-            <td>644</td>
-            <td>VH</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$162,700</td>
-            <td>$162,700</td>
-            <td>2008/11/28</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-
-        <tr>
-            <td>644</td>
-            <td>LM</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$433,060</td>
-            <td>$433,060</td>
-            <td>2012/03/29</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-        <tr>
-            <td>644</td>
-            <td>VH</td>
-            <td>Bayer de Mexico</td>
-            <td>Columnas</td>
-            <td></td>
-            <td>$162,700</td>
-            <td>$162,700</td>
-            <td>2008/11/28</td>
-            <td>$86,000</td>
-            <td>$86,000</td>
-
-        </tr>
-        
-      
-        </tbody>
-    </table>
+            </table>
+        </div>
     </div>
-{% endblock content %}
+
+</div>
+
+<div class="card">
+    <div class="card-body">
 
 
-{% block javascripts %}{% endblock javascripts %}
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="Cliente">Cliente</label>
+                    <select class="form-control" id="Cliente" name="Cliente">
+                        <option value=""></option>
+                        <option value=""></option>
+                        <option value=""></option>
+                        <option value="ot">others</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="Segmento">Segmento</label>
+                    <select class="form-control" id="Segmento" name="Segmento">
+                        <option value=""></option>
+                        <option value=""></option>
+                        <option value=""></option>
+                        <option value="ot">others</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="Estado">Estado</label>
+                    <select class="form-control" id="Estado" name="Estado<">
+                        <option value=""></option>
+                        <option value=""></option>
+                        <option value=""></option>
+                        <option value="ot">others</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="Vendedor">Vendedor</label>
+                        <select class="form-control" id="Vendedor" name="Vendedor">
+                            <option value="AT">AT</option>
+                            <option value="RC">RC</option>
+                            <option value="ET">ET</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="cotizacion">Cotización</label>
+                        <input type="text" class="form-control" id="cotizacion" name="cotizacion"
+                            placeholder="Cotización">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="Descripcion">Descripcion</label>
+                        <input type="text" class="form-control" id="cotizacion" name="cotizacion"
+                            placeholder="Descripcion">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="Clasificacion">Clasificacion</label>
+                        <select class="form-control" id="moneda" name="moneda">
+                            <option value="Servicios">Servicios</option>
+                            <option value="Otros">Otros</option>
+                            <option value="Equipo">Equipo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="OrdenDeCompra">Orden de compra</label>
+                        <input type="text" class="form-control" id="Orden de compra" name="Orden de compra"
+                            placeholder="Orden de compra">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="fechaoc">Fecha O.C</label>
+                        <input type="date" class="form-control" id="fechaoc" name="fechaoc" placeholder="Fecha  O.C">
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="Comision">Comision</label>
+                        <input type="text" class="form-control" id="Comision" name="Comision" placeholder="Comision">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="Factura">Factura</label>
+                        <input type="text" class="form-control" id="Factura" name="Factura" placeholder="Factura">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="fechaf">Fecha factura</label>
+                        <input type="date" class="form-control" id="fechaf" name="fechaf" placeholder="Fecha factura">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="MontoUSD">Monto USD</label>
+                        <input type="text" class="form-control" id="Monto USD" name="Monto USD" placeholder="Monto USD">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="MontoMN">Monto MN</label>
+                        <input type="text" class="form-control" id="Monto MN" name="Monto MN" placeholder="Monto MN">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="Incentivo">Incentivo</label>
+                        <input type="text" class="form-control" id="Incentivo" name="Incentivo placeholder=" Incentivo">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="TipoDC">Tipo de cambio FACTURA</label>
+                        <input type="text" class="form-control" id="TipoDC" name="TipoDC"
+                            placeholder="Tipo de cambio FACTURA">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="cambioO.C">Tipo de cambio O.C</label>
+                        <input type="text" class="form-control" id="cambioO.C" name="cambioO.C"
+                            placeholder="Tipo de cambio O.C">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="MontoMN">Impote USD</label>
+                        <input type="text" class="form-control" id="Monto MN" name="Monto MN" placeholder="Monto MN">
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    {% endblock content %}
+
+
+    {% block javascripts %}{% endblock javascripts %}
