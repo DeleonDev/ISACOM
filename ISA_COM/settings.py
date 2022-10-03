@@ -91,22 +91,22 @@ WSGI_APPLICATION = 'ISA_COM.wsgi.application'
     }
 }"""
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Libreria para PostgreSQL
-#         'NAME': 'isa_com',  # Nombre de la base de datos PostgreSQL
-#         'USER': 'postgres',  # Usuario de la base de datos PostgreSQL
-#         'PASSWORD': '1421',  # Contraseña de usuario PostgreSQL
-#         'HOST': '',  # Ubicacion de la base de datos
-#     }
-#     # 'default': 
-# }
 DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Libreria para PostgreSQL
+        'NAME': 'isa_com',  # Nombre de la base de datos PostgreSQL
+        'USER': 'postgres',  # Usuario de la base de datos PostgreSQL
+        'PASSWORD': '1421',  # Contraseña de usuario PostgreSQL
+        'HOST': '',  # Ubicacion de la base de datos
+    }
+    # 'default': 
+}
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
+}"""
 
 
 

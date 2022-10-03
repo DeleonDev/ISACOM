@@ -9,13 +9,14 @@
     <a href="{% url 'registro'%}" class="btn btn-success" style="margin-left: 20px;">Agregar cliente</a>
 </div>
 
-<div class="container-fluid py-4">
+<div class="table-responsive py-4">
     <div class="card">
+        <div class="header">
+            <br>
+            <h6 class="text-center">REGISTRO DE VENTAS</h6>
+        </div>
         <div class="card-body">
-            <div class="header">
-                <h6 class="text-center">Registro de Ventas</h6>
-            </div>
-            <table class="table table-bordered table-striped text-center">
+            <table class="table table-bordered table-striped text-center" id="ventas_table">
                 <thead>
                     <tr>
                         <th>Agente</th>
@@ -54,6 +55,18 @@
 
 
 {% block javascripts %}
+<script>
+    const dataTable = new simpleDatatables.DataTable("#ventas_table", {
+        //searchable: true,
+        fixedHeight: false,
+        labels: {
+            placeholder: "Buscar nombre de la página",
+            perPage: "Mostar {select} registros por página",
+            noRows: "No hay registros por mostrar",
+            info: "Mostrando {start} a {end} de {rows} registros (Pagina {page} de {pages} paginas)",
+        },
+    })
+</script>
 <script>
     $('.btn-add').on('click', function () {
         var id = $(this).data('id');
