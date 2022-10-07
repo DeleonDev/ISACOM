@@ -14,3 +14,9 @@ def disability_options():
     with open('optionfiles/disability.txt') as f:
         d = list(x.rstrip().split(None, 1) for x in f)
     return d
+
+def clasification_options():
+    with open('optionfiles/clasification.txt') as f:
+        d = list(x.rstrip().split(None, 1) for x in f)
+    return d
+

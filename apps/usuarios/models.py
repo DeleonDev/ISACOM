@@ -43,3 +43,46 @@ class Cliente(models.Model):
         db_table = "ISACOM_CLIENTE"
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
+        
+        
+
+#* Clientes sucursales contactos
+
+class ClienteSucursalContacto(models.Model):
+    con_nombre = models.CharField(max_length=75, verbose_name='Nombre del contacto')
+    cto_titulo = models.CharField(max_length=75, verbose_name='Titulo del contacto')
+    genero = models.CharField(choices=gender_options(), max_length=50, default=None, verbose_name='Género')
+    con_telefono = models.CharField(max_length=10, verbose_name='Teléfono del contacto')
+    cto_extencion = models.CharField(max_length=10, verbose_name='Extensión del contacto')
+    cto_celular = models.CharField(max_length=10, verbose_name='Celular del contacto')
+    cto_email = models.CharField(max_length=75, verbose_name='Email del contacto')
+    cto_email_empresa = models.CharField(max_length=75, verbose_name='Email de la empresa del contacto')
+    cto_notas = models.CharField(max_length=90, verbose_name='Notas del contacto')
+    con_correo = models.CharField(max_length=75, verbose_name='Correo del contacto')
+    
+    def __str__(self):
+        return f'{self.con_nombre} / {self.cto_titulo}'
+    
+    class Meta:
+        db_table = "ISACOM_CLIENTE_SUCURSAL_CONTACTO"
+        verbose_name = 'Cliente Sucursal Contacto'
+        verbose_name_plural = 'Cliente Sucursales Contactos'
+        
+
+#* Clientes sucursales
+
+class ClienteSucursal(models.Model):
+    cliente_id = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente')
+    suc_nombre = models.CharField(max_length=75, verbose_name='Nombre de la sucursal')
+    suc_identificacion = models.CharField(max_length=18, verbose_name='Indentificación de la sucursal')
+    suc_direccion = models.CharField(max_length=90, verbose_name='Dirección de la sucursal')
+    suc_notas = models.IntegerField(verbose_name='Notas de la sucursal')
+    cto_id = models.ForeignKey(ClienteSucursalContacto, on_delete=models.CASCADE, verbose_name='Contacto de la sucursal')
+    def __str__(self):
+        return f'{self.suc_nombre} / {self.suc_identificacion}'
+    
+    class Meta:
+        db_table = "ISACOM_CLIENTE_SUCURSAL"
+        verbose_name = 'Cliente Sucursal'
+        verbose_name_plural = 'Cliente Sucursales'
+        
