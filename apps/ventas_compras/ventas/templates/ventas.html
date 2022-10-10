@@ -8,9 +8,15 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-
-<h1>Registro de ventas</h1>
 <div class="card">
+    <div>
+        <br>
+        <a href="{% url 'registro'%}" class="btn btn-primary" style="float: right;">Agregar cliente</a>
+    </div>
+    <div class="header">
+        <br>
+        <h6 class="text-center">REGISTRO DE VENTAS</h6>
+    </div>
     <div class="card-body">
         <div class="table-responsive py-4">
             <table class="table table-bordered table-striped text-center" id="datatable">
@@ -92,7 +98,7 @@
                 </tr>
 
                 <tr>
-                    <td>649</td>
+                    <td>650</td>
                     <td>RC</td>
                     <td>Lorem ipsum</td>
                     <td>Lorem ipsum</td>
@@ -118,7 +124,7 @@
                 </tr>
 
                 <tr>
-                    <td>649</td>
+                    <td>600</td>
                     <td>RC</td>
                     <td>Lorem ipsum</td>
                     <td>Lorem ipsum</td>
@@ -389,6 +395,28 @@
                 </div>
 
             </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <br>
+                    <button type="button" class="btn btn-primary">Actualizar</button>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <br>
+
+                    <button type="button" class="btn btn-primary disabled text-center">Aceptar</button>
+                    <button type="button" class="btn btn-primary disabled text-center">cancelar</button>
+                </div>
+
+
+
+            </div>
+
+
 
 
         </div>
