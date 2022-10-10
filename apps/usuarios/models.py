@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from apps.usuarios.options import gender_options, blood_type_options, disability_options
+from apps.usuarios.options import *
+
+
+# ! Creacion de diccionario de estados acá,
 
 # TODO: Reestructurar el modelo de Cliente
 # * Agente
@@ -18,6 +21,7 @@ class Agente(models.Model):
     tipo_sangre = models.CharField(choices=blood_type_options(), max_length=50, default=None, verbose_name='Tipo de sangre')
     nss = models.CharField(max_length=11, verbose_name='No. Seguridad Social')
     discapacidad = models.CharField(choices=disability_options(), max_length=50, default=None, verbose_name='Discapacidad')
+    
     
     def __str__(self):
         return f'{self.usuario.get_full_name()} / {self.usuario.groups.all()[0].name}'

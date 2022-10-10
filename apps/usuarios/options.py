@@ -20,3 +20,12 @@ def clasification_options():
         d = list(x.rstrip().split(None, 1) for x in f)
     return d
 
+def months_options():
+    with open('optionfiles/months.txt') as f:
+        d = list(x.rstrip().split(None, 1) for x in f)
+    return d
+
+def states_options():
+    with open('optionfiles/states.txt') as f:
+        d = list(x.rstrip().split(None, 1) for x in f)
+    return d
