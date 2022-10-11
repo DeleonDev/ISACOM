@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from apps.usuarios.options import *
 
 
-# ! Creacion de diccionario de estados acá,
+# ! Creacion de diccionario de estados acá
 
 # TODO: Reestructurar el modelo de Cliente
 # * Agente
@@ -18,10 +18,6 @@ class Agente(models.Model):
     colonia = models.CharField(max_length=50, verbose_name='Colonia')
     cp = models.CharField(max_length=5, verbose_name='C.P')
     genero = models.CharField(choices=gender_options(), max_length=50, default=None, verbose_name='Género')
-    tipo_sangre = models.CharField(choices=blood_type_options(), max_length=50, default=None, verbose_name='Tipo de sangre')
-    nss = models.CharField(max_length=11, verbose_name='No. Seguridad Social')
-    discapacidad = models.CharField(choices=disability_options(), max_length=50, default=None, verbose_name='Discapacidad')
-    
     
     def __str__(self):
         return f'{self.usuario.get_full_name()} / {self.usuario.groups.all()[0].name}'
@@ -48,30 +44,6 @@ class Cliente(models.Model):
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
         
-        
-
-#* Clientes sucursales contactos
-
-class ClienteSucursalContacto(models.Model):
-    con_nombre = models.CharField(max_length=75, verbose_name='Nombre del contacto')
-    cto_titulo = models.CharField(max_length=75, verbose_name='Titulo del contacto')
-    genero = models.CharField(choices=gender_options(), max_length=50, default=None, verbose_name='Género')
-    con_telefono = models.CharField(max_length=10, verbose_name='Teléfono del contacto')
-    cto_extencion = models.CharField(max_length=10, verbose_name='Extensión del contacto')
-    cto_celular = models.CharField(max_length=10, verbose_name='Celular del contacto')
-    cto_email = models.CharField(max_length=75, verbose_name='Email del contacto')
-    cto_email_empresa = models.CharField(max_length=75, verbose_name='Email de la empresa del contacto')
-    cto_notas = models.CharField(max_length=90, verbose_name='Notas del contacto')
-    con_correo = models.CharField(max_length=75, verbose_name='Correo del contacto')
-    
-    def __str__(self):
-        return f'{self.con_nombre} / {self.cto_titulo}'
-    
-    class Meta:
-        db_table = "ISACOM_CLIENTE_SUCURSAL_CONTACTO"
-        verbose_name = 'Cliente Sucursal Contacto'
-        verbose_name_plural = 'Cliente Sucursales Contactos'
-        
 
 #* Clientes sucursales
 
@@ -81,7 +53,7 @@ class ClienteSucursal(models.Model):
     suc_identificacion = models.CharField(max_length=18, verbose_name='Indentificación de la sucursal')
     suc_direccion = models.CharField(max_length=90, verbose_name='Dirección de la sucursal')
     suc_notas = models.IntegerField(verbose_name='Notas de la sucursal')
-    cto_id = models.ForeignKey(ClienteSucursalContacto, on_delete=models.CASCADE, verbose_name='Contacto de la sucursal')
+    cto_id = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Contacto de la sucursal')
     def __str__(self):
         return f'{self.suc_nombre} / {self.suc_identificacion}'
     
