@@ -20,7 +20,7 @@ class Agente(models.Model):
     genero = models.CharField(choices=gender_options(), max_length=50, default=None, verbose_name='Género')
     
     def __str__(self):
-        return f'{self.usuario.get_full_name()} / {self.usuario.groups.all()[0].name}'
+        return self.usuario.first_name + ' ' + self.usuario.last_name
     
     class Meta:
         db_table = "ISACOM_AGENTE"
