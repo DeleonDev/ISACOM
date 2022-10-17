@@ -12,7 +12,7 @@
         <div class="header">
             <h3 class="text-center">AGREGAR VENTAS</h3>
         </div>
-        <form action="">
+        <form method="POST" id="form">
             <div>
                 <br>
             </div>
@@ -20,7 +20,12 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="cliente">Cliente</label>
-                        <input type="text" class="form-control" id="cliente" name="cliente" placeholder="Cliente">
+                        <select class="form-control" id="cliente" name="cliente">
+                            <option value="">Seleccione</option>
+                            {% for cliente in clientes %}
+                            <option value="{{cliente.id}}">{{cliente.RFC}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -154,7 +159,8 @@
                         <label for="mon">Tipo de cambio O.C</label>
                         <input type="text" class="form-control" id="mon" name="mon" placeholder="Tipo de cambio">
                     </div>
-                </div><div class="col-md-6">
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="mon">Importe USD</label>
                         <input type="text" class="form-control" id="mon" name="mon" placeholder="Importe">
@@ -173,6 +179,6 @@
 </div>
 
 <script>
-    
+
 </script>
 {%endblock content%}

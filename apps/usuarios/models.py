@@ -20,7 +20,7 @@ class Agente(models.Model):
     genero = models.CharField(choices=gender_options(), max_length=50, default=None, verbose_name='Género')
     
     def __str__(self):
-        return self.usuario.first_name + ' ' + self.usuario.last_name
+        return  f'{self.usuario.first_name} {self.usuario.last_name}'
     
     class Meta:
         db_table = "ISACOM_AGENTE"
@@ -37,7 +37,7 @@ class Cliente(models.Model):
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Agente')
     
     def __str__(self):
-        return f'{self.usuario.usuario.get_full_name()} / {self.study_grade}'
+        return f'{self.RFC} - {self.usuario.first_name} {self.usuario.last_name}'
     
     class Meta:
         db_table = "ISACOM_CLIENTE"
