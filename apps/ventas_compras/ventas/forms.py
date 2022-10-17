@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django import forms
 import re
 from datetime import date
+from apps.usuarios.models import Agente, Cliente
 
 from apps.ventas_compras.ventas.models import Ventas
 
@@ -15,10 +16,11 @@ class VentasForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'fecha': forms.DateInput(attrs={'type': 'date'}),
+            'fecha_orden_compra': forms.DateInput(attrs={'type': 'date'}),
         }
         
     def clean_cliente(self):
-        cliente = self.cleaned_data['cliente']
+        cliente =self.cleaned_data['cliente']
         if cliente == 'SELECCIONE':
             raise ValidationError(
                 _('Seleccione un cliente'),
@@ -99,7 +101,6 @@ class VentasForm(forms.ModelForm):
         for field_name, field in self.fields.items():
             field.widget.attrs['onkeyup'] = 'javascript:this.value=this.value.toUpperCase()'
             field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['placeholder'] = field.label  
             if field_name in ['company_email']:
                 field.widget.attrs['onkeyup'] = ''
-                
-        

@@ -1,4 +1,3 @@
-from audioop import reverse
 from django.shortcuts import redirect, render
 from django.db import transaction
 from django.contrib import messages
@@ -8,7 +7,6 @@ from django.contrib import messages
 from django.db import transaction
 from django.shortcuts import render
 from django.db import transaction
-from apps.usuarios.models import Cliente
 from apps.ventas_compras.ventas.forms import VentasForm
 # Create your views here.
 
@@ -23,20 +21,18 @@ def ventas_registro(request):
 
 @transaction.atomic()
 def registro(request):
-    clientes = Cliente.objects.all()
     if request.method == 'POST':
-        formulario_ventas = VentasForm(request.POST)
-        with transaction.atomic():
-            formulario_ventas.save(commit=False)
-            formulario_ventas.cliente = request.POST.get('cliente', ' ')
-            formulario_ventas.save()
-            messages.success(request, 'Registro exitoso')
-            
+        form = VentasForm(request.POST)
+        if form.is_valid():
+            with transaction.atomic():
+                form.save()
+                messages.success(request, 'Registro exitoso')
+                return redirect(reverse_lazy('ventas'))
+        else:
+            print(form.errors)
+            messages.error(request, 'Error al registrar')
     else:
         form = VentasForm()
-        for field_name, field in form.fields.items():
-            field.widget.attrs['disabled'] = False
-    return render(request, 'nuevo_registro.html', {'formulario_uno': form}, {'clientes': clientes})
-
-
-
+        # for field_name, field in form.fields.items():
+        #     field.widget.attrs['disabled'] = False
+    return render(request, 'nuevo_registro.html', {'form': form})

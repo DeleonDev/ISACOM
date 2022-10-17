@@ -1,7 +1,6 @@
-{% extends "layouts/base.html" %}
-{% load static %}
-{% block title %} Ventas - Registro{% endblock %}
-{% block stylesheets %}{% endblock stylesheets %}
+{% extends "layouts/base.html" %} {% load static %}
+<!-- {% block title %} Ventas - Registro{% endblock %}
+{% block stylesheets %}{% endblock stylesheets %} -->
 {% block content %}
 <div class="card">
     <div>
@@ -13,10 +12,11 @@
             <h3 class="text-center">AGREGAR VENTAS</h3>
         </div>
         <form method="POST" id="form">
+            {% csrf_token %}
             <div>
-                <br>
+                {{ form.as_p }}
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="cliente">Cliente</label>
@@ -169,7 +169,7 @@
             </div>
             <div>
                 <br>
-            </div>
+            </div> -->
             <div>
                 <button type="submit" class="btn btn-success" value="save" style="display: block; margin: 0 auto;">
                     Guardar</button>
