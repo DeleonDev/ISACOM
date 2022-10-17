@@ -17,31 +17,131 @@
                 <br>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="agente">Agente</label>
-                        <input type="text" class="form-control" id="agente" name="agente" placeholder="Agente">
-                    </div>
-                </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="cliente">Cliente</label>
                         <input type="text" class="form-control" id="cliente" name="cliente" placeholder="Cliente">
                     </div>
                 </div>
-                <div>
-                    <br>
-                </div>
-                <div class="col-md-7">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="des">Descripción</label>
-                        <textarea class="form-control" id="des" name="des" rows="3"></textarea>
+                        <label for="entrega">Tipo de entrega</label>
+                        <select class="form-control" id="entrega" name="entrega">
+                            <option value="1">Entrega</option>
+                            <option value="2">Entrega</option>
+                            <option value="3">Entrega</option>
+                            <option value="4">Entrega</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="estado">Estado</label>
+                        <select class="form-control" id="estado" name="estado">
+                            <option value="1">Estado</option>
+                            <option value="2">Estado</option>
+                            <option value="3">Estado</option>
+                            <option value="4">Estado</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="from-group">
+                        <label for="producto">Agente</label>
+                        <input type="text" class="form-control" id="producto" name="producto" placeholder="Agente">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="des">Cotización</label>
+                        <input type="text" class="form-control" id="des" name="des" placeholder="Cotización">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="po">P.O</label>
-                        <input type="text" class="form-control" id="po" name="po" placeholder="P.O.">
+                        <label for="po">Descripción</label>
+                        <input type="text" class="form-control" id="po" name="po" placeholder="Descripción">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="from-group">
+                        <label for="producto">Orden de compra</label>
+                        <input type="text" class="form-control" id="producto" name="producto"
+                            placeholder="Orden compra">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="des">Fecha o.c</label>
+                        <input type="date" class="form-control" id="fechapo" name="fechapo" placeholder="Fecha O.C">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="po">clasificación</label>
+                        <input type="text" class="form-control" id="po" name="po" placeholder="clasificación">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="importe">Comisión</label>
+                        <input type="text" class="form-control" id="importe" name="importe" placeholder="Comisión">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="des">Factura</label>
+                        <input type="date" class="form-control" id="fechapo" name="fechapo" placeholder="Factura">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="po">Fecha factura</label>
+                        <input type="date" class="form-control" id="po" name="po" placeholder="Fecha factura">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="mon">Monto USD</label>
+                        <input type="text" class="form-control" id="mon" name="mon" placeholder="Monto USD">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="mon">Monto MXN</label>
+                        <input type="text" class="form-control" id="mon" name="mon" placeholder="Monto MXN">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="mon">Incentivo</label>
+                        <input type="text" class="form-control" id="mon" name="mon" placeholder="Incentivo">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="mon">Tipo de cambio factura</label>
+                        <input type="text" class="form-control" id="mon" name="mon" placeholder="Tipo de cambio">
                     </div>
                 </div>
             </div>
@@ -51,141 +151,28 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="fechapo">Fecha P.O </label>
-                        <input type="date" class="form-control" id="fechapo" name="fechapo" placeholder="Fecha P.O">
-                        </label>
+                        <label for="mon">Tipo de cambio O.C</label>
+                        <input type="text" class="form-control" id="mon" name="mon" placeholder="Tipo de cambio">
                     </div>
-                </div>
-                <div class="col-md-6">
+                </div><div class="col-md-6">
                     <div class="form-group">
-                        <label for="fechaent">Fecha ent P.O</label>
-                        <input type="date" class="form-control" id="fechaent" name="fechaent"
-                            placeholder="Fecha ent P.O">
+                        <label for="mon">Importe USD</label>
+                        <input type="text" class="form-control" id="mon" name="mon" placeholder="Importe">
                     </div>
                 </div>
             </div>
             <div>
                 <br>
             </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="importe">Importe</label>
-                        <input type="text" class="form-control" id="importe" name="importe" placeholder="Importe">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="moneda">Moneda</label>
-                        <select class="form-control" id="moneda" name="moneda">
-                            <option value="MXN">MXN</option>
-                            <option value="USD">USD</option>
-                            <option value="EUR">EUR</option>
-                            <option value="ot">others</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="fechaentcot">Tipo de cambio</label>
-                        <input type="text" class="form-control" id="tipocambio" name="tipocambio"
-                            placeholder="Tipo de cambio">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="dolar">Importe en dólares</label>
-                        <input type="text" class="form-control" id="dolar" name="dolar"
-                            placeholder="Importe en dólares">
-                    </div>
-                </div>
-                <div>
-                    <br>
-                </div>
-                <div class="row">
-                    <div class="form-group col-12 col-lg-7">
-                        <label for="notas">Notas</label>
-                        <textarea class="form-control" id="notas" name="notas" rows="3"></textarea>
-                    </div>
-                </div>
-                <div>
-                    <br>
-                </div>
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label for="cotizacion">Número de cotización</label>
-                            <input type="text" class="form-control" id="cotizacion" name="cotizacion"
-                                placeholder="Número de cotización">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="entrega">Tipo de entrega</label>
-                            <select class="form-control" id="entrega" name="entrega">
-                                <option value="1">Entrega</option>
-                                <option value="2">Entrega</option>
-                                <option value="3">Entrega</option>
-                                <option value="4">Entrega</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="clasif">Clasif. de entrega</label>
-                            <select class="form-control" id="clasif" name="clasif">
-                                <option value="1">Clasif</option>
-                                <option value="2">Clasif</option>
-                                <option value="3">Clasif</option>
-                                <option value="4">Clasif</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <br>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="clasifacion">Clacif. venta</label>
-                            <select class="form-control" id="clasifacion" name="clasifacion">
-                                <option value="1">Clasif</option>
-                                <option value="2">Clasif</option>
-                                <option value="3">Clasif</option>
-                                <option value="4">Clasif</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="segmento">Segmento</label>
-                            <select class="form-control" id="segmento" name="segmento">
-                                <option value="1">Segmento</option>
-                                <option value="2">Segmento</option>
-                                <option value="3">Segmento</option>
-                                <option value="4">Segmento</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="estado">Estado</label>
-                            <select class="form-control" id="estado" name="estado">
-                                <option value="1">Estado</option>
-                                <option value="2">Estado</option>
-                                <option value="3">Estado</option>
-                                <option value="4">Estado</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
+            <div>
                 <button type="submit" class="btn btn-success" value="save" style="display: block; margin: 0 auto;">
                     Guardar</button>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    
+</script>
 {%endblock content%}

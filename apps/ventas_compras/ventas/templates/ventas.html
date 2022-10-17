@@ -8,16 +8,13 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
+
 <div class="card">
     <div>
-        <br>
-        <a href="{% url 'registro'%}" class="btn btn-primary" style="float: right;">Agregar cliente</a>
-    </div>
-    <div class="header">
-        <br>
-        <h6 class="text-center">REGISTRO DE VENTAS</h6>
+        <a href="{% url 'registro'%}" class="btn btn-primary" style="float:right;">Agregar cliente</a>
     </div>
     <div class="card-body">
+        <h6 class="text-center">REGISTRO DE VENTAS</h6>
         <div class="table-responsive py-4">
             <table class="table table-bordered table-striped text-center" id="datatable">
                 <thead>
@@ -32,58 +29,8 @@
                         <th>Fecha OC</th>
                         <th>Monto USD</th>
                         <th>Monto MN</th>
-
                     </tr>
                 </thead>
-
-                <tr>
-                    <td>648</td>
-                    <td>RC</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>02/04/2021</td>
-                    <td>20,000.00</td>
-                    <td>0.00</td>
-                </tr>
-                <tr>
-                    <td>648</td>
-                    <td>RC</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>02/04/2021</td>
-                    <td>20,000.00</td>
-                    <td>0.00</td>
-                </tr>
-                <tr>
-                    <td>648</td>
-                    <td>RC</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>02/04/2021</td>
-                    <td>20,000.00</td>
-                    <td>0.00</td>
-                </tr>
-                <tr>
-                    <td>648</td>
-                    <td>RC</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>02/04/2021</td>
-                    <td>20,000.00</td>
-                    <td>0.00</td>
-                </tr>
                 <tr>
                     <td>649</td>
                     <td>RC</td>
@@ -96,101 +43,6 @@
                     <td>20,000.00</td>
                     <td>0.00</td>
                 </tr>
-
-                <tr>
-                    <td>650</td>
-                    <td>RC</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>02/04/2021</td>
-                    <td>20,000.00</td>
-                    <td>0.00</td>
-                </tr>
-
-                <tr>
-                    <td>649</td>
-                    <td>RC</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>02/04/2021</td>
-                    <td>20,000.00</td>
-                    <td>0.00</td>
-                </tr>
-
-                <tr>
-                    <td>600</td>
-                    <td>RC</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>02/04/2021</td>
-                    <td>20,000.00</td>
-                    <td>0.00</td>
-                </tr>
-
-
-                <tr>
-                    <td>649</td>
-                    <td>RC</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>02/04/2021</td>
-                    <td>20,000.00</td>
-                    <td>0.00</td>
-                </tr>
-
-
-                <tr>
-                    <td>649</td>
-                    <td>RC</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>02/04/2021</td>
-                    <td>20,000.00</td>
-                    <td>0.00</td>
-                </tr>
-
-
-                <tr>
-                    <td>649</td>
-                    <td>RC</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>02/04/2021</td>
-                    <td>20,000.00</td>
-                    <td>0.00</td>
-                </tr>
-
-                <tr>
-                    <td>649</td>
-                    <td>RC</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>Lorem ipsum</td>
-                    <td>02/04/2021</td>
-                    <td>20,000.00</td>
-                    <td>0.00</td>
-                </tr>
-
                 <tr>
                     <td>649</td>
                     <td>RC</td>
@@ -203,7 +55,6 @@
                     <td>20,000.00</td>
                     <td>0.00</td>
                 </tr>
-
                 <tr>
                     <td>149</td>
                     <td>RC</td>
@@ -216,18 +67,15 @@
                     <td>20,000.00</td>
                     <td>0.00</td>
                 </tr>
-
             </table>
         </div>
     </div>
-
+</div>
 </div>
 <br>
 
 <div class="card">
     <div class="card-body">
-
-
         <div class="row">
             <div class="col-md-5">
                 <div class="form-group">
@@ -378,7 +226,6 @@
             <div>
                 <br>
             </div>
-
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
@@ -393,50 +240,37 @@
                         <input type="text" class="form-control" id="Monto MN" name="Monto MN" placeholder="Monto MN">
                     </div>
                 </div>
-
             </div>
-
             <div class="row">
                 <div class="form-group">
                     <br>
                     <button type="button" class="btn btn-primary">Actualizar</button>
                 </div>
-
             </div>
-
             <div class="row">
                 <div class="form-group">
                     <br>
-
                     <button type="button" class="btn btn-primary disabled text-center">Aceptar</button>
                     <button type="button" class="btn btn-primary disabled text-center">cancelar</button>
                 </div>
-
-
-
             </div>
-
-
-
-
         </div>
-    </div>
-    {% endblock content %}
+        {% endblock content %}
 
 
-    {% block javascripts %}
+        {% block javascripts %}
 
-    <script>
-        const dataTable = new simpleDatatables.DataTable("#datatable", {
-            //searchable: true,
-            fixedHeight: true,
-            labels: {
-                placeholder: "Buscar nombre de la pagina",
-                perPage: "Mostar {select} registros por pagina",
-                noRows: "No hay registros por mostrar",
-                info: "Mostrando {start} a {end} de {rows} registros (Pagina {page} de {pages} paginas)",
-            },
-        })
-    </script>
+        <script>
+            const dataTable = new simpleDatatables.DataTable("#datatable", {
+                //searchable: true,
+                fixedHeight: true,
+                labels: {
+                    placeholder: "Buscar",
+                    perPage: "Mostar {select} registros por pagina",
+                    noRows: "No hay registros por mostrar",
+                    info: "Mostrando {start} a {end} de {rows} registros (Pagina {page} de {pages} paginas)",
+                },
+            })
+        </script>
 
-    {% endblock javascripts %}
+        {% endblock javascripts %}

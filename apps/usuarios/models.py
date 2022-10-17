@@ -61,4 +61,3 @@ class ClienteSucursal(models.Model):
         db_table = "ISACOM_CLIENTE_SUCURSAL"
         verbose_name = 'Cliente Sucursal'
         verbose_name_plural = 'Cliente Sucursales'
-        
