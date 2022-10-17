@@ -9,7 +9,126 @@
 
 {% block content %}
 
-<h1>finanzas</h1>
+<h1>Finanzas</h1>
+
+<div class="card">
+    <div class="card-body">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="Cliente">Cliente</label>
+                <select class="form-control" id="Cliente" name="Cliente">
+                    <option value="">Seleccione</option>
+                    <option value=""></option>
+                    <option value=""></option>
+                    <option value="ot">others</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div><br>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="Fecha">Fecha</label>
+                    <input type="text" class="form-control" id="Fecha" name="Fecha" placeholder="Fecha">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="OrdenV">Orden de venta</label>
+                    <input type="text" class="form-control" id="OrdenV" name="Orden de venta"
+                        placeholder="Orden de venta">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="OrdenC">Orden de compra</label>
+                    <input type="text" class="form-control" id="OrdenC" name="Orden de compra"
+                        placeholder="Orden de compra">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="Importe">Importe(USD20)</label>
+                    <input type="text" class="form-control" id="Importe" name="Importe" placeholder="Importe">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="ImporteF">Importe facturas</label>
+                    <input type="text" class="form-control" id="ImporteF" name="ImporteF"
+                        placeholder="Importe facturas">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="ImportePa">Importe pagado</label>
+                    <input type="text" class="form-control" id="ImportePa" name="ImportePa"
+                        placeholder="Importe pagado">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div><br>
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="FechaE">Fecha Emision</label>
+                    <input type="text" class="form-control" id="FechaE" name="FechaE" placeholder="Fecha">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="Factura">Factura</label>
+                    <input type="text" class="form-control" id="Factura" name="Factura" placeholder="Factura">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="Importe">Importe</label>
+                    <input type="text" class="form-control" id="Importe" name="Importe" placeholder="Importe">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="Moneda">Moneda</label>
+                    <input type="text" class="form-control" id="Moneda" name="Moneda" placeholder="Moneda">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="FechaP">Fecha pago</label>
+                    <input type="text" class="form-control" id="FechaP" name="FechaP" placeholder="Fecha pago">
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+<div class="row">
+    <div class="form-group">
+        <br>
+        <button type="button" class="btn btn-primary disabled text-center">Aceptar</button>
+        <button type="button" class="btn btn-primary disabled text-center">cancelar</button>
+    </div>
+</div>
+
 
 
 {% endblock content %}
