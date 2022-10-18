@@ -1,20 +1,17 @@
-{% extends "layouts/base.html" %}
-
-{% load static %}
+{% extends "layouts/base.html" %} {% load static %}
 
 {% block title %} Dashboard {% endblock %}
 
 
-{% block stylesheets %}{% endblock stylesheets %}
+{% block breadcrumb %}
+<a href="{% url 'registro'%}" class="btn btn-primary float-end">Agregar cliente</a>
+{% endblock breadcrumb %}
 
 {% block content %}
 
 <div class="card">
-    <div>
-        <a href="{% url 'registro'%}" class="btn btn-primary" style="float:right;">Agregar cliente</a>
-    </div>
     <div class="card-body">
-        <h6 class="text-center">REGISTRO DE VENTAS</h6>
+        <h4 class="text-center">REGISTRO DE VENTAS</h4>
         <div class="table-responsive py-4">
             <table class="table table-bordered table-striped text-center" id="datatable">
                 <thead>

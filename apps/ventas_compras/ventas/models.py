@@ -45,10 +45,11 @@ states = [
     ('NO APLICA', 'NO APLICA'),
     ('OTRO', 'OTRO'),
 ]
+
 class Ventas(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente')
     segmento = models.CharField(choices=segment_options(), max_length=50, default=None, verbose_name='segmento')
-    estados = models.IntegerField( verbose_name='Estado', default=None, choices=states)
+    estados = models.CharField(max_length=50, verbose_name='Estado', default=None, choices=states)
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Agente')
     cotizacion = models.CharField(max_length=50, verbose_name='Cotización')
     descripcion = models.CharField(max_length=90, verbose_name='Descripción')
@@ -57,7 +58,7 @@ class Ventas(models.Model):
     fecha_orden_compra = models.DateField(verbose_name='Fecha de orden de compra')
     
     def __str__(self):
-        return self.cliente
+        return str(self.cliente)
     
     class Meta:
         db_table = "ISACOM_VENTAS"
