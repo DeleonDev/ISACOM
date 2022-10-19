@@ -25,6 +25,8 @@
 
 <title>ISA COM | {% block title %} Ventas - Registro{% endblock %}</title>
 
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="title" content="Volt - Free Bootstrap 5 Dashboard">
 <meta name="author" content="Themesberg">
@@ -73,6 +75,8 @@
     <main class="content">
 
       {% include 'includes/navigation.html' %}
+
+      {% block breadcrumbs %}{% endblock breadcrumbs %}
 
       {% block content %}{% endblock content %} 
 

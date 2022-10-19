@@ -13,41 +13,23 @@
         </div>
         <form method="POST" id="form">
             {% csrf_token %}
-            <div>
-                {{ form.as_p }}
-            </div>
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="cliente">Cliente</label>
-                        <select class="form-control" id="cliente" name="cliente">
-                            <option value="">Seleccione</option>
-                            {% for cliente in clientes %}
-                            <option value="{{cliente.id}}">{{cliente.RFC}}</option>
-                            {% endfor %}
-                        </select>
+                        {{ form.cliente.label_tag }}
+                        {{ form.cliente }}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="entrega">Tipo de entrega</label>
-                        <select class="form-control" id="entrega" name="entrega">
-                            <option value="1">Entrega</option>
-                            <option value="2">Entrega</option>
-                            <option value="3">Entrega</option>
-                            <option value="4">Entrega</option>
-                        </select>
+                        {{ form.segmento.label_tag }}
+                        {{ form.segmento }}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="estado">Estado</label>
-                        <select class="form-control" id="estado" name="estado">
-                            <option value="1">Estado</option>
-                            <option value="2">Estado</option>
-                            <option value="3">Estado</option>
-                            <option value="4">Estado</option>
-                        </select>
+                        {{ form.estados.label_tag }}
+                        {{ form.estados }}
                     </div>
                 </div>
             </div>
@@ -57,20 +39,20 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="from-group">
-                        <label for="producto">Agente</label>
-                        <input type="text" class="form-control" id="producto" name="producto" placeholder="Agente">
+                    {{ form.agente.label_tag }}
+                    {{ form.agente }}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="des">Cotización</label>
-                        <input type="text" class="form-control" id="des" name="des" placeholder="Cotización">
+                        {{form.cotizacion.label_tag}}
+                        {{form.cotizacion}}
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="po">Descripción</label>
-                        <input type="text" class="form-control" id="po" name="po" placeholder="Descripción">
+                        {{ form.descripcion.label_tag }}
+                        {{ form.descripcion }}
                     </div>
                 </div>
             </div>
@@ -80,21 +62,20 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="from-group">
-                        <label for="producto">Orden de compra</label>
-                        <input type="text" class="form-control" id="producto" name="producto"
-                            placeholder="Orden compra">
+                        {{ form.orden_compra.label_tag }}
+                        {{ form.orden_compra }}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="des">Fecha o.c</label>
-                        <input type="date" class="form-control" id="fechapo" name="fechapo" placeholder="Fecha O.C">
+                    {{ form.fecha_orden_compra.label_tag }}
+                    {{ form.fecha_orden_compra }}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="po">clasificación</label>
-                        <input type="text" class="form-control" id="po" name="po" placeholder="clasificación">
+                        {{ form.clasificacion.label_tag }}
+                        {{ form.clasificacion }}
                     </div>
                 </div>
             </div>
@@ -104,20 +85,20 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="importe">Comisión</label>
-                        <input type="text" class="form-control" id="importe" name="importe" placeholder="Comisión">
+                    {{ form2.comision.label_tag }}
+                    {{ form2.comision }}
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label for="des">Factura</label>
-                        <input type="date" class="form-control" id="fechapo" name="fechapo" placeholder="Factura">
+                        {{ form2.factura.label_tag }}
+                        {{ form2.factura }}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="po">Fecha factura</label>
-                        <input type="date" class="form-control" id="po" name="po" placeholder="Fecha factura">
+                        {{ form2.fecha_factura.label_tag }}
+                        {{ form2.fecha_factura }}
                     </div>
                 </div>
             </div>
@@ -127,26 +108,26 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="mon">Monto USD</label>
-                        <input type="text" class="form-control" id="mon" name="mon" placeholder="Monto USD">
+                    {{ form2.monto_USD.label_tag }}
+                    {{ form2.monto_USD }}
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="mon">Monto MXN</label>
-                        <input type="text" class="form-control" id="mon" name="mon" placeholder="Monto MXN">
+                        {{ form2.monto_MN.label_tag }}
+                        {{ form2.monto_MN }}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="mon">Incentivo</label>
-                        <input type="text" class="form-control" id="mon" name="mon" placeholder="Incentivo">
+                        {{ form2.incentivo.label_tag }}
+                        {{ form2.incentivo }}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="mon">Tipo de cambio factura</label>
-                        <input type="text" class="form-control" id="mon" name="mon" placeholder="Tipo de cambio">
+                        {{ form2.tipo_cambio_factura.label_tag }}
+                        {{ form2.tipo_cambio_factura }}
                     </div>
                 </div>
             </div>
@@ -156,20 +137,20 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="mon">Tipo de cambio O.C</label>
-                        <input type="text" class="form-control" id="mon" name="mon" placeholder="Tipo de cambio">
+                        {{ form2.tipo_cambio_oc.label_tag }}
+                        {{ form2.tipo_cambio_oc }}
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="mon">Importe USD</label>
-                        <input type="text" class="form-control" id="mon" name="mon" placeholder="Importe">
+                        {{ form2.importe_USD.label_tag }}
+                        {{ form2.importe_USD }}
                     </div>
                 </div>
             </div>
             <div>
                 <br>
-            </div> -->
+            </div>
             <div>
                 <button type="submit" class="btn btn-success" value="save" style="display: block; margin: 0 auto;">
                     Guardar</button>
