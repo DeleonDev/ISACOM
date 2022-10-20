@@ -1,0 +1,154 @@
+<div class="modal-header">
+    <h4 class="modal-title w-100 text-center text-uppercase">Detalles de la venta</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="card">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.cliente.label_tag }}
+                        {{ form.cliente }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.segmento.label_tag }}
+                        {{ form.segmento }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.estados.label_tag }}
+                        {{ form.estados }}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="from-group">
+                        {{ form.agente.label_tag }}
+                        {{ form.agente }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{form.cotizacion.label_tag}}
+                        {{form.cotizacion}}
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        {{ form.descripcion.label_tag }}
+                        {{ form.descripcion }}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="from-group">
+                        {{ form.orden_compra.label_tag }}
+                        {{ form.orden_compra }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.fecha_orden_compra.label_tag }}
+                        {{ form.fecha_orden_compra }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.clasificacion.label_tag }}
+                        {{ form.clasificacion }}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form2.comision.label_tag }}
+                        {{ form2.comision }}
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        {{ form2.factura.label_tag }}
+                        {{ form2.factura }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form2.fecha_factura.label_tag }}
+                        {{ form2.fecha_factura }}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ form2.monto_USD.label_tag }}
+                        {{ form2.monto_USD }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ form2.monto_MN.label_tag }}
+                        {{ form2.monto_MN }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form2.incentivo.label_tag }}
+                        {{ form2.incentivo }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form2.tipo_cambio_factura.label_tag }}
+                        {{ form2.tipo_cambio_factura }}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form2.tipo_cambio_oc.label_tag }}
+                        {{ form2.tipo_cambio_oc }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form2.importe_USD.label_tag }}
+                        {{ form2.importe_USD }}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <br>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success" value="save" style="display: block; margin: 0 auto;">
+                    Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

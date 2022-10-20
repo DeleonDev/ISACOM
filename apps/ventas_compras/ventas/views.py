@@ -16,6 +16,23 @@ def ventas(request):
     venta = VentasDetalles.objects.all()
     return render(request, 'ventas.html', {'venta': venta})
 
+@transaction.atomic
+def detalles_venta(request, id):
+    ventas = get_object_or_404(Ventas, id=id)
+    detalles = get_object_or_404(VentasDetalles, id=id)
+    if request == 'POST':
+        form2 = VentasForm(request.POST, instance=ventas)
+        form = DetallesVentasForm(request.POST, instance=detalles)
+        with transaction.atomic():
+            print(form.cleaned_data)
+            print(form2.cleaned_data)
+    else:
+        form2 = VentasForm(instance=ventas)
+        form = DetallesVentasForm(instance=detalles)
+    contexto = {'form': form, 'form2': form2}
+    return render(request, 'includes/_details_ventas_modal.html', contexto)
+
+
 def ventas_registro(request):
     return render(request, 'ventas_registro.html')
 

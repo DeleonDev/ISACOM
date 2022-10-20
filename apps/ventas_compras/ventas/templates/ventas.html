@@ -26,6 +26,7 @@
                         <th>Fecha OC</th>
                         <th>Monto USD</th>
                         <th>Monto MN</th>
+                        <th>Detalles</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,37 +42,54 @@
                         <td>{{ ventas.venta.fecha_orden_compra }}</td>
                         <td>{{ ventas.monto_USD }}</td>
                         <td>{{ ventas.monto_MN }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-details" data-toggle="modal"
+                                data-target="modal-detail-ventas"
+                                data-id="{{defaulted.enrollment.enrollment.enrollment}}">
+                                Detalles
+                            </button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            <div class="modal fade" id="modal-detail-ventas">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-</div>
-<br>
+{% endblock content %}
 
-<div class="card">
-    <div class="card-body">
-        <h6 class="text-center">DETALLES DE VENTAS</h6>
-        </div>
-</div>
-        {% endblock content %}
+{% block javascripts %}
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        {% block javascripts %}
+<script>
+    const dataTable = new simpleDatatables.DataTable("#datatable", {
+        //searchable: true,
+        fixedHeight: true,
+        labels: {
+            placeholder: "Buscar",
+            perPage: "Mostar {select} registros por pagina",
+            noRows: "No hay registros por mostrar",
+            info: "Mostrando {start} a {end} de {rows} registros (Pagina {page} de {pages} paginas)",
+        },
+    });
+    $('.btn-details').on('click', function () {
+        var id = $(this).data('id');
+        $.ajax({
+            url: "/ventas/detalles/" + id,
+            type: "get",
+            success: function (data) {
+                $('#modal-detail-ventas .modal-content').html(data);
+                $('#modal-detail-ventas').modal("show");
+            },
+        });
+    });
+</script>
 
-        <script>
-            const dataTable = new simpleDatatables.DataTable("#datatable", {
-                //searchable: true,
-                fixedHeight: true,
-                labels: {
-                    placeholder: "Buscar",
-                    perPage: "Mostar {select} registros por pagina",
-                    noRows: "No hay registros por mostrar",
-                    info: "Mostrando {start} a {end} de {rows} registros (Pagina {page} de {pages} paginas)",
-                },
-            })
-        </script>
-
-        {% endblock javascripts %}
+{% endblock javascripts %}

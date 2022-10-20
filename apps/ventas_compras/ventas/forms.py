@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 import re
-from datetime import date
+from datetime import date, datetime
 from .models import Ventas, VentasDetalles
 
 
@@ -11,7 +11,7 @@ class VentasForm(forms.ModelForm):
         model = Ventas
         fields = '__all__'
         widgets = {
-            'fecha_orden_compra': forms.DateInput(attrs={'type': 'date'}),
+            'fecha_orden_compra': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
 
     def clean_cliente(self):
@@ -83,6 +83,10 @@ class VentasForm(forms.ModelForm):
 
     def clean_fecha_orden_compra(self):
         fecha_orden_compra = self.cleaned_data['fecha_orden_compra']
+        if fecha_orden_compra < date.today():
+            raise ValidationError(
+                _('La fecha de orden de compra no puede ser menor a la fecha actual'),
+            )
         return fecha_orden_compra
 
     def __init__(self, *args, **kwargs):
@@ -94,11 +98,9 @@ class VentasForm(forms.ModelForm):
         for field_name, field in self.fields.items():
             field.widget.attrs['onkeyup'] = 'javascript:this.value=this.value.toUpperCase()'
             field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['autocomplete'] = 'off'
             field.widget.attrs['placeholder'] = field.label
-            if field_name in ['company_email']:
-                field.widget.attrs['onkeyup'] = ''
-
-
+            
 class DetallesVentasForm(forms.ModelForm):
     class Meta:
         model = VentasDetalles
@@ -150,3 +152,4 @@ class DetallesVentasForm(forms.ModelForm):
             field.widget.attrs['onkeyup'] = 'javascript:this.value=this.value.toUpperCase()'
             field.widget.attrs['class'] = 'form-control'
             field.widget.attrs['placeholder'] = field.label
+            field.widget.attrs['autocomplete'] = 'off'
