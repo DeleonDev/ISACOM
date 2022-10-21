@@ -4,9 +4,10 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<div class="modal-body">
-    <div class="card">
-        <form method="post">
+<div class="card">
+    <div class="card-body">
+        <form method="POST" action="detalles_venta">
+            {% csrf_token %}
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -33,8 +34,8 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="from-group">
-                        {{ form.agente.label_tag }}
-                        {{ form.agente }}
+                    {{ form.agente.label_tag }}
+                    {{ form.agente }}
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -62,8 +63,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        {{ form.fecha_orden_compra.label_tag }}
-                        {{ form.fecha_orden_compra }}
+                    {{ form.fecha_orden_compra.label_tag }}
+                    {{ form.fecha_orden_compra }}
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -79,8 +80,8 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        {{ form2.comision.label_tag }}
-                        {{ form2.comision }}
+                    {{ form2.comision.label_tag }}
+                    {{ form2.comision }}
                     </div>
                 </div>
                 <div class="col-md-5">
@@ -102,8 +103,8 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="form-group">
-                        {{ form2.monto_USD.label_tag }}
-                        {{ form2.monto_USD }}
+                    {{ form2.monto_USD.label_tag }}
+                    {{ form2.monto_USD }}
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -146,9 +147,64 @@
                 <br>
             </div>
             <div>
-                <button type="submit" class="btn btn-success" value="save" style="display: block; margin: 0 auto;">
-                    Guardar</button>
+                <button id="save" type="submit" class="btn btn-success">Guardar</button>
+                <button id="cancel_form" type="button" class="btn btn-danger">Cancelar
+                </button>
+                <button id="edit" type="button" class="btn btn-primary">Editar</button>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#edit').click(function () {
+            $('#save').show();
+            $('#cancel_form').show();
+            $('#edit').hide();
+            $('#id_cliente').prop('disabled', false);
+            $('#id_segmento').prop('disabled', false);
+            $('#id_estados').prop('disabled', false);
+            $('#id_agente').prop('disabled', false);
+            $('#id_cotizacion').prop('disabled', false);
+            $('#id_descripcion').prop('disabled', false);
+            $('#id_orden_compra').prop('disabled', false);
+            $('#id_fecha_orden_compra').prop('disabled', false);
+            $('#id_clasificacion').prop('disabled', false);
+            $('#id_comision').prop('disabled', false);
+            $('#id_factura').prop('disabled', false);
+            $('#id_fecha_factura').prop('disabled', false);
+            $('#id_monto_USD').prop('disabled', false);
+            $('#id_monto_MN').prop('disabled', false);
+            $('#id_incentivo').prop('disabled', false);
+            $('#id_tipo_cambio_factura').prop('disabled', false);
+            $('#id_tipo_cambio_oc').prop('disabled', false);
+            $('#id_importe_USD').prop('disabled', false);
+        });
+        $('#cancel_form').click(function () {
+            $('#save').hide();
+            $('#cancel_form').hide();
+            $('#edit').show();
+            $('#id_cliente').prop('disabled', true);
+            $('#id_segmento').prop('disabled', true);
+            $('#id_estados').prop('disabled', true);
+            $('#id_agente').prop('disabled', true);
+            $('#id_cotizacion').prop('disabled', true);
+            $('#id_descripcion').prop('disabled', true);
+            $('#id_orden_compra').prop('disabled', true);
+            $('#id_fecha_orden_compra').prop('disabled', true);
+            $('#id_clasificacion').prop('disabled', true);
+            $('#id_comision').prop('disabled', true);
+            $('#id_factura').prop('disabled', true);
+            $('#id_fecha_factura').prop('disabled', true);
+            $('#id_monto_USD').prop('disabled', true);
+            $('#id_monto_MN').prop('disabled', true);
+            $('#id_incentivo').prop('disabled', true);
+            $('#id_tipo_cambio_factura').prop('disabled', true);
+            $('#id_tipo_cambio_oc').prop('disabled', true);
+            $('#id_importe_USD').prop('disabled', true);
+        });
+
+    });
+
+</script>

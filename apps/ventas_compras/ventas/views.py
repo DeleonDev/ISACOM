@@ -1,14 +1,13 @@
+from distutils.command.clean import clean
+from multiprocessing import context
 from django.shortcuts import get_object_or_404, redirect, render
-from django.db import transaction
-from django.contrib import messages
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, render
-from django.contrib import messages
-from django.db import transaction
 from django.shortcuts import render
 from django.db import transaction
 from apps.ventas_compras.ventas.forms import DetallesVentasForm, VentasForm
 from apps.ventas_compras.ventas.models import Ventas, VentasDetalles
+from django.contrib import messages
 # Create your views here.
 
 
@@ -17,18 +16,22 @@ def ventas(request):
     return render(request, 'ventas.html', {'venta': venta})
 
 @transaction.atomic
-def detalles_venta(request, id):
-    ventas = get_object_or_404(Ventas, id=id)
-    detalles = get_object_or_404(VentasDetalles, id=id)
-    if request == 'POST':
-        form2 = VentasForm(request.POST, instance=ventas)
-        form = DetallesVentasForm(request.POST, instance=detalles)
-        with transaction.atomic():
-            print(form.cleaned_data)
-            print(form2.cleaned_data)
+def detalles_venta(request):
+    form = get_object_or_404(Ventas)
+    form2 = get_object_or_404(VentasDetalles)
+    if request.method == 'POST':
+        form = VentasForm(request.POST, instance=form)
+        form2 = DetallesVentasForm(request.POST, instance=form2)
+        if form.is_valid() and form2.is_valid():
+            form.save()
+            form2.save()
+            messages.success(request, 'Venta registrada con éxito')
+            return redirect('ventas')
+        else :
+            messages.error(request, 'Ha ocurrido un error')
     else:
-        form2 = VentasForm(instance=ventas)
-        form = DetallesVentasForm(instance=detalles)
+        form = VentasForm(instance=form)
+        form2 = DetallesVentasForm(instance=form2)
     contexto = {'form': form, 'form2': form2}
     return render(request, 'includes/_details_ventas_modal.html', contexto)
 
