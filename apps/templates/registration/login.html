@@ -1,0 +1,71 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% load static %}
+
+{% block title %} Sign IN {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+
+<div class="text-center text-md-center mb-4 mt-md-0">
+    <h1 class="mb-0 h3">
+        Bienvenido
+    </h1>
+    <br />
+    <p>
+        {% if msg %}
+        <span class="text-danger">
+            {{ msg | safe }}
+        </span>
+        {% else %}
+        Ingrese sus datos
+        {% endif %}
+    </p>
+</div>
+
+<form method="post" action="" class="mt-4">
+
+    {% csrf_token %}
+
+    <!-- Form -->
+    <div class="form-group mb-4">
+        <label for="email">Usuario</label>
+        <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">
+                <span class="fas fa-user-circle"></span>
+            </span>
+            {{ form.username }}
+        </div>
+    </div>
+    <!-- End of Form -->
+    <div class="form-group">
+        <!-- Form -->
+        <div class="form-group mb-2">
+            <label for="password">Contraseña</label>
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon2">
+                    <span class="fas fa-unlock-alt"></span>
+                </span>
+                {{ form.password }}
+            </div>
+        </div>
+        <!-- End of Form -->
+        <div class="d-flex justify-content-end align-items-top mb-4">
+            <a href="{% url 'password_reset' %}" class="text-info">No recuerdo mi contraseña</a>
+        </div>
+    </div>
+    <div class="d-grid">
+        <button type="submit" name="login" class="btn btn-gray-800 mb-4">Iniciar sesión</button>
+        <div class="d-flex justify-content-center"><a href="{% url 'register' %}">Registrarse</a></div>
+    </div>
+</form>
+
+<br />
+
+{% endblock content %}
+
+
+{% block javascripts %}{% endblock javascripts %}
