@@ -1,25 +1,12 @@
-{% extends "layouts/base.html" %} {% load static %}
-
-{% block title %} Ventas - Registro{% endblock %}
-
-{% block breadcrumb %}
-<a href="{% url 'ventas'%}" class="btn btn-primary float-end">Regresar</a>
-{% endblock breadcrumb %}
-
-{% block content %}
-{% if messages%} {% for message in messages %}
-<div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<div class="modal-header">
+    <h4 class="modal-title w-100 text-center text-uppercase">Detalles de la venta</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
-    </button> {{ message|safe }}
+    </button>
 </div>
-{% endfor %} {% endif %}
 <div class="card">
     <div class="card-body">
-        <div class="header">
-            <h3 class="text-center">AGREGAR VENTAS</h3>
-        </div>
-        <form method="POST" id="form">
+        <form method="POST" action="detalles_venta">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-4">
@@ -160,14 +147,64 @@
                 <br>
             </div>
             <div>
-                <button type="submit" class="btn btn-success" value="save" style="display: block; margin: 0 auto;">
-                    Guardar</button>
+                <button id="save" type="submit" class="btn btn-success">Guardar</button>
+                <button id="cancel_form" type="button" class="btn btn-danger">Cancelar
+                </button>
+                <button id="edit" type="button" class="btn btn-primary">Editar</button>
             </div>
         </form>
     </div>
 </div>
 
 <script>
+    $(document).ready(function () {
+        $('#edit').click(function () {
+            $('#save').show();
+            $('#cancel_form').show();
+            $('#edit').hide();
+            $('#id_cliente').prop('disabled', false);
+            $('#id_segmento').prop('disabled', false);
+            $('#id_estados').prop('disabled', false);
+            $('#id_agente').prop('disabled', false);
+            $('#id_cotizacion').prop('disabled', false);
+            $('#id_descripcion').prop('disabled', false);
+            $('#id_orden_compra').prop('disabled', false);
+            $('#id_fecha_orden_compra').prop('disabled', false);
+            $('#id_clasificacion').prop('disabled', false);
+            $('#id_comision').prop('disabled', false);
+            $('#id_factura').prop('disabled', false);
+            $('#id_fecha_factura').prop('disabled', false);
+            $('#id_monto_USD').prop('disabled', false);
+            $('#id_monto_MN').prop('disabled', false);
+            $('#id_incentivo').prop('disabled', false);
+            $('#id_tipo_cambio_factura').prop('disabled', false);
+            $('#id_tipo_cambio_oc').prop('disabled', false);
+            $('#id_importe_USD').prop('disabled', false);
+        });
+        $('#cancel_form').click(function () {
+            $('#save').hide();
+            $('#cancel_form').hide();
+            $('#edit').show();
+            $('#id_cliente').prop('disabled', true);
+            $('#id_segmento').prop('disabled', true);
+            $('#id_estados').prop('disabled', true);
+            $('#id_agente').prop('disabled', true);
+            $('#id_cotizacion').prop('disabled', true);
+            $('#id_descripcion').prop('disabled', true);
+            $('#id_orden_compra').prop('disabled', true);
+            $('#id_fecha_orden_compra').prop('disabled', true);
+            $('#id_clasificacion').prop('disabled', true);
+            $('#id_comision').prop('disabled', true);
+            $('#id_factura').prop('disabled', true);
+            $('#id_fecha_factura').prop('disabled', true);
+            $('#id_monto_USD').prop('disabled', true);
+            $('#id_monto_MN').prop('disabled', true);
+            $('#id_incentivo').prop('disabled', true);
+            $('#id_tipo_cambio_factura').prop('disabled', true);
+            $('#id_tipo_cambio_oc').prop('disabled', true);
+            $('#id_importe_USD').prop('disabled', true);
+        });
+
+    });
 
 </script>
-{%endblock content%}

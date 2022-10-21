@@ -1,6 +1,7 @@
 from email.policy import default
 from random import choices
 from django.db import models
+from yaml import serialize
 
 from apps.usuarios.models import Agente, Cliente
 from apps.ventas_compras.ventas.options import segment_options
@@ -47,7 +48,7 @@ states = [
 ]
 
 class Ventas(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente')
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente', serialize=False)
     segmento = models.CharField(choices=segment_options(), max_length=50, default=None, verbose_name='segmento')
     estados = models.CharField(max_length=50, verbose_name='Estado', default=None, choices=states)
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Agente')
@@ -67,7 +68,7 @@ class Ventas(models.Model):
     
 class VentasDetalles(models.Model):
     comision  = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Comisión')
-    Factura = models.CharField(max_length=50, verbose_name='Factura')
+    factura = models.CharField(max_length=50, verbose_name='Factura')
     fecha_factura = models.DateField(verbose_name='Fecha de factura')
     monto_USD = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Monto en USD')
     monto_MN = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Monto en MN')
@@ -75,9 +76,10 @@ class VentasDetalles(models.Model):
     tipo_cambio_factura = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Tipo de cambio de factura')
     tipo_cambio_oc  = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Tipo de cambio de orden de compra')
     importe_USD = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Importe en USD')
-    venta = models.ForeignKey(Ventas, on_delete=models.CASCADE, verbose_name='Venta')
+    venta = models.ForeignKey(Ventas, on_delete=models.CASCADE, verbose_name='Venta',)
+    
     def __str__(self):
-        return self.comision
+        return f'{self.venta} - {self.factura}'
     
     class Meta:
         db_table = "ISACOM_VENTAS_DETALLES"
