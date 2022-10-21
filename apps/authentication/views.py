@@ -1,14 +1,10 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
-
 # Create your views here.
+from django.db import transaction
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, SignUpForm
 
-
+#Inicio de sesión
 def login_view(request):
     form = LoginForm(request.POST or None)
 
@@ -26,11 +22,11 @@ def login_view(request):
             else:
                 msg = 'Contraseña o usuario incorrecto'
         else:
-            msg = 'Error validando el formulario'
+            msg = 'Error al validar  el formulario'
 
     return render(request, "accounts/login.html", {"form": form, "msg": msg})
 
-
+# Registro de usuario
 def register_user(request):
     msg = None
     success = False
