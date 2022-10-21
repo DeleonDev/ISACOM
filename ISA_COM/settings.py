@@ -156,5 +156,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = '193293@uptapachula.edu.mx'
-EMAIL_HOST_PASSWORD = 'Ricardo10203040'
+EMAIL_HOST_PASSWORD = 'UPTAP-193293'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

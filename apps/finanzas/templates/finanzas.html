@@ -16,11 +16,11 @@
         <div class="col-md-5">
             <div class="form-group">
                 <label for="Cliente">Cliente</label>
-                <select class="form-control" id="Cliente" name="Cliente">
-                    <option value="">Seleccione</option>
-                    <option value=""></option>
-                    <option value=""></option>
-                    <option value="ot">others</option>
+                <select class="form-control" id="cliente" name="cliente">
+                    <option value="selectedDefault" selected disabled>Seleccione</option>
+                    {% for cliente in clientes %}
+                    <option value="{{ cliente.id }}">{{ cliente.RFC }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
