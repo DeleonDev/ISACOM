@@ -16,7 +16,7 @@
             <table class="table table-bordered table-striped text-center" id="datatable">
                 <thead>
                     <tr>
-                        <th>Consecutivo</th>
+                        <th>Id</th>
                         <th>Vendedor</th>
                         <th>Cliente</th>
                         <th>Clasificacion</th>
@@ -30,22 +30,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for ventas in venta %}
+                    {% for venta in ventas %}
                     <tr>
-                        <td>{{ventas.id}}</td>
-                        <td>{{ ventas.venta.agente }}</td>
-                        <td>{{ ventas.venta.cliente }}</td>
-                        <td>{{ ventas.venta.segmento }}</td>
-                        <td>{{ ventas.venta.descripcion }}</td>
-                        <td>{{ ventas.venta.cotizacion }}</td>
-                        <td>{{ ventas.venta.orden_compra }}</td>
-                        <td>{{ ventas.venta.fecha_orden_compra }}</td>
-                        <td>{{ ventas.monto_USD }}</td>
-                        <td>{{ ventas.monto_MN }}</td>
+                        <td>{{venta.id}}</td>
+                        <td>{{ venta.venta.agente }}</td>
+                        <td>{{ venta.venta.cliente }}</td>
+                        <td>{{ venta.venta.segmento }}</td>
+                        <td>{{ venta.venta.descripcion }}</td>
+                        <td>{{ venta.venta.cotizacion }}</td>
+                        <td>{{ venta.venta.orden_compra }}</td>
+                        <td>{{ venta.venta.fecha_orden_compra }}</td>
+                        <td>{{ venta.monto_USD }}</td>
+                        <td>{{ venta.monto_MN }}</td>
                         <td>
                             <button type="button" class="btn btn-primary btn-details" data-toggle="modal"
                                 data-target="modal-detail-ventas"
-                                data-id="{{defaulted.enrollment.enrollment.enrollment}}">
+                                data-id="{{venta.venta_id}}">
                                 Detalles
                             </button>
                         </td>
@@ -54,7 +54,7 @@
                 </tbody>
             </table>
             <div class="modal fade" id="modal-detail-ventas">
-                <div class="modal-dialog modal-xl">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
                     <div class="modal-content">
                     </div>
                 </div>
@@ -72,6 +72,7 @@
     const dataTable = new simpleDatatables.DataTable("#datatable", {
         //searchable: true,
         fixedHeight: true,
+        sortable: false,
         labels: {
             placeholder: "Buscar",
             perPage: "Mostar {select} registros por pagina",

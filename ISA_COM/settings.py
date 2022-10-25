@@ -97,7 +97,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Libreria para PostgreSQL
         'NAME': 'isa_com',  # Nombre de la base de datos PostgreSQL
         'USER': 'postgres',  # Usuario de la base de datos PostgreSQL
-        'PASSWORD': '1234',  # Contraseña de usuario PostgreSQL
+        'PASSWORD': 'admin',  # Contraseña de usuario PostgreSQL
         'HOST': '',  # Ubicacion de la base de datos
         
     }
