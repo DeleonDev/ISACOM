@@ -1,5 +1,3 @@
-from distutils.command.clean import clean
-from multiprocessing import context
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, render
@@ -12,12 +10,12 @@ from django.contrib import messages
 
 
 def ventas(request):
-    venta = VentasDetalles.objects.all()
-    return render(request, 'ventas.html', {'venta': venta})
+    ventas = VentasDetalles.objects.all()
+    return render(request, 'ventas.html', {'ventas': ventas})
 
 @transaction.atomic
-def detalles_venta(request):
-    form = get_object_or_404(Ventas)
+def detalles(request, id):
+    form = get_object_or_404(Ventas, id=id)
     form2 = get_object_or_404(VentasDetalles)
     if request.method == 'POST':
         form = VentasForm(request.POST, instance=form)
@@ -32,7 +30,7 @@ def detalles_venta(request):
     else:
         form = VentasForm(instance=form)
         form2 = DetallesVentasForm(instance=form2)
-    contexto = {'form': form, 'form2': form2}
+    contexto = {'form': form, 'form2': form2, 'id': id}
     return render(request, 'includes/_details_ventas_modal.html', contexto)
 
 

@@ -1,7 +1,4 @@
-from email.policy import default
-from random import choices
 from django.db import models
-from yaml import serialize
 
 from apps.usuarios.models import Agente, Cliente
 from apps.ventas_compras.ventas.options import segment_options

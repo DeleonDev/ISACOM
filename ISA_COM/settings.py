@@ -34,7 +34,8 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
-    'jazzmin',
+
+    'admin_volt.apps.AdminVoltConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -97,7 +98,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Libreria para PostgreSQL
         'NAME': 'isa_com',  # Nombre de la base de datos PostgreSQL
         'USER': 'postgres',  # Usuario de la base de datos PostgreSQL
-        'PASSWORD': '1234',  # Contraseña de usuario PostgreSQL
+        'PASSWORD': 'admin',  # Contraseña de usuario PostgreSQL
         'HOST': '',  # Ubicacion de la base de datos
         
     }
@@ -161,7 +162,7 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-JAZZMIN_SETTINGS = {
+VOLT_SETTINGS = {
     
 
     # Welcome text on the login screen

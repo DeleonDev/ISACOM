@@ -23,7 +23,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- Primary Meta Tags -->
 
-<title>ISA COM | {% block title %} Ventas - Registro{% endblock %}</title>
+<title>ISA COM</title>
 
 
 
@@ -78,9 +78,12 @@
 
       <div class="container-fluid px-0 py-3">
         <div class="row">
-            <div class="pull-right">
-              {% block breadcrumb %}{% endblock breadcrumb %}
-            </div>
+          <div class="pull-left col-sm-7">
+            <h4 class="text-uppercase">{% block title %}{% endblock title %}</h4>
+          </div>
+          <div class="pull-right col-sm-5">
+            {% block breadcrumb %}{% endblock breadcrumb %}
+          </div>
         </div>
       </div>
 

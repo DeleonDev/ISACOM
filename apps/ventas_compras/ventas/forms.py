@@ -104,8 +104,7 @@ class VentasForm(forms.ModelForm):
 class DetallesVentasForm(forms.ModelForm):
     class Meta:
         model = VentasDetalles
-        fields = '__all__'
-        exclude = ['ventas']
+        exclude = ['venta']
         widgets = {
             'fecha_factura': forms.DateInput(attrs={'type': 'date'}),
         }
