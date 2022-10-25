@@ -43,30 +43,18 @@
                         <td>{{ venta.monto_USD }}</td>
                         <td>{{ venta.monto_MN }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-details" data-toggle="modal"
-                                data-target="modal-detail-ventas"
-                                data-id="{{venta.venta_id}}">
-                                Detalles
-                            </button>
+                            <a href="{% url 'detalles' venta.venta_id %}" class="btn btn-primary">Detalles</a>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <div class="modal fade" id="modal-detail-ventas">
-                <div class="modal-dialog modal-dialog-centered modal-xl">
-                    <div class="modal-content">
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
 {% endblock content %}
 
 {% block javascripts %}
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
     const dataTable = new simpleDatatables.DataTable("#datatable", {
@@ -79,17 +67,6 @@
             noRows: "No hay registros por mostrar",
             info: "Mostrando {start} a {end} de {rows} registros (Pagina {page} de {pages} paginas)",
         },
-    });
-    $('.btn-details').on('click', function () {
-        var id = $(this).data('id');
-        $.ajax({
-            url: "detalles/" + id,
-            type: "get",
-            success: function (data) {
-                $('#modal-detail-ventas .modal-content').html(data);
-                $('#modal-detail-ventas').modal("show");
-            },
-        });
     });
 </script>
 

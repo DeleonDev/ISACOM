@@ -1,159 +1,298 @@
+{% extends "layouts/base.html" %} {% load static %}
+
+{% block title %} Dashboard {% endblock %}
+
+
+{% block breadcrumb %}
+<a href="{% url 'ventas'%}" class="btn btn-primary float-end">Regresar</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+
 <form method="POST" action="{% url 'detalles' id %}">
-    {% csrf_token %}
-<div class="modal-header">
-    <h4 class="modal-title w-100 text-center text-uppercase">Detalles de la venta</h4>
-    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-<div class="modal-body">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                {{ form.cliente.label_tag }}
-                {{ form.cliente }}
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                {{ form.segmento.label_tag }}
-                {{ form.segmento }}
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                {{ form.estados.label_tag }}
-                {{ form.estados }}
-            </div>
-        </div>
+    {% csrf_token %} {{ form.non_field_errors }}
+    <div class="modal-header">
+        <h4 class="modal-title w-100 text-center text-uppercase">Detalles de la venta</h4>
     </div>
-    <div>
-        <br>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="from-group">
-                {{ form.agente.label_tag }}
-                {{ form.agente }}
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                {{form.cotizacion.label_tag}}
-                {{form.cotizacion}}
-            </div>
-        </div>
-        <div class="col-md-5">
-            <div class="form-group">
-                {{ form.descripcion.label_tag }}
-                {{ form.descripcion }}
-            </div>
-        </div>
-    </div>
-    <div>
-        <br>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="from-group">
-                {{ form.orden_compra.label_tag }}
-                {{ form.orden_compra }}
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                {{ form.fecha_orden_compra.label_tag }}
-                {{ form.fecha_orden_compra }}
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                {{ form.clasificacion.label_tag }}
-                {{ form.clasificacion }}
-            </div>
-        </div>
-    </div>
-    <div>
-        <br>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="form-group">
-                {{ form2.comision.label_tag }}
-                {{ form2.comision }}
-            </div>
-        </div>
-        <div class="col-md-5">
-            <div class="form-group">
-                {{ form2.factura.label_tag }}
-                {{ form2.factura }}
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                {{ form2.fecha_factura.label_tag }}
-                {{ form2.fecha_factura }}
-            </div>
-        </div>
-    </div>
-    <div>
-        <br>
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-            <div class="form-group">
-                {{ form2.monto_USD.label_tag }}
-                {{ form2.monto_USD }}
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                {{ form2.monto_MN.label_tag }}
-                {{ form2.monto_MN }}
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                {{ form2.incentivo.label_tag }}
-                {{ form2.incentivo }}
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                {{ form2.tipo_cambio_factura.label_tag }}
-                {{ form2.tipo_cambio_factura }}
-            </div>
-        </div>
-    </div>
-    <div>
-        <br>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                {{ form2.tipo_cambio_oc.label_tag }}
-                {{ form2.tipo_cambio_oc }}
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                {{ form2.importe_USD.label_tag }}
-                {{ form2.importe_USD }}
-            </div>
-        </div>
-    </div>
-    <div>
-        <br>
-    </div>
-</div>
-<div class="modal-footer d-flex justify-content-between">
-    <button type="button" class="btn btn-danger float-start" data-dismiss="modal">Cerrar</button>
-    <button type="submit" class="btn btn-primary float-end">Guardar</button>
+    <div class="body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form.cliente.label_tag }}
+                    {{ form.cliente }}
+                    {% if form.cliente.errors %}
+                    <ul>
+                        {% for error in form.cliente.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
 
-</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form.segmento.label_tag }}
+                    {{ form.segmento }}
+                    {% if form.segmento.errors %}
+                    <ul>
+                        {% for error in form.segmento.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form.estados.label_tag }}
+                    {{ form.estados }}
+                    {% if form.estados.errors %}
+                    <ul>
+                        {% for error in form.estados.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div>
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="from-group">
+                    {{ form.agente.label_tag }}
+                    {{ form.agente }}
+                    {% if form.agente.errors %}
+                    <ul>
+                        {% for error in form.agente.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{form.cotizacion.label_tag}}
+                    {{form.cotizacion}}
+                    {% if form.cotizacion.errors %}
+                    <ul>
+                        {% for error in form.cotizacion.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    {{ form.descripcion.label_tag }}
+                    {{ form.descripcion }}
+                    {% if form.descripcion.errors %}
+                    <ul>
+                        {% for error in form.descripcion.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div>
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="from-group">
+                    {{ form.orden_compra.label_tag }}
+                    {{ form.orden_compra }}
+                    {% if form.orden_compra.errors %}
+                    <ul>
+                        {% for error in form.orden_compra.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form.fecha_orden_compra.label_tag }}
+                    {{ form.fecha_orden_compra }}
+                    {% if form.fecha_orden_compra.errors %}
+                    <ul>
+                        {% for error in form.fecha_orden_compra.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form.clasificacion.label_tag }}
+                    {{ form.clasificacion }}
+                    {% if form.clasificacion.errors %}
+                    <ul>
+                        {% for error in form.clasificacion.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div>
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    {{ form2.comision.label_tag }}
+                    {{ form2.comision }}
+                    {% if form2.comision.errors %}
+                    <ul>
+                        {% for error in form2.comision.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    {{ form2.factura.label_tag }}
+                    {{ form2.factura }}
+                    {% if form2.factura.errors %}
+                    <ul>
+                        {% for error in form2.factura.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form2.fecha_factura.label_tag }}
+                    {{ form2.fecha_factura }}
+                    {% if form2.fecha_factura.errors %}
+                    <ul>
+                        {% for error in form2.fecha_factura.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div>
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    {{ form2.monto_USD.label_tag }}
+                    {{ form2.monto_USD }}
+                    {% if form2.monto_USD.errors %}
+                    <ul>
+                        {% for error in form2.monto_USD.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    {{ form2.monto_MN.label_tag }}
+                    {{ form2.monto_MN }}
+                    {% if form2.monto_MN.errors %}
+                    <ul>
+                        {% for error in form2.monto_MN.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form2.incentivo.label_tag }}
+                    {{ form2.incentivo }}
+                    {% if form2.incentivo.errors %}
+                    <ul>
+                        {% for error in form2.incentivo.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form2.tipo_cambio_factura.label_tag }}
+                    {{ form2.tipo_cambio_factura }}
+                    {% if form2.tipo_cambio_factura.errors %}
+                    <ul>
+                        {% for error in form2.tipo_cambio_factura.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div>
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form2.tipo_cambio_oc.label_tag }}
+                    {{ form2.tipo_cambio_oc }}
+                    {% if form2.tipo_cambio_oc.errors %}
+                    <ul>
+                        {% for error in form2.tipo_cambio_oc.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form2.importe_USD.label_tag }}
+                    {{ form2.importe_USD }}
+                    {% if form2.importe_USD.errors %}
+                    <ul>
+                        {% for error in form2.importe_USD.errors %}
+                        <li>{{ error|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        <div>
+            <br>
+        </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-between">
+        <button id="save" type="submit" class="btn btn-success">Guardar</button>
+        <button id="cancel_form" type="button" class="btn btn-danger">Cancelar</button>
+        <button id="edit" type="button" class="btn btn-primary">Editar</button>
+    </div>
 </form>
+{% endblock content %}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+{% block javascripts %}
 <script>
     $(document).ready(function () {
         $('#edit').click(function () {
@@ -206,3 +345,4 @@
     });
 
 </script>
+{% endblock javascripts %}
