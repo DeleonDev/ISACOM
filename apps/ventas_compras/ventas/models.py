@@ -68,7 +68,7 @@ class Ventas(models.Model):
     
 class VentasDetalles(models.Model):
     comision  = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Comisión')
-    factura = models.CharField(max_length=50, verbose_name='Factura')
+    factura = models.CharField(max_length=50, verbose_name='factura')
     fecha_factura = models.DateField(verbose_name='Fecha de factura')
     monto_USD = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Monto en USD')
     monto_MN = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Monto en MN')
