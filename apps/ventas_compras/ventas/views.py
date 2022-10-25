@@ -16,7 +16,7 @@ def ventas(request):
     return render(request, 'ventas.html', {'venta': venta})
 
 @transaction.atomic
-def detalles_venta(request):
+def detalles(request):
     form = get_object_or_404(Ventas)
     form2 = get_object_or_404(VentasDetalles)
     if request.method == 'POST':

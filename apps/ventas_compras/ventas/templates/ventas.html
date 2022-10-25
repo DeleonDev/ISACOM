@@ -82,7 +82,7 @@
     $('.btn-details').on('click', function () {
         var id = $(this).data('id');
         $.ajax({
-            url: "/ventas/detalles/" + id,
+            url: "detalles/" + id,
             type: "get",
             success: function (data) {
                 $('#modal-detail-ventas .modal-content').html(data);

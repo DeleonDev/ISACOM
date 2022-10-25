@@ -6,7 +6,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <form method="POST" action="detalles_venta">
+        <form method="POST" action="detalles">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-4">
@@ -146,11 +146,10 @@
             <div>
                 <br>
             </div>
-            <div>
-                <button id="save" type="submit" class="btn btn-success">Guardar</button>
-                <button id="cancel_form" type="button" class="btn btn-danger">Cancelar
-                </button>
-                <button id="edit" type="button" class="btn btn-primary">Editar</button>
+            <div class="modal-footer justify-content-right">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+
             </div>
         </form>
     </div>
