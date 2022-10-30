@@ -3,8 +3,10 @@
 {% block title %}Registro de ventas{% endblock title %}
 
 {% block breadcrumb %}
-<a href="{% url 'registro'%}" class="btn btn-primary float-end">Agregar cliente</a>
+<a href="{% url 'registro'%}" class="btn btn-success float-end">Agregar cliente</a>
+<a href="" class="btn btn-warning float-end">Comisiones</a>
 {% endblock breadcrumb %}
+
 
 {% block content %}
 
@@ -15,14 +17,13 @@
             <table class="table table-bordered table-striped text-center" id="datatable">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>id</th>
                         <th>Vendedor</th>
                         <th>Cliente</th>
-                        <th>Clasificacion</th>
-                        <th>Descripcion</th>
-                        <th>#Cotizacion</th>
-                        <th>OC</th>
-                        <th>Fecha OC</th>
+                        <th>Clasificación</th>
+                        <th>Cotización</th>
+                        <th>Orden de compra</th>
+                        <th>Fecha orden de compra</th>
                         <th>Monto USD</th>
                         <th>Monto MN</th>
                         <th>Detalles</th>
@@ -35,14 +36,13 @@
                         <td>{{ venta.venta.agente }}</td>
                         <td>{{ venta.venta.cliente }}</td>
                         <td>{{ venta.venta.segmento }}</td>
-                        <td>{{ venta.venta.descripcion }}</td>
                         <td>{{ venta.venta.cotizacion }}</td>
                         <td>{{ venta.venta.orden_compra }}</td>
                         <td>{{ venta.venta.fecha_orden_compra }}</td>
                         <td>{{ venta.monto_USD }}</td>
                         <td>{{ venta.monto_MN }}</td>
                         <td>
-                            <a href="{% url 'detalles' venta.venta_id %}" class="btn btn-primary">Detalles</a>
+                            <a href="{% url 'detalles' venta.venta_id %}" data-id="{{venta.venta.id}}" class="btn btn-success">Detalles</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -60,11 +60,12 @@
         //searchable: true,
         fixedHeight: true,
         sortable: false,
+        
         labels: {
-            placeholder: "Buscar",
-            perPage: "Mostar {select} registros por pagina",
-            noRows: "No hay registros por mostrar",
-            info: "Mostrando {start} a {end} de {rows} registros (Pagina {page} de {pages} paginas)",
+            placeholder: "Buscar...",
+            perPage: "{select} registros por página",
+            noRows: "No hay registros",
+            info: "Mostrando {start} a {end} de {rows} registros",
         },
     });
 </script>
