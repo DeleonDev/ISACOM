@@ -1,0 +1,25 @@
+{% extends "layouts/base.html" %} {% load static %}
+
+{% block title %}Ventas - Comisiones{% endblock title %}
+
+{% block breadcrumb %} {% endblock breadcrumb %}
+
+{% block content %}
+{% endblock content %}
+
+{% block javascripts %}
+
+<script>
+    const dataTable = new simpleDatatables.DataTable("#datatable", {
+        searchable: true,
+        fixedHeight: true,
+        labels: {
+            placeholder: "Buscar..." , 
+            perPage: "{select} registros por página",
+            noRows: "No hay registros",
+            info: "Mostrando {start} de {end} de {rows} registros",
+        },
+    });
+</script>
+
+{% endblock javascripts %}

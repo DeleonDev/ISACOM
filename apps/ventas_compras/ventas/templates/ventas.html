@@ -3,8 +3,8 @@
 {% block title %}Registro de ventas{% endblock title %}
 
 {% block breadcrumb %}
-<a href="{% url 'registro'%}" class="btn btn-primary float-end">Agregar cliente</a>
-<a href="" class="btn btn-primary float-end me-2">Comisiones</a>
+<a href="{% url 'registro'%}" class="btn btn-primary float-end ">Agregar cliente</a>
+<a href="{% url 'comisiones'%}" class="btn btn-primary float-end me-2">Comisiones</a>
 {% endblock breadcrumb %}
 
 
@@ -56,15 +56,13 @@
 
 <script>
     const dataTable = new simpleDatatables.DataTable("#datatable", {
-        //searchable: true,
+        searchable: true,
         fixedHeight: true,
-        sortable: false,
-        
         labels: {
-            placeholder: "Buscar...",
+            placeholder: "Buscar..." , 
             perPage: "{select} registros por página",
             noRows: "No hay registros",
-            info: "Mostrando {start} a {end} de {rows} registros",
+            info: "Mostrando {start} de {end} de {rows} registros",
         },
     });
 </script>

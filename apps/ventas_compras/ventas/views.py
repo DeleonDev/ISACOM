@@ -64,3 +64,8 @@ def registro(request):
         form2 = DetallesVentasForm()
 
     return render(request, 'nuevo_registro.html', {'form': form, 'form2': form2})
+
+
+
+def comisiones (request):
+    return render(request, 'comisiones.html')
