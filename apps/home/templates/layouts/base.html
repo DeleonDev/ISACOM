@@ -23,9 +23,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- Primary Meta Tags -->
 
-<title>
-    Django Volt Dashboard - {% block title %}{% endblock %} | AppSeed
-</title>
+<title>ISA COM</title>
+
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="title" content="Volt - Free Bootstrap 5 Dashboard">
@@ -61,6 +61,8 @@
 
 <link type="text/css" href="{% static 'assets/vendor/notyf/notyf.min.css' %}" rel="stylesheet">
 <link type="text/css" href="{% static 'assets/css/volt.css' %}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+
 
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
 
@@ -76,7 +78,18 @@
 
       {% include 'includes/navigation.html' %}
 
-      {% block content %}{% endblock content %} 
+      <div class="container-fluid px-0 py-3">
+        <div class="row">
+          <div class="pull-left col-sm-7">
+            <h4 class="text-uppercase">{% block title %}{% endblock title %}</h4>
+          </div>
+          <div class="pull-right col-sm-5">
+            {% block breadcrumb %}{% endblock breadcrumb %}
+          </div>
+        </div>
+      </div>
+
+      {% block content %}{% endblock content %}
 
       {% include 'includes/settings-box.html' %}
 

@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from apps.usuarios.options import gender_options, blood_type_options, disability_options
+from apps.usuarios.options import *
+
+
+# ! Creacion de diccionario de estados acá
 
 # TODO: Reestructurar el modelo de Cliente
 # * Agente
@@ -15,12 +18,9 @@ class Agente(models.Model):
     colonia = models.CharField(max_length=50, verbose_name='Colonia')
     cp = models.CharField(max_length=5, verbose_name='C.P')
     genero = models.CharField(choices=gender_options(), max_length=50, default=None, verbose_name='Género')
-    tipo_sangre = models.CharField(choices=blood_type_options(), max_length=50, default=None, verbose_name='Tipo de sangre')
-    nss = models.CharField(max_length=11, verbose_name='No. Seguridad Social')
-    discapacidad = models.CharField(choices=disability_options(), max_length=50, default=None, verbose_name='Discapacidad')
     
     def __str__(self):
-        return f'{self.usuario.get_full_name()} / {self.usuario.groups.all()[0].name}'
+        return  f'{self.usuario} - {self.rfc}'
     
     class Meta:
         db_table = "ISACOM_AGENTE"
@@ -37,9 +37,27 @@ class Cliente(models.Model):
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Agente')
     
     def __str__(self):
-        return f'{self.usuario.usuario.get_full_name()} / {self.study_grade}'
+        return f'{self.usuario}'
     
     class Meta:
         db_table = "ISACOM_CLIENTE"
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
+        
+
+#* Clientes sucursales
+
+class ClienteSucursal(models.Model):
+    cliente_id = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente')
+    suc_nombre = models.CharField(max_length=75, verbose_name='Nombre de la sucursal')
+    suc_identificacion = models.CharField(max_length=18, verbose_name='Indentificación de la sucursal')
+    suc_direccion = models.CharField(max_length=90, verbose_name='Dirección de la sucursal')
+    suc_notas = models.IntegerField(verbose_name='Notas de la sucursal')
+    cto_id = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Contacto de la sucursal')
+    def __str__(self):
+        return f'{self.suc_nombre} / {self.suc_identificacion}'
+    
+    class Meta:
+        db_table = "ISACOM_CLIENTE_SUCURSAL"
+        verbose_name = 'Cliente Sucursal'
+        verbose_name_plural = 'Cliente Sucursales'
