@@ -102,7 +102,6 @@ DATABASES = {
         'HOST': '',  # Ubicacion de la base de datos
         
     }
-    # 'default': 
 }
 
 MESSAGE_TAGS = {
