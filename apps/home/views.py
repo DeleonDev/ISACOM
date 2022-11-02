@@ -6,19 +6,23 @@ from django.template import loader
 from django.urls import reverse
 from django.db.models import Sum
 from django.db.models.functions import ExtractMonth
+import datetime
 
 from apps.ventas_compras.ventas.models import VentasDetalles
 
 
 @login_required(login_url="/login/")
 def index(request):
+    primer_dia = datetime.date(datetime.date.today().year, 1, 1)
+    ultimo_dia = datetime.date(datetime.date.today().year, 12, 31)
+    
     # ? Datos para la grafica de puntos (Ventas anuales)
     # TODO: Poner en el 'filter' la obtencion de los meses en el rango del año actual
-    ventas = VentasDetalles.objects.filter().annotate(
-        month=ExtractMonth('fecha_factura')
-    ).values('month').annotate(
+    ventas = VentasDetalles.objects.filter(fecha_factura__range=(primer_dia, ultimo_dia)).annotate(
+        mes=ExtractMonth('fecha_factura')
+    ).values('mes').annotate(
         total=Sum('monto_MN')
-    ).order_by('month')
+    ).order_by('mes')
     
     # TODO: Hacer las demas graficas
     ...
