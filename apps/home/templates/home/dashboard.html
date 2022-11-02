@@ -1,101 +1,55 @@
-{% extends "layouts/base.html" %}
+{% extends "layouts/base.html" %} {% load poll_extras %}
 
-{% load static %}
 
-{% block title %} Dashboard {% endblock %} 
+{% block title %} Dashboard {% endblock %}
 
 
 {% block stylesheets %}{% endblock stylesheets %}
 
+
 {% block content %}
-
-
-    <div id="container"></div>
-    <p class="highcharts-description">
-        <!-- Chart showing how an HTML table can be used as the data source for the
-        chart using the Highcharts data module. The chart is built by
-        referencing the existing HTML data table in the page. Several common
-        data source types are available, including CSV and Google Spreadsheet. -->
-    </p>
-
-    <table id="datatable">
-        <thead>
-            <tr>
-                <th></th>
-                <th>B</th>
-                <th>G</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th>2016</th>
-                <td>30 386</td>
-                <td>28 504</td>
-            </tr>
-            <tr>
-                <th>2017</th>
-                <td>29 173</td>
-                <td>27 460</td>
-            </tr>
-            <tr>
-                <th>2018</th>
-                <td>28 430</td>
-                <td>26 690</td>
-            </tr>
-            <tr>
-                <th>2019</th>
-                <td>28 042</td>
-                <td>26 453</td>
-            </tr>
-            <tr>
-                <th>2020</th>
-                <td>27 063</td>
-                <td>25 916</td>
-            </tr>
-            <tr>
-                <th>2021</th>
-                <td>28 684</td>
-                <td>27 376</td>
-            </tr>
-        </tbody>
-    </table>
-
-
+<div class="row">
+    <div class="col-xl-6 col-sm-12 mb-4">
+        <div class="card border-0 shadow">
+            <div class="card-header d-sm-flex flex-row align-items-center flex-0 justify-content-center">
+                <h4>Ventas Anuales</h4>
+            </div>
+            <div class="card-body">
+                <canvas id="ventasAnuales"></canvas>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-xl-6 col-sm-12 mb-4">
+        <div class="card border-0 shadow">
+            <div class="card-header d-sm-flex flex-row align-items-center flex-0 justify-content-center">
+                <h4>Ventas Anuales 2</h4>
+            </div>
+            <div class="card-body">
+                <canvas id="ventasAnuales2"></canvas>
+            </div>
+        </div>
+    </div> -->
+</div>
 {% endblock content %}
 
 
 {% block javascripts %}
 <script>
-Highcharts.chart('container', {
-    data: {
-        table: 'datatable'
-    },
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Live births in Norway'
-    },
-    subtitle: {
-        text:
-            'Source: <a href="https://www.ssb.no/en/statbank/table/04231" target="_blank">SSB</a>'
-    },
-    xAxis: {
-        type: 'category'
-    },
-    yAxis: {
-        allowDecimals: false,
-        title: {
-            text: 'Amount'
-        }
-    },
-    tooltip: {
-        formatter: function () {
-            return '<b>' + this.series.name + '</b><br/>' +
-                this.point.y + ' ' + this.point.name.toLowerCase();
-        }
-    }
-});
+    // ? Ventas Anuales Grafica de puntos
+    const vACtx = document.getElementById('ventasAnuales').getContext('2d');
+    const ventasAnuales = new Chart(vACtx, {
+        type: 'line',
+        data: {
+            labels: [{% for venta in ventas %} '{{venta.month|month_name}}', {% endfor %}],
+            datasets: [{
+                label: 'Ventas por mes del año {% now "Y" %}',
+                data: [{% for venta in ventas %} {{venta.total}}, {% endfor %}],
+                fill: false,
+                borderColor: 'rgb(54, 162, 235)',
+                borderWidth: 4,
+                tension: 0
+            }]
+        },
+    });
 </script>
-
 {% endblock javascripts %}
