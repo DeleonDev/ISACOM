@@ -17,19 +17,18 @@ def index(request):
     ultimo_dia = datetime.date(datetime.date.today().year, 12, 31)
     
     # ? Datos para la grafica de puntos (Ventas anuales)
-    # TODO: Poner en el 'filter' la obtencion de los meses en el rango del año actual
-    ventas = VentasDetalles.objects.filter(fecha_factura__range=(primer_dia, ultimo_dia)).annotate(
-        mes=ExtractMonth('fecha_factura')
-    ).values('mes').annotate(
-        total=Sum('monto_MN')
-    ).order_by('mes')
+    ventas_anuales = VentasDetalles.objects \
+        .filter(fecha_factura__range=(primer_dia, ultimo_dia)) \
+        .annotate(mes=ExtractMonth('fecha_factura')) \
+        .values('mes') \
+        .annotate(total=Sum('monto_MN')) \
+        .order_by('mes')
     
-    # TODO: Hacer las demas graficas
-    ...
+
         
     context = {
         'segment': 'index',
-        'ventas': ventas
+        'ventas_anuales': ventas_anuales
     }
 
     return render(request, 'home/dashboard.html', context)
