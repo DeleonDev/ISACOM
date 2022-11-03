@@ -1,7 +1,12 @@
 {% extends "layouts/base.html" %} {% load poll_extras %}
 
 
-{% block title %} Dashboard {% endblock %}
+{% block title %} <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
+    <span class="mb-0 font-small fw-bold text-gray-900">
+      Bienvenido: <strong>{{ request.user.username }}</strong>
+    </span>
+  </div>
+ {% endblock %}
 
 
 {% block stylesheets %}{% endblock stylesheets %}
@@ -55,6 +60,8 @@
         </div>
     </div>
 </div>
+
+
 {% endblock content %}
 
 
@@ -89,5 +96,107 @@
             data: [{% for venta in ventas_anuales %} {{venta.total}}, {% endfor %}]
         }]
     });
+
+
+    // Data retrieved from https://netmarketshare.com
+Highcharts.chart('ventasClasificacion', {
+  chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+  },
+  title: {
+    text: 'ventas Clasificacion'
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+  },
+  accessibility: {
+    point: {
+      valueSuffix: '%'
+    }
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: true,
+        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+      }
+    }
+  },
+  series: [{
+    name: 'Academia',
+    colorByPoint: true,
+    data: [{
+      name: 'Tercero',
+      y: 70.67,
+      sliced: true,
+      selected: true
+    }, {
+      name: 'Segundo',
+      y: 14.77
+    },  {
+      name: 'Gobierno',
+      y: 4.86
+    }, {
+      name: 'Primero',
+      y: 2.63
+    }, {
+     
+      name: 'Other',
+      y: 2.6
+    }]
+  }]
+});
+
+Highcharts.chart('ventasSegmento', {
+  chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false,
+    type: 'pie'
+  },
+  title: {
+    text: 'ventas Segmento'
+  },
+  tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+  },
+  accessibility: {
+    point: {
+      valueSuffix: '%'
+    }
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: true,
+        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+      }
+    }
+  },
+  series: [{
+    name: 'Academia',
+    colorByPoint: true,
+    data: [{
+      name: 'Tercero',
+      y: 70.67,
+      sliced: true,
+      selected: true
+    }, {
+      name: 'Primero',
+      y: 2.63
+    }, {
+     
+      name: 'Other',
+      y: 2.6
+    }]
+  }]
+});
 </script>
 {% endblock javascripts %}
