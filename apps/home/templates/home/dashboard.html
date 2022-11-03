@@ -9,24 +9,48 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-xl-6 col-sm-12 mb-4">
+    <div class="col-xl-12 col-sm-12 mb-4">
         <div class="card border-0 shadow">
-            <div class="card-header d-sm-flex flex-row align-items-center flex-0 justify-content-center text-center">
-                <h4>Ventas Anuales</h4>
-            </div>
             <div class="card-body">
-                <canvas id="ventasAnuales"></canvas>
+                <div id="ventasAnuales"></div>
             </div>
         </div>
     </div>
     <div class="col-xl-6 col-sm-12 mb-4">
         <div class="card border-0 shadow">
-            <div class="card-header d-sm-flex flex-row align-items-center flex-0 justify-content-center text-center">
-                <h4>Ventas del año {% now "Y" %}</h4>
-            </div>
             <div class="card-body">
-                <div class="ventas-anuales"></div>
-                <div class="text-center">Mes</div>
+                <div id="ventasClasificacion"></div>
+                Borrar: <small>Ventas por clasificacion</small>
+            </div>
+            <div class="card-footer text-center">
+                Total de ventas: <strong>$</strong>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-sm-12 mb-4">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <div id="ventasSegmento"></div>
+                Borrar: <small>Ventas por segmento</small>
+            </div>
+            <div class="card-footer text-center">
+                Total de ventas: <strong>$</strong>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-sm-12 mb-4">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <div id="comisionesVendedor"></div>
+                Borrar: <small>Comisiones por vendedor</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-sm-12 mb-4">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <div id="ventasVendedor"></div>
+                Borrar: <small>Ventas por vendedor</small>
             </div>
         </div>
     </div>
@@ -36,48 +60,34 @@
 
 {% block javascripts %}
 <script>
-    // ? Ventas Anuales Grafica de puntos (Chartjs)
-    const vACtx = document.getElementById('ventasAnuales').getContext('2d');
-    const ventasAnuales = new Chart(vACtx, {
-        type: 'line',
-        data: {
-            labels: [{% for venta in ventas %} '{{venta.mes|month_name}}', {% endfor %}],
-            datasets: [{
-                label: 'Ventas por mes del año {% now "Y" %}',
-                data: [{% for venta in ventas %} {{venta.total}}, {% endfor %}],
-                fill: false,
-                borderColor: '#262B40',
-                borderWidth: 4,
-                tension: 0
-            }]
+    // ? Ventas Anuales Grafica de puntos (HighCharts)
+    Highcharts.chart('ventasAnuales', {
+        chart: {
+            type: 'line'
         },
-    });
-
-    // ? Ventas Anuales Grafica de puntos (Chartist)
-    const ventaAnual = new Chartist.Line('.ventas-anuales', {
-        labels: [{% for venta in ventas %} '{{venta.mes|month_name}}', {% endfor %}],
-        series: [
-            [{% for venta in ventas %} {{venta.total}}, {% endfor %}],
-            // Para agregar mas series (datos) solo se agrega otro array
-        ]
-    }, {
-        low: 0,
-        fullWidth: true,
-        lineSmooth: false,
-        chartPadding: {
-            right: 50,
-            left: 20
+        title: {
+            text: 'Ventas por mes del año {% now "Y" %}'
         },
-        axisY: {
-            offset: 60,
-            labelInterpolationFnc: function(value) {
-              return '$' + value + 'MN';
+        xAxis: {
+            categories: [{% for venta in ventas_anuales %} '{{venta.mes|month_name}}', {% endfor %}]
+        },
+        yAxis: {
+            title: {
+                text: 'Total en $MXN'
             }
         },
-        plugins: [
-            Chartist.plugins.tooltip()
-        ]
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
+        series: [{
+            name: '{% now "Y" %}',
+            data: [{% for venta in ventas_anuales %} {{venta.total}}, {% endfor %}]
+        }]
     });
-
 </script>
 {% endblock javascripts %}
