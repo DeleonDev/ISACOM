@@ -1,21 +1,38 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
-
 from django import template
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
+from django.db.models import Sum
+from django.db.models.functions import ExtractMonth
+import datetime
+
+from apps.ventas_compras.ventas.models import VentasDetalles
 
 
 @login_required(login_url="/login/")
 def index(request):
-    context = {'segment': 'index'}
+    primer_dia = datetime.date(datetime.date.today().year, 1, 1)
+    ultimo_dia = datetime.date(datetime.date.today().year, 12, 31)
+    
+    # ? Datos para la grafica de puntos (Ventas anuales)
+    # TODO: Poner en el 'filter' la obtencion de los meses en el rango del año actual
+    ventas = VentasDetalles.objects.filter(fecha_factura__range=(primer_dia, ultimo_dia)).annotate(
+        mes=ExtractMonth('fecha_factura')
+    ).values('mes').annotate(
+        total=Sum('monto_MN')
+    ).order_by('mes')
+    
+    # TODO: Hacer las demas graficas
+    ...
+        
+    context = {
+        'segment': 'index',
+        'ventas': ventas
+    }
 
-    html_template = loader.get_template('home/dashboard.html')
-    return HttpResponse(html_template.render(context, request))
+    return render(request, 'home/dashboard.html', context)
 
 
 @login_required(login_url="/login/")

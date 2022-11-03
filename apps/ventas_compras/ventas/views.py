@@ -13,10 +13,11 @@ def ventas(request):
     ventas = VentasDetalles.objects.all()
     return render(request, 'ventas.html', {'ventas': ventas})
 
+
 @transaction.atomic
 def detalles(request, id):
     form = get_object_or_404(Ventas, id=id)
-    form2 = get_object_or_404(VentasDetalles)
+    form2 = get_object_or_404(VentasDetalles, venta_id=form.id)
     if request.method == 'POST':
         form = VentasForm(request.POST, instance=form)
         form2 = DetallesVentasForm(request.POST, instance=form2)
@@ -25,7 +26,7 @@ def detalles(request, id):
             form2.save()
             messages.success(request, 'Venta registrada con éxito')
             return redirect('ventas')
-        else :
+        else:
             messages.error(request, 'Ha ocurrido un error')
     else:
         form = VentasForm(instance=form)
@@ -41,14 +42,14 @@ def ventas_registro(request):
 @transaction.atomic()
 def registro(request):
     if request.method == 'POST':
-        form = VentasForm(request.POST)
-        form2 = DetallesVentasForm(request.POST)
+        form = VentasForm(request.POST, instance=Ventas())
+        form2 = DetallesVentasForm(request.POST, instance=VentasDetalles())
         if form.is_valid() and form2.is_valid():
             with transaction.atomic():
                 print('form is valid')
-                form.save()
                 form2.save(commit=False)
-                form2.venta = form
+                form2.instance.venta = form.save()
+                form.save()
                 form2.save()
                 messages.success(request, 'Registro exitoso')
                 return redirect(reverse_lazy('ventas'))
@@ -61,7 +62,10 @@ def registro(request):
         print('form is not valid, reload')
         form = VentasForm()
         form2 = DetallesVentasForm()
-        # for field_name, field in form.fields.items():
-        #     field.widget.attrs['disabled'] = False
 
     return render(request, 'nuevo_registro.html', {'form': form, 'form2': form2})
+
+
+
+def comisiones (request):
+    return render(request, 'comisiones.html')
