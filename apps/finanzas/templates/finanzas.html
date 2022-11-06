@@ -11,71 +11,50 @@
 
 <h1>Finanzas</h1>
 
-<div class="card">
+<div class="card shadow">
     <div class="card-body">
-        <div class="col-md-5">
+        <div class="table-responsive">
+        <div class="col-md-2">
             <div class="form-group">
                 <label for="Cliente">Cliente</label>
                 <select class="form-control" id="cliente" name="cliente">
                     <option value="selectedDefault" selected disabled>Seleccione</option>
                     {% for cliente in clientes %}
-                    <option value="{{ cliente.id }}">{{ cliente.RFC }}</option>
+                    <option value="{{ cliente.id }}">{{ cliente.RFC }}</option> 
                     {% endfor %}
                 </select>
             </div>
+        </div><br>
+ 
+
+            <table class="table table-centered table-nowrap mb-0 rounded text-center" id="datatable">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="border-0 rounded-start">Fecha</th>
+                        <th class="border-0">Orden de Compra</th>
+                        <th class="border-0">Importe(USD20)</th>
+                        <th class="border-0">Importe facturas</th>
+                        <th class="border-0">Importe pagado</th>
+                        <th class="border-0">Moneda</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                    <tr>
+                        <td class="text-primary fw-bold">19 de octubre</td>
+                        <td>probando</td>
+                        <td>probando</td>
+                        <td>probando</td>
+                        <td>probando</td>
+                        <td>probando</td>
+                     
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
         </div>
     </div>
-</div><br>
-
-<div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="Fecha">Fecha</label>
-                    <input type="text" class="form-control" id="Fecha" name="Fecha" placeholder="Fecha">
-                </div>
-            </div>
-
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="OrdenV">Orden de venta</label>
-                    <input type="text" class="form-control" id="OrdenV" name="Orden de venta"
-                        placeholder="Orden de venta">
-                </div>
-            </div>
-
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="OrdenC">Orden de compra</label>
-                    <input type="text" class="form-control" id="OrdenC" name="Orden de compra"
-                        placeholder="Orden de compra">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="Importe">Importe(USD20)</label>
-                    <input type="text" class="form-control" id="Importe" name="Importe" placeholder="Importe">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="ImporteF">Importe facturas</label>
-                    <input type="text" class="form-control" id="ImporteF" name="ImporteF"
-                        placeholder="Importe facturas">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="ImportePa">Importe pagado</label>
-                    <input type="text" class="form-control" id="ImportePa" name="ImportePa"
-                        placeholder="Importe pagado">
-                </div>
-            </div>
-
-        </div>
-    </div>
-
 </div><br>
 
 
@@ -135,3 +114,5 @@
 
 
 {% block javascripts %}{% endblock javascripts %}
+
+
