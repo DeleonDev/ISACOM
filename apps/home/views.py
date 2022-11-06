@@ -24,30 +24,30 @@ def index(request):
     ventas_anuales = detalle_ventas \
         .annotate(mes=ExtractMonth('fecha_factura')) \
         .values('mes') \
-        .annotate(total=Sum('monto_MN')) \
+        .annotate(total=Sum('monto_USD')) \
         .order_by('mes')
     
     
     # ? Ventas por clasificacion
     ventas_clasificacion = detalle_ventas \
         .values('venta__clasificacion') \
-        .annotate(total=Sum('monto_MN'), cantidad=Count('venta__clasificacion')) \
+        .annotate(total=Sum('monto_USD'), cantidad=Count('venta__clasificacion')) \
     
-    total_ventas_clasificacion = detalle_ventas.aggregate(total=Sum('monto_MN'), cantidad=Count('venta__clasificacion'))
+    total_ventas_clasificacion = detalle_ventas.aggregate(total=Sum('monto_USD'), cantidad=Count('venta__clasificacion'))
 
 
     # ? Ventas por segmento
     ventas_segmento = detalle_ventas \
         .values('venta__segmento') \
-        .annotate(total=Sum('monto_MN'), cantidad=Count('venta__segmento'))
+        .annotate(total=Sum('monto_USD'), cantidad=Count('venta__segmento'))
         
     # ? Ventas por vendedor
     ventas_vendedor = detalle_ventas \
         .values('venta__agente') \
         .annotate(
-            total=Sum('monto_MN'),
+            total=Sum('monto_USD'),
             cantidad=Count('venta'),
-            promedio=Sum('monto_MN') / Count('venta')
+            promedio=Sum('monto_USD') / Count('venta')
         ) \
         
     context = {

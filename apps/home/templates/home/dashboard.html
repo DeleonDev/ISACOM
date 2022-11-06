@@ -27,7 +27,7 @@
                 <div id="ventasClasificacion"></div>
             </div>
             <div class="card-footer text-center">
-                Se efectuaron: <b>{{total_ventas_clasificacion.cantidad}}</b> ventas con un total de <b>${{total_ventas_clasificacion.total}}</b> MXN
+                Se efectuaron: <b>{{total_ventas_clasificacion.cantidad}}</b> ventas con un total de <b>${{total_ventas_clasificacion.total}}</b> USD
             </div>
         </div>
     </div>
@@ -75,7 +75,7 @@
         },
         yAxis: {
             title: {
-                text: 'Total en $MXN'
+                text: 'Total en $USD'
             }
         },
         plotOptions: {
@@ -107,7 +107,7 @@
             headerFormat: '',
             pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
                 'Ventas: <b>{point.z}</b><br/>' +
-                'Total (MXN): <b>${point.y}</b><br/>'
+                'Total (USD): <b>${point.y}</b><br/>'
         },
         plotOptions: {
             pie: {
@@ -142,7 +142,7 @@
             headerFormat: '',
             pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
                 'Ventas: <b>{point.z}</b><br/>' +
-                'Total (MXN): <b>${point.y}</b><br/>'
+                'Total (USD): <b>${point.y}</b><br/>'
         },
         plotOptions: {
             pie: {

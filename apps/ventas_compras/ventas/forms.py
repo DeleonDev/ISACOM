@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 import re
-from datetime import date, datetime
+from datetime import date
 from .models import Ventas, VentasDetalles
 
 1
@@ -47,22 +47,10 @@ class VentasForm(forms.ModelForm):
         return agente
 
     def clean_cotizacion(self):
-        cotizacion = self.cleaned_data['cotizacion']
-        if not re.match(r'^[0-9]+$', cotizacion):
-            raise ValidationError(
-                _('Ingrese un número de cotización válido'),
-            )
-
-        return cotizacion
+        return self.cleaned_data['cotizacion']
 
     def clean_descripcion(self):
-        descripcion = self.cleaned_data['descripcion']
-        if not re.match(r'^[a-zA-Z0-9]+$', descripcion):
-            raise ValidationError(
-                _('Ingrese una descripción válida'),
-            )
-
-        return descripcion
+        return self.cleaned_data['descripcion']
 
     def clean_clasificacion(self):
         clasificacion = self.cleaned_data['clasificacion']
@@ -104,7 +92,7 @@ class VentasForm(forms.ModelForm):
 class DetallesVentasForm(forms.ModelForm):
     class Meta:
         model = VentasDetalles
-        exclude = ['venta']
+        fields = '__all__'
         widgets = {
             'fecha_factura': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
         }
@@ -112,14 +100,16 @@ class DetallesVentasForm(forms.ModelForm):
     def clean_comision(self):
         comision = self.cleaned_data['comision']
         return comision
+    
+    
+    def clean_concepto(self):
+        return self.cleaned_data['concepto']
 
 
     def clean_factura(self):
         factura = self.cleaned_data['factura']
         
-        return factura
-    
-            
+        return factura            
 
     def clean_fecha_factura(self):
         fecha_factura = self.cleaned_data['fecha_factura']
@@ -156,8 +146,9 @@ class DetallesVentasForm(forms.ModelForm):
 
     def clean_importe_USD(self):
         importe_USD = self.cleaned_data['importe_USD']
-        
         return importe_USD
+    
+    
     def __init__(self, *args, **kwargs):
         super(DetallesVentasForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():

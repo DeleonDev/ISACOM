@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %} {% load static %}
 
-{% block title %} Ventas - Registro{% endblock %}
+{% block title %}Registrar venta{% endblock %}
 
 {% block breadcrumb %}
 <a href="{% url 'ventas'%}" class="btn btn-primary float-end">Regresar</a>
@@ -266,7 +266,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="card-footer">
             <button type="submit" class="btn btn-success" value="save" style="display: block; margin: 0 auto;">
                 Guardar</button>
         </div>

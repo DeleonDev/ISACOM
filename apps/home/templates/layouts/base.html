@@ -66,6 +66,8 @@
 
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <!-- Specific Page JS goes HERE  -->    
 {% block stylesheets %}{% endblock stylesheets %}
 
@@ -88,7 +90,17 @@
           </div>
         </div>
       </div>
-
+      
+      {% for message in messages %}
+      <div class="container-fluid p-0">
+          <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+              <button type="button" class="close btn-close icon-xs float-end" data-dismiss="alert" aria-label="Close">
+                  <!-- <span aria-hidden="True">&times;</span> -->
+              </button>
+              {{ message }}
+          </div>
+      </div>
+      {% endfor %}
       {% block content %}{% endblock content %}
 
       {% include 'includes/settings-box.html' %}

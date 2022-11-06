@@ -37,7 +37,7 @@ class Cliente(models.Model):
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Agente')
     
     def __str__(self):
-        return f'{self.usuario}'
+        return self.usuario.get_full_name()
     
     class Meta:
         db_table = "ISACOM_CLIENTE"
