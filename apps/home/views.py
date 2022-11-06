@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.db.models.functions import ExtractMonth
 import datetime
 
@@ -16,19 +16,47 @@ def index(request):
     primer_dia = datetime.date(datetime.date.today().year, 1, 1)
     ultimo_dia = datetime.date(datetime.date.today().year, 12, 31)
     
-    # ? Datos para la grafica de puntos (Ventas anuales)
-    ventas_anuales = VentasDetalles.objects \
-        .filter(fecha_factura__range=(primer_dia, ultimo_dia)) \
+    detalle_ventas = VentasDetalles.objects.filter(
+        fecha_factura__range=(primer_dia, ultimo_dia)
+    )
+    
+    # ? Ventas anuales
+    ventas_anuales = detalle_ventas \
         .annotate(mes=ExtractMonth('fecha_factura')) \
         .values('mes') \
         .annotate(total=Sum('monto_MN')) \
         .order_by('mes')
     
+    
+    # ? Ventas por clasificacion
+    ventas_clasificacion = detalle_ventas \
+        .values('venta__clasificacion') \
+        .annotate(total=Sum('monto_MN'), cantidad=Count('venta__clasificacion')) \
+    
+    total_ventas_clasificacion = detalle_ventas.aggregate(total=Sum('monto_MN'), cantidad=Count('venta__clasificacion'))
 
+
+    # ? Ventas por segmento
+    ventas_segmento = detalle_ventas \
+        .values('venta__segmento') \
+        .annotate(total=Sum('monto_MN'), cantidad=Count('venta__segmento'))
+        
+    # ? Ventas por vendedor
+    ventas_vendedor = detalle_ventas \
+        .values('venta__agente') \
+        .annotate(
+            total=Sum('monto_MN'),
+            cantidad=Count('venta'),
+            promedio=Sum('monto_MN') / Count('venta')
+        ) \
         
     context = {
         'segment': 'index',
-        'ventas_anuales': ventas_anuales
+        'ventas_anuales': ventas_anuales,
+        'ventas_clasificacion': ventas_clasificacion,
+        'total_ventas_clasificacion': total_ventas_clasificacion,
+        'ventas_segmento': ventas_segmento,
+        'ventas_vendedor': ventas_vendedor
     }
 
     return render(request, 'home/dashboard.html', context)

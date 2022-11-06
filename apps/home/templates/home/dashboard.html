@@ -20,10 +20,9 @@
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div id="ventasClasificacion"></div>
-                Borrar: <small>Ventas por clasificacion</small>
             </div>
             <div class="card-footer text-center">
-                Total de ventas: <strong>$</strong>
+                Se efectuaron: <b>{{total_ventas_clasificacion.cantidad}}</b> ventas con un total de <b>${{total_ventas_clasificacion.total}}</b> MXN
             </div>
         </div>
     </div>
@@ -31,10 +30,6 @@
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div id="ventasSegmento"></div>
-                Borrar: <small>Ventas por segmento</small>
-            </div>
-            <div class="card-footer text-center">
-                Total de ventas: <strong>$</strong>
             </div>
         </div>
     </div>
@@ -60,7 +55,7 @@
 
 {% block javascripts %}
 <script>
-    // ? Ventas Anuales Grafica de puntos (HighCharts)
+    // Ventas Anuales
     Highcharts.chart('ventasAnuales', {
         chart: {
             type: 'line'
@@ -89,5 +84,79 @@
             data: [{% for venta in ventas_anuales %} {{venta.total}}, {% endfor %}]
         }]
     });
+
+    // Ventas por clasificación
+    Highcharts.chart('ventasClasificacion', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Ventas por clasificación'
+        },
+        tooltip: {
+            headerFormat: '',
+            pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                'Ventas: <b>{point.z}</b><br/>' +
+                'Total (MXN): <b>${point.y}</b><br/>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Total',
+            colorByPoint: true,
+            data: [{% for venta in ventas_clasificacion %}{
+                name: '{{venta.venta__clasificacion}}',
+                y: {{venta.total}},
+                z: {{venta.cantidad}}
+            }, {% endfor %}]
+        }]
+    });
+
+    // Ventas por segmento
+    Highcharts.chart('ventasSegmento', {
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: 'Ventas por segmento'
+        },
+        tooltip: {
+            headerFormat: '',
+            pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                'Ventas: <b>{point.z}</b><br/>' +
+                'Total (MXN): <b>${point.y}</b><br/>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true
+                },
+                showInLegend: false
+            }
+        },
+        series: [{
+            name: 'Total',
+            colorByPoint: true,
+            data: [{% for venta in ventas_segmento %}{
+                name: '{{venta.venta__segmento}}',
+                y: {{venta.total}},
+                z: {{venta.cantidad}}
+            }, {% endfor %}]
+        }]
+    });
+
 </script>
 {% endblock javascripts %}
