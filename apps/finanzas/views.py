@@ -37,8 +37,9 @@ def agregar_pago_factura(request, orden_compra_id):
             messages.success(request, 'Pago registrado con éxito')
             return redirect('agregar_pago_factura', orden_compra_id)
         else:
+            print(form.errors)
             messages.error(request, 'Ha ocurrido un error al registrar el pago')
-            return redirect('agregar_pago_factura', orden_compra_id)
+            # return redirect('agregar_pago_factura', orden_compra_id)
     
     context = {
         'segment': 'finanzas',

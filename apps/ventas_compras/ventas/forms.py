@@ -30,13 +30,13 @@ class VentasForm(forms.ModelForm):
             )
         return segmento
 
-    def clean_states(self):
-        states = self.cleaned_data['states']
-        if states == 'SELECCIONE':
+    def clean_estado(self):
+        estado = self.cleaned_data['estado']
+        if estado == 'SELECCIONE':
             raise ValidationError(
                 _('Seleccione un estado'),
             )
-        return states
+        return estado
 
     def clean_agente(self):
         agente = self.cleaned_data['agente']
@@ -72,14 +72,16 @@ class VentasForm(forms.ModelForm):
     def clean_fecha_orden_compra(self):
         fecha_orden_compra = self.cleaned_data['fecha_orden_compra']
         if fecha_orden_compra > date.today():
-            return'La fecha de orden de compra no puede ser mayor a la fecha actual'
+            raise ValidationError(
+                _('La fecha de orden de compra no puede ser mayor a la fecha actual'),
+            )
         return fecha_orden_compra
     
     def __init__(self, *args, **kwargs):
         super(VentasForm, self).__init__(*args, **kwargs)
         self.fields['cliente'].empty_label = 'SELECCIONE'
         self.fields['segmento'].empty_label = 'SELECCIONE'
-        self.fields['estados'].empty_label = 'SELECCIONE'
+        self.fields['estado'].empty_label = 'SELECCIONE'
         self.fields['agente'].empty_label = 'SELECCIONE'
         for field_name, field in self.fields.items():
             field.widget.attrs['onkeyup'] = 'javascript:this.value=this.value.toUpperCase()'

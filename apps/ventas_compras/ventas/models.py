@@ -47,7 +47,7 @@ states = [
 class Ventas(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente', serialize=False)
     segmento = models.CharField(choices=segment_options(), max_length=50, default=None, verbose_name='segmento')
-    estados = models.CharField(max_length=50, verbose_name='Estado', default=None, choices=states)
+    estado = models.CharField(max_length=50, verbose_name='Estado', default=None, choices=states)
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Agente')
     cotizacion = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Cotización')
     descripcion = models.TextField(verbose_name='Descripción')
@@ -68,6 +68,7 @@ class VentasDetalles(models.Model):
     concepto = models.CharField(max_length=50, verbose_name='Concepto')
     factura = models.CharField(max_length=50, verbose_name='factura')
     fecha_factura = models.DateField(verbose_name='Fecha de factura')
+    # factura = models.FileField(upload_to='facturas/', verbose_name='Factura', null=True, blank=True)
     monto_USD = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Monto en USD')
     monto_MN = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Monto en MN')
     incentivo = models.DecimalField(max_digits=10, decimal_places=3, verbose_name='Incentivo')

@@ -8,7 +8,7 @@ from django.db.models import Sum, Count
 from django.db.models.functions import ExtractMonth
 import datetime
 
-from apps.ventas_compras.ventas.models import VentasDetalles
+from apps.ventas_compras.ventas.models import Ventas
 
 
 @login_required(login_url="/login/")
@@ -16,39 +16,38 @@ def index(request):
     primer_dia = datetime.date(datetime.date.today().year, 1, 1)
     ultimo_dia = datetime.date(datetime.date.today().year, 12, 31)
     
-    detalle_ventas = VentasDetalles.objects.filter(
-        fecha_factura__range=(primer_dia, ultimo_dia)
+    detalle_ventas = Ventas.objects.filter(
+        fecha_orden_compra__range=(primer_dia, ultimo_dia)
     )
     
     # ? Ventas anuales
     ventas_anuales = detalle_ventas \
-        .annotate(mes=ExtractMonth('fecha_factura')) \
+        .annotate(mes=ExtractMonth('fecha_orden_compra')) \
         .values('mes') \
-        .annotate(total=Sum('monto_USD')) \
+        .annotate(total=Sum('cotizacion')) \
         .order_by('mes')
     
     
     # ? Ventas por clasificacion
     ventas_clasificacion = detalle_ventas \
-        .values('venta__clasificacion') \
-        .annotate(total=Sum('monto_USD'), cantidad=Count('venta__clasificacion')) \
+        .values('clasificacion') \
+        .annotate(total=Sum('cotizacion'), cantidad=Count('clasificacion')) \
     
-    total_ventas_clasificacion = detalle_ventas.aggregate(total=Sum('monto_USD'), cantidad=Count('venta__clasificacion'))
+    total_ventas_clasificacion = detalle_ventas.aggregate(total=Sum('cotizacion'), cantidad=Count('clasificacion'))
 
 
     # ? Ventas por segmento
     ventas_segmento = detalle_ventas \
-        .values('venta__segmento') \
-        .annotate(total=Sum('monto_USD'), cantidad=Count('venta__segmento'))
+        .values('segmento') \
+        .annotate(total=Sum('cotizacion'), cantidad=Count('segmento'))
         
     # ? Ventas por vendedor
     ventas_vendedor = detalle_ventas \
-        .values('venta__agente') \
+        .values('agente') \
         .annotate(
-            total=Sum('monto_USD'),
-            cantidad=Count('venta'),
-            promedio=Sum('monto_USD') / Count('venta')
-        ) \
+            total=Sum('cotizacion'),
+            cantidad=Count('id'),
+        )
         
     context = {
         'segment': 'index',
@@ -56,7 +55,7 @@ def index(request):
         'ventas_clasificacion': ventas_clasificacion,
         'total_ventas_clasificacion': total_ventas_clasificacion,
         'ventas_segmento': ventas_segmento,
-        'ventas_vendedor': ventas_vendedor
+        'ventas_vendedor': ventas_vendedor,
     }
 
     return render(request, 'home/dashboard.html', context)

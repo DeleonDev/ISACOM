@@ -1,14 +1,17 @@
 {% extends "layouts/base.html" %} {% load static %}
 
-{% block title %}Agregar venta{% endblock %}
+
+{% block title %}Detalles de la venta con orden de compra <b>{{ form.orden_compra.value }}</b>{% endblock title %}
+
 
 {% block breadcrumb %}
 <a href="{% url 'ventas'%}" class="btn btn-primary float-end">Regresar</a>
 {% endblock breadcrumb %}
 
+
 {% block content %}
 <div class="card border-0 shadow">
-    <form method="POST" id="form">
+    <form method="POST" action="{% url 'detalles' id %}">
         {% csrf_token %} {{ form.non_field_errors }}
         <div class="card-body">
             <div class="row">
@@ -114,12 +117,51 @@
             </div>
         </div>
         <div class="card-footer d-flex justify-content-between">
-            <button type="submit" class="btn btn-success m-auto">Guardar</button>
+            <button id="cancel-sales-details-edit" type="button" class="btn btn-danger" hidden>Cancelar</button>
+            <button id="save-sales-details-edit" type="submit" class="btn btn-success" hidden>Guardar</button>
+            <button id="edit-sales-details" type="button" class="btn btn-secondary">Editar</button>
         </div>
     </form>
 </div>
 
-<script>
+{% endblock content %}
 
+{% block javascripts %}
+<script>
+    function disabledForm() {
+        $('#cancel-sales-details-edit').prop('hidden', true);
+        $('#save-sales-details-edit').prop('hidden', true);
+        $('#edit-sales-details').prop('hidden', false);
+        $('#id_cliente').prop('disabled', true);
+        $('#id_segmento').prop('disabled', true);
+        $('#id_estado').prop('disabled', true);
+        $('#id_agente').prop('disabled', true);
+        $('#id_cotizacion').prop('disabled', true);
+        $('#id_descripcion').prop('disabled', true);
+        $('#id_orden_compra').prop('disabled', true);
+        $('#id_fecha_orden_compra').prop('disabled', true);
+        $('#id_clasificacion').prop('disabled', true);
+    }
+
+    $(document).ready(function () {
+        disabledForm();
+        $('#edit-sales-details').click(function () {
+            $('#cancel-sales-details-edit').prop('hidden', false);
+            $('#save-sales-details-edit').prop('hidden', false);
+            $('#edit-sales-details').prop('hidden', true);
+            $('#id_cliente').prop('disabled', false);
+            $('#id_segmento').prop('disabled', false);
+            $('#id_estado').prop('disabled', false);
+            $('#id_agente').prop('disabled', false);
+            $('#id_cotizacion').prop('disabled', false);
+            $('#id_descripcion').prop('disabled', false);
+            $('#id_orden_compra').prop('disabled', false);
+            $('#id_fecha_orden_compra').prop('disabled', false);
+            $('#id_clasificacion').prop('disabled', false);
+        });
+        $('#cancel-sales-details-edit').click(function () {
+            disabledForm();
+        });
+    });
 </script>
-{%endblock content%}
+{% endblock javascripts %}

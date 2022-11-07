@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-6 col-sm-12 mb-4">
+    <div class="col-xl-4 col-sm-12 mb-4">
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div id="ventasClasificacion"></div>
@@ -31,26 +31,17 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-6 col-sm-12 mb-4">
+    <div class="col-xl-4 col-sm-12 mb-4">
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div id="ventasSegmento"></div>
             </div>
         </div>
     </div>
-    <div class="col-xl-6 col-sm-12 mb-4">
-        <div class="card border-0 shadow">
-            <div class="card-body">
-                <div id="comisionesVendedor"></div>
-                Borrar: <small>Comisiones por vendedor</small>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-6 col-sm-12 mb-4">
+    <div class="col-xl-4 col-sm-12 mb-4">
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div id="ventasVendedor"></div>
-                Borrar: <small>Ventas por vendedor</small>
             </div>
         </div>
     </div>
@@ -123,7 +114,7 @@
             name: 'Total',
             colorByPoint: true,
             data: [{% for venta in ventas_clasificacion %}{
-                name: '{{venta.venta__clasificacion}}',
+                name: '{{venta.clasificacion}}',
                 y: {{venta.total}},
                 z: {{venta.cantidad}}
             }, {% endfor %}]
@@ -157,13 +148,69 @@
         series: [{
             name: 'Total',
             colorByPoint: true,
-            data: [{% for venta in ventas_segmento %}{
-                name: '{{venta.venta__segmento}}',
-                y: {{venta.total}},
-                z: {{venta.cantidad}}
-            }, {% endfor %}]
+            data: [
+                {% for venta in ventas_segmento %}{
+                    name: '{{venta.segmento}}',
+                    y: {{venta.total}},
+                    z: {{venta.cantidad}}
+                }, {% endfor %}
+            ]
         }]
     });
 
+    // Ventas por vendedor
+    Highcharts.chart('ventasVendedor', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            align: 'center',
+            text: 'Ventas por vendedor'
+        },
+        xAxis: {
+            categories: [
+                {% for venta in ventas_vendedor %}'{{venta.agente|agente_name}}', {% endfor %}
+            ],
+            crosshair: true,
+            type: 'Vendedores'
+        },
+        yAxis: {
+            title: {
+                text: 'Total de ventas en USD'
+            }
+    
+        },
+        legend: {
+            enabled: true
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '${point.y:.3f}'
+                }
+            }
+        },
+        tooltip: {
+            headerFormat: '',
+            pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                'Ventas: <b>{point.z}</b><br/>' +
+                'Total (USD): <b>${point.y}</b><br/>'
+        },
+        series: [
+            {
+                name: "Vendedor",
+                colorByPoint: true,
+                data: [ 
+                    {% for venta in ventas_vendedor %}{
+                        name: "{{venta.agente|agente_name}}",
+                        y: {{venta.total}},
+                        z: {{venta.cantidad}},
+                    }, {% endfor %}
+                ]
+            }
+        ],
+    });
 </script>
 {% endblock javascripts %}
