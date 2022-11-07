@@ -12,7 +12,64 @@
 <h1>compras</h1>
 
 
+<div class="card shadow">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-centered table-nowrap mb-0 rounded text-center" id="datatable">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="border-0 rounded-start">id</th>
+                        <th class="border-0">Vendedor</th>
+                        <th class="border-0">Cliente</th>
+                        <th class="border-0">Clasificación</th>
+                        <th class="border-0">Cotización</th>
+                        <th class="border-0">Orden de compra</th>
+                        <th class="border-0">Fecha orden de compra</th>
+                        <th class="border-0">Monto USD</th>
+                        <th class="border-0">Monto MN</th>
+                        <th class="border-0 rounded-end">Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for venta in ventas %}
+                    <tr>
+                        <td class="text-primary fw-bold">{{ venta.id}}</td>
+                        <td>{{ venta.venta.agente }}</td>
+                        <td>{{ venta.venta.cliente }}</td>
+                        <td>{{ venta.venta.segmento }}</td>
+                        <td>{{ venta.venta.cotizacion }}</td>
+                        <td>{{ venta.venta.orden_compra }}</td>
+                        <td>{{ venta.venta.fecha_orden_compra }}</td>
+                        <td>${{ venta.monto_USD }}</td>
+                        <td>${{ venta.monto_MN }}</td>
+                        <td>
+                            <a href="{% url 'detalles' venta.venta_id %}" data-id="{{venta.venta.id}}" class="btn btn-info">Detalles</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock content %}
 
+{% block javascripts %}
 
-{% block javascripts %}{% endblock javascripts %}
+<script>
+    const dataTable = new simpleDatatables.DataTable("#datatable", {
+        searchable: true,
+        fixedHeight: true,
+        sortable: false,
+        labels: {
+            placeholder: "Buscar..." , 
+            perPage: "{select} registros por página",
+            noRows: "No hay registros",
+            info: "Mostrando {start} de {end} de {rows} registros",
+        },
+    });
+</script>
+
+{% endblock javascripts %}
+
+
