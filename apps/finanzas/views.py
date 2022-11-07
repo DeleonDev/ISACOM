@@ -1,8 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from apps.finanzas.generar_pdf import pdf_create
-
-from apps.usuarios.models import Cliente
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from apps.ventas_compras.ventas.forms import VentasForm, DetallesVentasForm
+from apps.ventas_compras.ventas.models import Ventas, VentasDetalles
+from django.db.models import Sum
 
 # Create your views here.
 
