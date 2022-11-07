@@ -36,7 +36,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 INSTALLED_APPS = [
 
-    'admin_volt.apps.AdminVoltConfig',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -164,7 +164,7 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-VOLT_SETTINGS = {
+JAZZMIN_SETTINGS = {
     
 
     # Welcome text on the login screen

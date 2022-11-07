@@ -178,10 +178,10 @@
                         <td>{{ pago.concepto }}</td>
                         <td><strong class="text-warning"><small>Preguntar</small></strong></td>
                         <td>
-                            <button type="button" class="btn btn-info">
+                            <a href="{% url 'generar_pdf' pago.factura %}" type="button" class="btn btn-info">
                                 <i class="icon icon-xxs me-2 fa fa-file-pdf"></i>
                                 Descargar Factura
-                            </button>
+                            </a>
                             <a href="{% url 'detalles' venta.id %}" class="btn btn-info">Detalles</a>
                         </td>
                     </tr>
