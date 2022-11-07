@@ -1,123 +1,58 @@
-{% extends "layouts/base.html" %}
+{% extends "layouts/base.html" %} {% load static %}
 
-{% load static %}
-
-{% block title %} Dashboard {% endblock %}
-
-
-{% block stylesheets %}{% endblock stylesheets %}
+{% block title %}Finanzas{% endblock %}
 
 {% block content %}
-
-<h1>Finanzas</h1>
-
-<div class="card shadow">
+<div class="card border-0 shadow">
+    <div class="card-header border-bottom d-flex align-items-center justify-content-between">
+        <h2 class="fs-5 fw-bold mb-0">Buscar para efectuar un pago</h2>
+    </div>
     <div class="card-body">
         <div class="table-responsive">
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="Cliente">Cliente</label>
-                <select class="form-control" id="cliente" name="cliente">
-                    <option value="selectedDefault" selected disabled>Seleccione</option>
-                    {% for cliente in clientes %}
-                    <option value="{{ cliente.id }}">{{ cliente.RFC }}</option> 
-                    {% endfor %}
-                </select>
-            </div>
-        </div><br>
- 
-
-            <table class="table table-centered table-nowrap mb-0 rounded text-center" id="datatable">
+            <table class="table table-centered table-nowrap mb-0 rounded" id="orden-compra">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">Fecha</th>
-                        <th class="border-0">Orden de Compra</th>
-                        <th class="border-0">Importe(USD20)</th>
-                        <th class="border-0">Importe facturas</th>
-                        <th class="border-0">Importe pagado</th>
-                        <th class="border-0">Moneda</th>
+                        <th class="border-0 rounded-start">#</th>
+                        <th class="border-0">Nombre del cliente</th>
+                        <th class="border-0 d-none d-md-table-cell d-lg-table-cell d-xl-table-cell">RFC</th>
+                        <th class="border-0">Orden de Venta/Compra</th>
+                        <th class="border-0 rounded-end">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                   
+                    {% for venta in ventas %}
                     <tr>
-                        <td class="text-primary fw-bold">19 de octubre</td>
-                        <td>probando</td>
-                        <td>probando</td>
-                        <td>probando</td>
-                        <td>probando</td>
-                        <td>probando</td>
-                     
-                        
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ venta.cliente }}</td>
+                        <td class="d-none d-md-table-cell d-lg-table-cell d-xl-table-cell">{{ venta.cliente.RFC }}</td>
+                        <td>{{ venta.orden_compra }}</td>
+                        <td>
+                            <a href="{% url 'agregar_pago_factura' venta.id %}" class="btn btn-primary d-inline-flex align-items-center">
+                                <i class="icon icon-xxs me-2 fa fa-plus"></i>
+                                Agregar pago a factura
+                            </a>
+                        </td>
                     </tr>
-                    
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-</div><br>
-
-
-<div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="FechaE">Fecha Emision</label>
-                    <input type="text" class="form-control" id="FechaE" name="FechaE" placeholder="Fecha">
-                </div>
-            </div>
-
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="Factura">Factura</label>
-                    <input type="text" class="form-control" id="Factura" name="Factura" placeholder="Factura">
-                </div>
-            </div>
-
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="Importe">Importe</label>
-                    <input type="text" class="form-control" id="Importe" name="Importe" placeholder="Importe">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="Moneda">Moneda</label>
-                    <input type="text" class="form-control" id="Moneda" name="Moneda" placeholder="Moneda">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="FechaP">Fecha pago</label>
-                    <input type="text" class="form-control" id="FechaP" name="FechaP" placeholder="Fecha pago">
-                </div>
-            </div>
-
-
-        </div>
-
-    </div>
-
 </div>
-<div class="row">
-    <div class="form-group">
-        <br>
-        <button type="button" class="btn btn-primary disabled text-center">Aceptar</button>
-        <button type="button" class="btn btn-primary disabled text-center">cancelar</button>
-        <form action="{% url 'generar_pdf' %}">
-            <button class="btn btn-warning text center">
-                <i class="fas fa-download"></i> Descargar PDF
-            </button>
-        </form>
-    </div>
-</div>
-
-
-
 {% endblock content %}
 
-
-{% block javascripts %}{% endblock javascripts %}
-
-
+{% block javascripts %}
+<script>
+    const dataTable = new simpleDatatables.DataTable("#orden-compra", {
+        searchable: true,
+        fixedHeight: true,
+        sortable: false,
+        labels: {
+            placeholder: "Buscar...",
+            perPage: "{select} registros por página",
+            noRows: "No hay registros",
+            info: "Mostrando {start} a {end} de {rows} registros",
+        },
+    });
+</script>
+{% endblock javascripts %}

@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %} {% load static %}
 
-{% block title %} Ventas - Registro{% endblock %}
+{% block title %}Registrar venta{% endblock %}
 
 {% block breadcrumb %}
 <a href="{% url 'ventas'%}" class="btn btn-primary float-end">Regresar</a>
@@ -138,135 +138,10 @@
                 </div>
             </div>
 
-            <div class="row mb-4">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        {{ form2.comision.label_tag }}
-                        {{ form2.comision }}
-                        {% if form2.comision.errors %}
-                        <ul>
-                            {% for error in form2.comision.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
+            
 
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        {{ form2.factura.label_tag }}
-                        {{ form2.factura }}
-                        {% if form2.factura.errors %}
-                        <ul>
-                            {% for error in form2.factura.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        {{ form2.fecha_factura.label_tag }}
-                        {{ form2.fecha_factura }}
-                        {% if form2.fecha_factura.errors %}
-                        <ul>
-                            {% for error in form2.fecha_factura.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-md-2">
-                    <div class="form-group">
-                        {{ form2.monto_USD.label_tag }}
-                        {{ form2.monto_USD }}
-                        {% if form2.monto_USD.errors %}
-                        <ul>
-                            {% for error in form2.monto_USD.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        {{ form2.monto_MN.label_tag }}
-                        {{ form2.monto_MN }}
-                        {% if form2.monto_MN.errors %}
-                        <ul>
-                            {% for error in form2.monto_MN.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        {{ form2.incentivo.label_tag }}
-                        {{ form2.incentivo }}
-                        {% if form2.incentivo.errors %}
-                        <ul>
-                            {% for error in form2.incentivo.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        {{ form2.tipo_cambio_factura.label_tag }}
-                        {{ form2.tipo_cambio_factura }}
-                        {% if form2.tipo_cambio_factura.errors %}
-                        <ul>
-                            {% for error in form2.tipo_cambio_factura.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        {{ form2.tipo_cambio_oc.label_tag }}
-                        {{ form2.tipo_cambio_oc }}
-                        {% if form2.tipo_cambio_oc.errors %}
-                        <ul>
-                            {% for error in form2.tipo_cambio_oc.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        {{ form2.importe_USD.label_tag }}
-                        {{ form2.importe_USD }}
-                        {% if form2.importe_USD.errors %}
-                        <ul>
-                            {% for error in form2.importe_USD.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-
-                    </div>
-                </div>
-            </div>
         </div>
-        <div>
+        <div class="card-footer">
             <button type="submit" class="btn btn-success" value="save" style="display: block; margin: 0 auto;">
                 Guardar</button>
         </div>

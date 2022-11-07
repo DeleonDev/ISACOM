@@ -10,7 +10,7 @@
 
 
 {% block content %}
-<div class="card">
+<div class="card border-0 shadow">
     <form method="POST" action="{% url 'detalles' id %}">
         {% csrf_token %} {{ form.non_field_errors }}
         <div class="card-body">
@@ -139,133 +139,9 @@
                 </div>
             </div>
 
-            <div class="row mb-4">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        {{ form2.comision.label_tag }}
-                        {{ form2.comision }}
-                        {% if form2.comision.errors %}
-                        <ul>
-                            {% for error in form2.comision.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
+            
+            
 
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        {{ form2.factura.label_tag }}
-                        {{ form2.factura }}
-                        {% if form2.factura.errors %}
-                        <ul>
-                            {% for error in form2.factura.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        {{ form2.fecha_factura.label_tag }}
-                        {{ form2.fecha_factura }}
-                        {% if form2.fecha_factura.errors %}
-                        <ul>
-                            {% for error in form2.fecha_factura.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-md-2">
-                    <div class="form-group">
-                        {{ form2.monto_USD.label_tag }}
-                        {{ form2.monto_USD }}
-                        {% if form2.monto_USD.errors %}
-                        <ul>
-                            {% for error in form2.monto_USD.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        {{ form2.monto_MN.label_tag }}
-                        {{ form2.monto_MN }}
-                        {% if form2.monto_MN.errors %}
-                        <ul>
-                            {% for error in form2.monto_MN.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        {{ form2.incentivo.label_tag }}
-                        {{ form2.incentivo }}
-                        {% if form2.incentivo.errors %}
-                        <ul>
-                            {% for error in form2.incentivo.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        {{ form2.tipo_cambio_factura.label_tag }}
-                        {{ form2.tipo_cambio_factura }}
-                        {% if form2.tipo_cambio_factura.errors %}
-                        <ul>
-                            {% for error in form2.tipo_cambio_factura.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        {{ form2.tipo_cambio_oc.label_tag }}
-                        {{ form2.tipo_cambio_oc }}
-                        {% if form2.tipo_cambio_oc.errors %}
-                        <ul>
-                            {% for error in form2.tipo_cambio_oc.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        {{ form2.importe_USD.label_tag }}
-                        {{ form2.importe_USD }}
-                        {% if form2.importe_USD.errors %}
-                        <ul>
-                            {% for error in form2.importe_USD.errors %}
-                            <li>{{ error|safe }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="card-footer d-flex justify-content-between">
             <button id="cancel-sales-details-edit" type="button" class="btn btn-danger" hidden>Cancelar</button>
@@ -292,15 +168,6 @@
         $('#id_orden_compra').prop('disabled', true);
         $('#id_fecha_orden_compra').prop('disabled', true);
         $('#id_clasificacion').prop('disabled', true);
-        $('#id_comision').prop('disabled', true);
-        $('#id_factura').prop('disabled', true);
-        $('#id_fecha_factura').prop('disabled', true);
-        $('#id_monto_USD').prop('disabled', true);
-        $('#id_monto_MN').prop('disabled', true);
-        $('#id_incentivo').prop('disabled', true);
-        $('#id_tipo_cambio_factura').prop('disabled', true);
-        $('#id_tipo_cambio_oc').prop('disabled', true);
-        $('#id_importe_USD').prop('disabled', true);
     }
 
     $(document).ready(function () {
@@ -318,15 +185,6 @@
             $('#id_orden_compra').prop('disabled', false);
             $('#id_fecha_orden_compra').prop('disabled', false);
             $('#id_clasificacion').prop('disabled', false);
-            $('#id_comision').prop('disabled', false);
-            $('#id_factura').prop('disabled', false);
-            $('#id_fecha_factura').prop('disabled', false);
-            $('#id_monto_USD').prop('disabled', false);
-            $('#id_monto_MN').prop('disabled', false);
-            $('#id_incentivo').prop('disabled', false);
-            $('#id_tipo_cambio_factura').prop('disabled', false);
-            $('#id_tipo_cambio_oc').prop('disabled', false);
-            $('#id_importe_USD').prop('disabled', false);
         });
         $('#cancel-sales-details-edit').click(function () {
             disabledForm();

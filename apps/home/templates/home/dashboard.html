@@ -25,10 +25,9 @@
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div id="ventasClasificacion"></div>
-                Borrar: <small>Ventas por clasificacion</small>
             </div>
             <div class="card-footer text-center">
-                Total de ventas: <strong>$</strong>
+                Se efectuaron: <b>{{total_ventas_clasificacion.cantidad}}</b> ventas con un total de <b>${{total_ventas_clasificacion.total}}</b> USD
             </div>
         </div>
     </div>
@@ -36,10 +35,6 @@
         <div class="card border-0 shadow">
             <div class="card-body">
                 <div id="ventasSegmento"></div>
-                Borrar: <small>Ventas por segmento</small>
-            </div>
-            <div class="card-footer text-center">
-                Total de ventas: <strong>$</strong>
             </div>
         </div>
     </div>
@@ -67,7 +62,7 @@
 
 {% block javascripts %}
 <script>
-    // ? Ventas Anuales Grafica de puntos (HighCharts)
+    // Ventas Anuales
     Highcharts.chart('ventasAnuales', {
         chart: {
             type: 'line'
@@ -80,7 +75,7 @@
         },
         yAxis: {
             title: {
-                text: 'Total en $MXN'
+                text: 'Total en $USD'
             }
         },
         plotOptions: {
@@ -97,106 +92,78 @@
         }]
     });
 
+    // Ventas por clasificación
+    Highcharts.chart('ventasClasificacion', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Ventas por clasificación'
+        },
+        tooltip: {
+            headerFormat: '',
+            pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                'Ventas: <b>{point.z}</b><br/>' +
+                'Total (USD): <b>${point.y}</b><br/>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Total',
+            colorByPoint: true,
+            data: [{% for venta in ventas_clasificacion %}{
+                name: '{{venta.venta__clasificacion}}',
+                y: {{venta.total}},
+                z: {{venta.cantidad}}
+            }, {% endfor %}]
+        }]
+    });
 
-    // Data retrieved from https://netmarketshare.com
-Highcharts.chart('ventasClasificacion', {
-  chart: {
-    plotBackgroundColor: null,
-    plotBorderWidth: null,
-    plotShadow: false,
-    type: 'pie'
-  },
-  title: {
-    text: 'ventas Clasificacion'
-  },
-  tooltip: {
-    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-  },
-  accessibility: {
-    point: {
-      valueSuffix: '%'
-    }
-  },
-  plotOptions: {
-    pie: {
-      allowPointSelect: true,
-      cursor: 'pointer',
-      dataLabels: {
-        enabled: true,
-        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-      }
-    }
-  },
-  series: [{
-    name: 'Academia',
-    colorByPoint: true,
-    data: [{
-      name: 'Tercero',
-      y: 70.67,
-      sliced: true,
-      selected: true
-    }, {
-      name: 'Segundo',
-      y: 14.77
-    },  {
-      name: 'Gobierno',
-      y: 4.86
-    }, {
-      name: 'Primero',
-      y: 2.63
-    }, {
-     
-      name: 'Other',
-      y: 2.6
-    }]
-  }]
-});
+    // Ventas por segmento
+    Highcharts.chart('ventasSegmento', {
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: 'Ventas por segmento'
+        },
+        tooltip: {
+            headerFormat: '',
+            pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                'Ventas: <b>{point.z}</b><br/>' +
+                'Total (USD): <b>${point.y}</b><br/>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true
+                },
+                showInLegend: false
+            }
+        },
+        series: [{
+            name: 'Total',
+            colorByPoint: true,
+            data: [{% for venta in ventas_segmento %}{
+                name: '{{venta.venta__segmento}}',
+                y: {{venta.total}},
+                z: {{venta.cantidad}}
+            }, {% endfor %}]
+        }]
+    });
 
-Highcharts.chart('ventasSegmento', {
-  chart: {
-    plotBackgroundColor: null,
-    plotBorderWidth: null,
-    plotShadow: false,
-    type: 'pie'
-  },
-  title: {
-    text: 'ventas Segmento'
-  },
-  tooltip: {
-    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-  },
-  accessibility: {
-    point: {
-      valueSuffix: '%'
-    }
-  },
-  plotOptions: {
-    pie: {
-      allowPointSelect: true,
-      cursor: 'pointer',
-      dataLabels: {
-        enabled: true,
-        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-      }
-    }
-  },
-  series: [{
-    name: 'Academia',
-    colorByPoint: true,
-    data: [{
-      name: 'Tercero',
-      y: 70.67,
-      sliced: true,
-      selected: true
-    }, {
-      name: 'Primero',
-      y: 2.63
-    }, {
-     
-      name: 'Other',
-      y: 2.6
-    }]
-  }]
-});
 </script>
 {% endblock javascripts %}
