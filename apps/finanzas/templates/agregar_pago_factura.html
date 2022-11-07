@@ -14,13 +14,133 @@
     <form method="POST" action="{% url 'agregar_pago_factura' venta.id %}">
         {% csrf_token %} {{ form.non_field_errors }}
         <div class="card-body">
-            {% for field in form %}
-            <div class="form-group mt-2">
-                {{ field.label_tag }}
-                {{ field }}
-                {{ field.errors }}
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {{ form.comision.label_tag }}
+                        {{ form.comision }}
+                        {% if form.comision.errors %}
+                        <ul>
+                            {% for error in form.comision.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        {{ form.factura.label_tag }}
+                        {{ form.factura }}
+                        {% if form.factura.errors %}
+                        <ul>
+                            {% for error in form.factura.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.fecha_factura.label_tag }}
+                        {{ form.fecha_factura }}
+                        {% if form.fecha_factura.errors %}
+                        <ul>
+                            {% for error in form.fecha_factura.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-            {% endfor %}
+
+            <div class="row mb-4">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ form.monto_USD.label_tag }}
+                        {{ form.monto_USD }}
+                        {% if form.monto_USD.errors %}
+                        <ul>
+                            {% for error in form.monto_USD.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ form.monto_MN.label_tag }}
+                        {{ form.monto_MN }}
+                        {% if form.monto_MN.errors %}
+                        <ul>
+                            {% for error in form.monto_MN.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.incentivo.label_tag }}
+                        {{ form.incentivo }}
+                        {% if form.incentivo.errors %}
+                        <ul>
+                            {% for error in form.incentivo.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {{ form.tipo_cambio_factura.label_tag }}
+                        {{ form.tipo_cambio_factura }}
+                        {% if form.tipo_cambio_factura.errors %}
+                        <ul>
+                            {% for error in form.tipo_cambio_factura.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.tipo_cambio_oc.label_tag }}
+                        {{ form.tipo_cambio_oc }}
+                        {% if form.tipo_cambio_oc.errors %}
+                        <ul>
+                            {% for error in form.tipo_cambio_oc.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.importe_USD.label_tag }}
+                        {{ form.importe_USD }}
+                        {% if form.importe_USD.errors %}
+                        <ul>
+                            {% for error in form.importe_USD.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Guardar</button>
