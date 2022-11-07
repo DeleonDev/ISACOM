@@ -6,8 +6,6 @@ from apps.ventas_compras.ventas.models import Ventas, VentasDetalles
 from django.db.models import Sum
 
 # Create your views here.
-
-
 def finanzas(request):
     ventas = Ventas.objects.all()
     
