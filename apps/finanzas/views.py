@@ -26,7 +26,7 @@ def agregar_pago_factura(request, orden_compra_id):
     venta_detalles = VentasDetalles.objects
     
     historial_pagos = venta_detalles.filter(venta_id=orden_compra_id) \
-        .order_by('fecha_factura')
+        .order_by('comision')
     
     saldo_restante = venta_detalles.filter(venta_id=orden_compra_id) \
         .aggregate(total=venta.cotizacion-Sum('importe_USD'))['total']
@@ -72,3 +72,8 @@ def generar_pdf(self):
         'Content-Disposition'] = f'attachment; filename=Factura.pdf'
     response.write(open(route, 'rb').read())
     return response
+
+
+def cargar_factura(request,id):
+    
+    return render(request, 'finanzas/includes/factura_modal.html', {'id':id})

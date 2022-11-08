@@ -1,1 +1,4 @@
 Django
+wkhtmltopdf
+jinjia2
+pdfkit

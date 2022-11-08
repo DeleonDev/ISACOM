@@ -38,8 +38,6 @@
                 <thead class="thead-light">
                     <tr>
                         <th class="border-0 rounded-start">#</th>
-                        <th class="border-0">Fecha</th>
-                        <th class="border-0">Factura</th>
                         <th class="border-0">Importe</th>
                         <th class="border-0">Tipo cambio MN</th>
                         <th class="border-0">Concepto</th>
@@ -51,17 +49,15 @@
                     {% for pago in historial_pagos %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ pago.fecha_factura }}</td>
-                        <td>{{ pago.factura }}</td>
                         <td>${{ pago.importe_USD }}</td>
                         <td>${{ pago.tipo_cambio_factura }}</td>
                         <td>{{ pago.concepto }}</td>
                         <td><strong class="text-warning"><small>Preguntar</small></strong></td>
                         <td>
-                            <a href="{% url 'generar_pdf' %}" class="btn btn-info">
-                                <i class="icon icon-xxs me-2 fa fa-file-pdf"></i>
-                                Descargar factura
                             <a href="{% url 'detalles' venta.id %}" class="btn btn-info">Detalles</a>
+                            <button type="button" class="btn btn-info btn-factura" data-toggle="modal" data-id="{{ venta.id }}" data-target="cargar_factura">
+                                Cargar Factura
+                            </button>
                         </td>
                     </tr>
                     {% endfor %}
@@ -80,6 +76,16 @@
         </div>
     </div>
 </div>
+<!-- modal -->
+<div class="modal fade" id="cargar_factura">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 {% endblock content %}
 
 {% block javascripts %}
@@ -94,6 +100,19 @@
             noRows: "No hay registros",
             info: "Mostrando {start} a {end} de {rows} registros",
         },
+    });
+    
+    $('.btn-factura').on('click',function(){
+        var id = $(this).data('id');
+        $.ajax({
+            url: "/finanzas/agregar-pago-factura/cargar-factura/" + id,
+            type: "get",
+            success: function (data) {
+    
+                $('#cargar_factura .modal-content').html(data);
+                $('#cargar_factura').modal("show");
+            },
+        });
     });
 </script>
 {% endblock javascripts %}
