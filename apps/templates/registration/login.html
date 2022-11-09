@@ -59,7 +59,9 @@
     </div>
     <div class="d-grid">
         <button type="submit" name="login" class="btn btn-gray-800 mb-4">Iniciar sesión</button>
-        <div class="d-flex justify-content-center"><a href="{% url 'register' %}">Registrarse</a></div>
+        {% if request.user.is_superuser %}
+            <div class="d-flex justify-content-center"><a href="{% url 'register' %}">Registrarse</a></div>
+        {% endif %}
     </div>
 </form>
 

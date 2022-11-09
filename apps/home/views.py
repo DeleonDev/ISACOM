@@ -24,20 +24,20 @@ def index(request):
     ventas_anuales = detalle_ventas \
         .annotate(mes=ExtractMonth('venta__fecha_orden_compra')) \
         .values('mes') \
-        .annotate(total=Sum('monto_USD')) \
+        .annotate(total=Sum('venta__cotizacion')) \
         .order_by('mes')
         
     # ? Ventas por clasificacion
     ventas_clasificacion = detalle_ventas \
         .values('venta__clasificacion') \
-        .annotate(total=Sum('monto_USD'), cantidad=Count('venta__clasificacion')) \
+        .annotate(total=Sum('venta__cotizacion'), cantidad=Count('venta__clasificacion')) \
     
-    total_ventas_clasificacion = detalle_ventas.aggregate(total=Sum('monto_USD'), cantidad=Count('venta__clasificacion'))
+    total_ventas_clasificacion = detalle_ventas.aggregate(total=Sum('venta__cotizacion'), cantidad=Count('venta__clasificacion'))
 
     # ? Ventas por segmento
     ventas_segmento = detalle_ventas \
         .values('venta__segmento') \
-        .annotate(total=Sum('monto_USD'), cantidad=Count('venta__segmento'))
+        .annotate(total=Sum('venta__cotizacion'), cantidad=Count('venta__segmento'))
         
     # ? Ventas por vendedor
     ventas_vendedor = detalle_ventas \
@@ -54,7 +54,7 @@ def index(request):
         'ventas_clasificacion': ventas_clasificacion,
         'total_ventas_clasificacion': total_ventas_clasificacion,
         'ventas_segmento': ventas_segmento,
-        'ventas_vendedor': ventas_vendedor
+        'ventas_vendedor': ventas_vendedor,
     }
 
     return render(request, 'home/dashboard.html', context)

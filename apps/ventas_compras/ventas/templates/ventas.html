@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %} {% load static %}
 
-{% block title %}Registro de ventas{% endblock title %}
+{% block title %}Ventas{% endblock title %}
 
 {% block breadcrumb %}
 <a href="{% url 'registro'%}" class="btn btn-primary float-end ">Agregar venta</a>
@@ -12,35 +12,31 @@
 <div class="card shadow">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-centered table-nowrap mb-0 rounded text-center" id="datatable">
+            <table class="table table-centered table-nowrap mb-0 rounded" id="datatable">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">id</th>
-                        <th class="border-0">CLIENTE</th>
-                        <th class="border-0">SEGMENTO</th>
-                        <th class="border-0">AGENTE</th>
-                        <th class="border-0">COTIZACIÓN</th>
-                        <th class="border-0">DESCRIPCIÓN</th>
-                        <th class="border-0">CLASIFICACIÓN</th>
-                        <th class="border-0">ORDEN DE COMPRA</th>
-                        <th class="border-0">FECHA ORDEN DE COMPRA</th>
+                        <th class="border-0 rounded-start">#</th>
+                        <th class="border-0">Agente</th>
+                        <th class="border-0">Cliente</th>
+                        <th class="border-0">Clasificación</th>
+                        <th class="border-0">Cotización</th>
+                        <th class="border-0">Orden de compra</th>
+                        <th class="border-0">Fecha orden de compra</th>
                         <th class="border-0 rounded-end">Detalles</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for venta in ventas %}
                     <tr>
-                        <td class="text-primary fw-bold">{{ venta.id}}</td>
+                        <td class="text-primary fw-bold">{{ forloop.counter }}</td>
+                        <td>{{ venta.agente }}</td>
                         <td>{{ venta.cliente }}</td>
                         <td>{{ venta.segmento }}</td>
-                        <td>{{ venta.agente }}</td>
                         <td>${{ venta.cotizacion }}</td>
-                        <td>{{ venta.descripcion }}</td>
-                        <td>{{ venta.clasificacion }}</td>
                         <td>{{ venta.orden_compra }}</td>
                         <td>{{ venta.fecha_orden_compra }}</td>
                         <td>
-                            <a href="{% url 'detalles' venta.id %}" data-id="{{venta.id}}" class="btn btn-info">Detalles</a>
+                            <a href="{% url 'detalles' venta.id %}" class="btn btn-info">Detalles</a>
                         </td>
                     </tr>
                     {% endfor %}

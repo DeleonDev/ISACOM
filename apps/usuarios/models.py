@@ -8,7 +8,7 @@ from apps.usuarios.options import *
 # TODO: Reestructurar el modelo de Cliente
 # * Agente
 class Agente(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Usuario')
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Usuario', editable=False)
     curp = models.CharField(max_length=18, verbose_name='CURP')
     grado_estudio = models.CharField(max_length=100, verbose_name='Grado de estudio')
     rfc = models.CharField(max_length=13, verbose_name='RFC')
@@ -30,7 +30,7 @@ class Agente(models.Model):
 
 # * Clientes
 class Cliente(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Usuario')
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Usuario', editable=False)
     identificacion = models.CharField(max_length=18, verbose_name='CURP')
     RFC = models.CharField(max_length=13, verbose_name='RFC')
     pagina_web = models.CharField(max_length=255, verbose_name='Página Web')

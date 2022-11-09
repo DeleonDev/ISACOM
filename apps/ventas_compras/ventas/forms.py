@@ -5,7 +5,6 @@ import re
 from datetime import date
 from .models import Ventas, VentasDetalles
 
-1
 class VentasForm(forms.ModelForm):
     class Meta:
         model = Ventas
@@ -72,7 +71,9 @@ class VentasForm(forms.ModelForm):
     def clean_fecha_orden_compra(self):
         fecha_orden_compra = self.cleaned_data['fecha_orden_compra']
         if fecha_orden_compra > date.today():
-            return'La fecha de orden de compra no puede ser mayor a la fecha actual'
+            raise ValidationError(
+                _('La fecha de orden de compra no puede ser mayor a la fecha actual'),
+            )
         return fecha_orden_compra
     
     def __init__(self, *args, **kwargs):

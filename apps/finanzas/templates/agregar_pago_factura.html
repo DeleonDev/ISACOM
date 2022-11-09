@@ -14,16 +14,144 @@
     <form method="POST" action="{% url 'agregar_pago_factura' venta.id %}">
         {% csrf_token %} {{ form.non_field_errors }}
         <div class="card-body">
-            {% for field in form %}
-            <div class="form-group mt-2">
-                {{ field.label_tag }}
-                {{ field }}
-                {{ field.errors }}
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <div class="form-group">
+                        {{ form.comision.label_tag }}
+                        {{ form.comision }}
+                        {% if form.comision.errors %}
+                        <ul>
+                            {% for error in form.comision.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="col-md-5 mb-4">
+                    <div class="form-group">
+                        {{ form.factura.label_tag }}
+                        {{ form.factura }}
+                        {% if form.factura.errors %}
+                        <ul>
+                            {% for error in form.factura.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="form-group">
+                        {{ form.fecha_factura.label_tag }}
+                        {{ form.fecha_factura }}
+                        {% if form.fecha_factura.errors %}
+                        <ul>
+                            {% for error in form.fecha_factura.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <div class="form-group">
+                        {{ form.monto_USD.label_tag }}
+                        {{ form.monto_USD }}
+                        {% if form.monto_USD.errors %}
+                        <ul>
+                            {% for error in form.monto_USD.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <div class="form-group">
+                        {{ form.monto_MN.label_tag }}
+                        {{ form.monto_MN }}
+                        {% if form.monto_MN.errors %}
+                        <ul>
+                            {% for error in form.monto_MN.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="form-group">
+                        {{ form.incentivo.label_tag }}
+                        {{ form.incentivo }}
+                        {% if form.incentivo.errors %}
+                        <ul>
+                            {% for error in form.incentivo.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="form-group">
+                        {{ form.tipo_cambio_factura.label_tag }}
+                        {{ form.tipo_cambio_factura }}
+                        {% if form.tipo_cambio_factura.errors %}
+                        <ul>
+                            {% for error in form.tipo_cambio_factura.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="form-group">
+                        {{ form.tipo_cambio_oc.label_tag }}
+                        {{ form.tipo_cambio_oc }}
+                        {% if form.tipo_cambio_oc.errors %}
+                        <ul>
+                            {% for error in form.tipo_cambio_oc.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="form-group">
+                        {{ form.importe_USD.label_tag }}
+                        {{ form.importe_USD }}
+                        {% if form.importe_USD.errors %}
+                        <ul>
+                            {% for error in form.importe_USD.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="form-group">
+                        {{ form.concepto.label_tag }}
+                        {{ form.concepto }}
+                        {% if form.concepto.errors %}
+                        <ul>
+                            {% for error in form.concepto.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                    </div>
+                </div>
             </div>
-            {% endfor %}
         </div>
-        <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Guardar</button>
+        <div class="card-footer d-flex justify-content-center">
+            <button type="submit" class="btn btn-success">Guardar</button>
         </div>
     </form>
 </div>
@@ -39,9 +167,10 @@
                     <tr>
                         <th class="border-0 rounded-start">#</th>
                         <th class="border-0">Importe</th>
-                        <th class="border-0">Tipo cambio MN</th>
+                        <th class="border-0">Tipo Cambio MN</th>
                         <th class="border-0">Concepto</th>
                         <th class="border-0">Fecha Pago</th>
+                        <th class="border-0">Fecha Factura</th>
                         <th class="border-0 rounded-end">Acciones</th>
                     </tr>
                 </thead>
@@ -52,13 +181,21 @@
                         <td>${{ pago.importe_USD }}</td>
                         <td>${{ pago.tipo_cambio_factura }}</td>
                         <td>{{ pago.concepto }}</td>
-                        <td><strong class="text-warning"><small>Preguntar</small></strong></td>
+                        <td>{{ pago.fecha_pago }}</td>
+                        <td>{{ pago.fecha_factura|default_if_none:"No se ha agregado factura" }}</td>
                         <td>
-                            <a href="{% url 'detalles' venta.id %}" class="btn btn-info">Detalles</a>
-                            <button type="button" class="btn btn-info btn-factura" data-url="{% url 'cargar_factura' venta.id %}">
+                            <a href="{% url 'detalles' pago.id %}" class="btn btn-info">Detalles</a>
+                            {% if pago.factura %}
+                            <a href="{{pago.factura}}" class="btn btn-info" target="_blank">
+                                <i class="fas fa-eye mr-2"></i>
+                                Ver Factura
+                            </a>
+                            {% else %}
+                            <button type="button" class="btn btn-info btn-factura" data-url="{% url 'cargar_factura' pago.id %}">
                                 <i class="fas fa-file-upload mr-2"></i>
                                 Cargar Factura
                             </button>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
@@ -68,11 +205,11 @@
     </div>
     <div class="card-footer">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 mb-4">
                 <h4 class="fs-5 fw-bold mb-0">Total: ${{ venta.cotizacion }} USD</h4>
             </div>
-            <div class="col-md-6">
-                <h4 class="fs-5 fw-bold mb-0">Saldo: ${{ saldo_restante }} USD</h4>
+            <div class="col-md-6 mb-4">
+                <h4 class="fs-5 fw-bold mb-0">Saldo restante: ${{ saldo_restante }} USD</h4>
             </div>
         </div>
     </div>

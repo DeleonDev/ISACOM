@@ -49,7 +49,7 @@ class Ventas(models.Model):
     segmento = models.CharField(choices=segment_options(), max_length=50, default=None, verbose_name='segmento')
     estado = models.CharField(max_length=50, verbose_name='Estado', default=None, choices=states)
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Agente')
-    cotizacion = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Cotización', editable=False)
+    cotizacion = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Cotización')
     descripcion = models.TextField(verbose_name='Descripción')
     clasificacion = models.CharField(choices=clasification_options(), max_length=50, default=None, verbose_name='Clasificación')
     orden_compra = models.CharField(max_length=50, verbose_name='Orden de compra')
@@ -65,7 +65,9 @@ class Ventas(models.Model):
     
 class VentasDetalles(models.Model):
     concepto = models.CharField(max_length=50, verbose_name='Concepto')
-    factura = models.FileField(upload_to="facturas/", verbose_name='Factura', blank=True, null=True)  
+    fecha_pago = models.DateField(verbose_name='Fecha de pago', editable=False, null=True)
+    factura = models.FileField(verbose_name='Factura', editable=False, null=True)
+    fecha_factura = models.DateField(verbose_name='Fecha de factura', editable=False, blank=True, null=True)
     monto_USD = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Monto en USD')
     monto_MN = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Monto en MN')
     incentivo = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Incentivo')
