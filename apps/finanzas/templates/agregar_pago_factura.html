@@ -55,7 +55,8 @@
                         <td><strong class="text-warning"><small>Preguntar</small></strong></td>
                         <td>
                             <a href="{% url 'detalles' venta.id %}" class="btn btn-info">Detalles</a>
-                            <button type="button" class="btn btn-info btn-factura" data-toggle="modal" data-id="{{ venta.id }}" data-target="cargar_factura">
+                            <button type="button" class="btn btn-info btn-factura" data-url="{% url 'cargar_factura' venta.id %}">
+                                <i class="fas fa-file-upload mr-2"></i>
                                 Cargar Factura
                             </button>
                         </td>
@@ -76,15 +77,14 @@
         </div>
     </div>
 </div>
+
 <!-- modal -->
 <div class="modal fade" id="cargar_factura">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            
         </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 {% endblock content %}
 
@@ -103,12 +103,11 @@
     });
     
     $('.btn-factura').on('click',function(){
-        var id = $(this).data('id');
+        let url = $(this).data('url');
         $.ajax({
-            url: "/finanzas/agregar-pago-factura/cargar-factura/" + id,
+            url: url,
             type: "get",
             success: function (data) {
-    
                 $('#cargar_factura .modal-content').html(data);
                 $('#cargar_factura').modal("show");
             },

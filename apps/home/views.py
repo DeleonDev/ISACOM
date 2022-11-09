@@ -17,24 +17,22 @@ def index(request):
     ultimo_dia = datetime.date(datetime.date.today().year, 12, 31)
     
     detalle_ventas = VentasDetalles.objects.filter(
-        fecha_factura__range=(primer_dia, ultimo_dia)
+        venta__fecha_orden_compra__range=(primer_dia, ultimo_dia)
     )
     
     # ? Ventas anuales
     ventas_anuales = detalle_ventas \
-        .annotate(mes=ExtractMonth('fecha_factura')) \
+        .annotate(mes=ExtractMonth('venta__fecha_orden_compra')) \
         .values('mes') \
         .annotate(total=Sum('monto_USD')) \
         .order_by('mes')
-    
-    
+        
     # ? Ventas por clasificacion
     ventas_clasificacion = detalle_ventas \
         .values('venta__clasificacion') \
         .annotate(total=Sum('monto_USD'), cantidad=Count('venta__clasificacion')) \
     
     total_ventas_clasificacion = detalle_ventas.aggregate(total=Sum('monto_USD'), cantidad=Count('venta__clasificacion'))
-
 
     # ? Ventas por segmento
     ventas_segmento = detalle_ventas \
@@ -48,7 +46,7 @@ def index(request):
             total=Sum('monto_USD'),
             cantidad=Count('venta'),
             promedio=Sum('monto_USD') / Count('venta')
-        ) \
+        )
         
     context = {
         'segment': 'index',
