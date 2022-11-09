@@ -14,8 +14,8 @@
     <form method="POST" action="{% url 'agregar_pago_factura' venta.id %}">
         {% csrf_token %} {{ form.non_field_errors }}
         <div class="card-body">
-            <div class="row mb-4">
-                <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-3 mb-4">
                     <div class="form-group">
                         {{ form.comision.label_tag }}
                         {{ form.comision }}
@@ -29,7 +29,7 @@
 
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-5 mb-4">
                     <div class="form-group">
                         {{ form.factura.label_tag }}
                         {{ form.factura }}
@@ -42,7 +42,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-4">
                     <div class="form-group">
                         {{ form.fecha_factura.label_tag }}
                         {{ form.fecha_factura }}
@@ -55,10 +55,7 @@
                         {% endif %}
                     </div>
                 </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-md-2">
+                <div class="col-md-2 mb-4">
                     <div class="form-group">
                         {{ form.monto_USD.label_tag }}
                         {{ form.monto_USD }}
@@ -71,7 +68,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 mb-4">
                     <div class="form-group">
                         {{ form.monto_MN.label_tag }}
                         {{ form.monto_MN }}
@@ -84,7 +81,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-4">
                     <div class="form-group">
                         {{ form.incentivo.label_tag }}
                         {{ form.incentivo }}
@@ -97,7 +94,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-4">
                     <div class="form-group">
                         {{ form.tipo_cambio_factura.label_tag }}
                         {{ form.tipo_cambio_factura }}
@@ -110,10 +107,7 @@
                         {% endif %}
                     </div>
                 </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-md-6">
+                <div class="col-md-4 mb-4">
                     <div class="form-group">
                         {{ form.tipo_cambio_oc.label_tag }}
                         {{ form.tipo_cambio_oc }}
@@ -126,7 +120,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4 mb-4">
                     <div class="form-group">
                         {{ form.importe_USD.label_tag }}
                         {{ form.importe_USD }}
@@ -140,10 +134,24 @@
 
                     </div>
                 </div>
+                <div class="col-md-4 mb-4">
+                    <div class="form-group">
+                        {{ form.concepto.label_tag }}
+                        {{ form.concepto }}
+                        {% if form.concepto.errors %}
+                        <ul>
+                            {% for error in form.concepto.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Guardar</button>
+        <div class="card-footer d-flex justify-content-center">
+            <button type="submit" class="btn btn-success">Guardar</button>
         </div>
     </form>
 </div>
@@ -158,12 +166,11 @@
                 <thead class="thead-light">
                     <tr>
                         <th class="border-0 rounded-start">#</th>
-                        <th class="border-0">Fecha</th>
-                        <th class="border-0">Factura</th>
                         <th class="border-0">Importe</th>
-                        <th class="border-0">Tipo cambio MN</th>
+                        <th class="border-0">Tipo Cambio MN</th>
                         <th class="border-0">Concepto</th>
                         <th class="border-0">Fecha Pago</th>
+                        <th class="border-0">Fecha Factura</th>
                         <th class="border-0 rounded-end">Acciones</th>
                     </tr>
                 </thead>
@@ -171,18 +178,24 @@
                     {% for pago in historial_pagos %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ pago.fecha_factura }}</td>
-                        <td>{{ pago.factura }}</td>
                         <td>${{ pago.importe_USD }}</td>
                         <td>${{ pago.tipo_cambio_factura }}</td>
                         <td>{{ pago.concepto }}</td>
-                        <td><strong class="text-warning"><small>Preguntar</small></strong></td>
+                        <td>{{ pago.fecha_pago }}</td>
+                        <td>{{ pago.fecha_factura|default_if_none:"No se ha agregado factura" }}</td>
                         <td>
-                            <a href="{% url 'generar_pdf' pago.factura %}" type="button" class="btn btn-info">
-                                <i class="icon icon-xxs me-2 fa fa-file-pdf"></i>
-                                Descargar Factura
+                            <a href="{% url 'detalles' pago.id %}" class="btn btn-info">Detalles</a>
+                            {% if pago.factura %}
+                            <a href="{{pago.factura}}" class="btn btn-info" target="_blank">
+                                <i class="fas fa-eye mr-2"></i>
+                                Ver Factura
                             </a>
-                            <a href="{% url 'detalles' venta.id %}" class="btn btn-info">Detalles</a>
+                            {% else %}
+                            <button type="button" class="btn btn-info btn-factura" data-url="{% url 'cargar_factura' pago.id %}">
+                                <i class="fas fa-file-upload mr-2"></i>
+                                Cargar Factura
+                            </button>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
@@ -192,15 +205,24 @@
     </div>
     <div class="card-footer">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 mb-4">
                 <h4 class="fs-5 fw-bold mb-0">Total: ${{ venta.cotizacion }} USD</h4>
             </div>
-            <div class="col-md-6">
-                <h4 class="fs-5 fw-bold mb-0">Saldo: ${{ saldo_restante }} USD</h4>
+            <div class="col-md-6 mb-4">
+                <h4 class="fs-5 fw-bold mb-0">Saldo restante: ${{ saldo_restante }} USD</h4>
             </div>
         </div>
     </div>
 </div>
+
+<!-- modal -->
+<div class="modal fade" id="cargar_factura">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
 {% endblock content %}
 
 {% block javascripts %}
@@ -215,6 +237,18 @@
             noRows: "No hay registros",
             info: "Mostrando {start} a {end} de {rows} registros",
         },
+    });
+    
+    $('.btn-factura').on('click',function(){
+        let url = $(this).data('url');
+        $.ajax({
+            url: url,
+            type: "get",
+            success: function (data) {
+                $('#cargar_factura .modal-content').html(data);
+                $('#cargar_factura').modal("show");
+            },
+        });
     });
 </script>
 {% endblock javascripts %}

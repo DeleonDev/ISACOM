@@ -27,7 +27,7 @@
                         <td class="d-none d-md-table-cell d-lg-table-cell d-xl-table-cell">{{ venta.cliente.RFC }}</td>
                         <td>{{ venta.orden_compra }}</td>
                         <td>
-                            <a href="{% url 'agregar_pago_factura' venta.id %}" class="btn btn-primary d-inline-flex align-items-center">
+                            <a href="{% url 'agregar_pago_factura' venta.id %}" class="btn btn-info d-inline-flex align-items-center">
                                 <i class="icon icon-xxs me-2 fa fa-plus"></i>
                                 Agregar pago a factura
                             </a>

@@ -1,9 +1,13 @@
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+import datetime
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from apps.finanzas.generar_pdf import pdf_create
 from apps.ventas_compras.ventas.forms import DetallesVentasForm
 from apps.ventas_compras.ventas.models import Ventas, VentasDetalles
+from django.db import transaction
 from django.db.models import Sum
+from django.core.files.storage import FileSystemStorage
+from django.views.decorators.csrf import requires_csrf_token
+
 
 # Create your views here.
 def finanzas(request):
@@ -23,7 +27,7 @@ def agregar_pago_factura(request, orden_compra_id):
     venta_detalles = VentasDetalles.objects
     
     historial_pagos = venta_detalles.filter(venta_id=orden_compra_id) \
-        .order_by('fecha_factura')
+        .order_by('comision')
     
     saldo_restante = venta_detalles.filter(venta_id=orden_compra_id) \
         .aggregate(total=venta.cotizacion-Sum('importe_USD'))['total']
@@ -33,12 +37,14 @@ def agregar_pago_factura(request, orden_compra_id):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.venta_id = orden_compra_id
+            instance.fecha_pago = datetime.date.today()
             instance.save()
             messages.success(request, 'Pago registrado con éxito')
             return redirect('agregar_pago_factura', orden_compra_id)
         else:
+            print(form.errors)
             messages.error(request, 'Ha ocurrido un error al registrar el pago')
-            return redirect('agregar_pago_factura', orden_compra_id)
+            # return redirect('agregar_pago_factura', orden_compra_id)
     
     context = {
         'segment': 'finanzas',
@@ -50,22 +56,26 @@ def agregar_pago_factura(request, orden_compra_id):
     
     return render(request, 'agregar_pago_factura.html', context)
 
-
-def generar_pdf(self, factura):
-    templat_route = 'apps/finanzas/templates/documentos/factura_pdf.html'
-    output_path = 'static/ubicacion_pdf/factura.pdf'
-    m_top, m_right, m_bottom, m_left = '10.0mm', '10.0mm', '10.0mm', '10.0mm'
-
-    route = pdf_create(
-        templat_route,
-        output_path,
-        m_top=m_top,
-        m_right=m_right,
-        m_bottom=m_bottom,
-        m_left=m_left
-    )
-
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename=Factura_{factura}.pdf'
-    response.write(open(route, 'rb').read())
-    return response
+@transaction.atomic
+@requires_csrf_token
+def cargar_factura(request, id):
+    venta_detalle = get_object_or_404(VentasDetalles, id=id)
+    if request.method == 'POST' and request.FILES['factura']:
+        try:
+            with transaction.atomic():
+                myfile = request.FILES['factura']
+                fs = FileSystemStorage()
+                filename = fs.save(myfile.name, myfile)
+                uploaded_file_url = fs.url(filename)
+                # update or create
+                VentasDetalles.objects.update_or_create(
+                    id=id,
+                    defaults={
+                        'factura': uploaded_file_url,
+                        'fecha_factura': datetime.date.today()
+                    }
+                )
+                messages.success(request, 'Factura cargada con éxito')
+        except: messages.error(request, 'Ha ocurrido un error al cargar la factura')
+        return redirect('agregar_pago_factura', venta_detalle.venta_id)
+    return render(request, 'includes/factura_modal.html', {'id': id})

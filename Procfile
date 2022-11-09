@@ -1,0 +1,1 @@
+web: python manage.py collectstatic --noinput; python manage.py makemigrations; python manage.py migrate; gunicorn ISA_COM.wsgi --workers=4 --timeout 200

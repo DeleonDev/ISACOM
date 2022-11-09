@@ -13,9 +13,12 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 import locale
+from dotenv import load_dotenv
 from django.contrib.messages import constants as messages
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -23,19 +26,19 @@ CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+@@-c1!orflj58#&&x^%*6h-i7wvf24gm)$i2^s6p@$gq1gm_('
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://isacom.up.railway.app', 'http://isacom.up.railway.app']
 
 # White listing the localhost:3000 port
 # for React
 
 # Application definition
 INSTALLED_APPS = [
-
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -76,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -87,21 +91,15 @@ WSGI_APPLICATION = 'ISA_COM.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-"""DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}"""
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Libreria para PostgreSQL
-        'NAME': 'isa_com',  # Nombre de la base de datos PostgreSQL
+        'NAME': os.getenv('NAME'),  # Nombre de la base de datos PostgreSQL
         'USER': 'postgres',  # Usuario de la base de datos PostgreSQL
-        'PASSWORD': 'admin',  # Contraseña de usuario PostgreSQL
-        'HOST': '',  # Ubicacion de la base de datos
-        
+        'PASSWORD': os.getenv('PASSWORD'),  # Contraseña de usuario PostgreSQL
+        'HOST': os.getenv('HOST'),  # Ubicacion de la base de datos
+        'PORT': os.getenv('PORT'),  # Puerto de la base de datos
     }
 }
 
@@ -153,10 +151,12 @@ locale.setlocale(locale.LC_TIME, '')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles', )
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -171,7 +171,7 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Sistema de administracion de ventas y almacenamiento",
 
     # Copyright on the footer
-    "copyright": "Inside Bussiness México",
+    "copyright": "JIRAFFE SOLUCIONES Y SERVICIOS",
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
     "user_avatar": None,
@@ -278,6 +278,6 @@ JAZZMIN_UI_TWEAKS = {
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = '193293@uptapachula.edu.mx'
-EMAIL_HOST_PASSWORD = 'UPTAP-193293'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
