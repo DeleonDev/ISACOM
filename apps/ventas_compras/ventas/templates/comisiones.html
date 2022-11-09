@@ -11,9 +11,35 @@
         <h2 class="fs-5 fw-bold mb-0">Comisiones</h2>
     </div>
     <div class="card-body">
-        <form action="">
-            
-        </form>
+        <div class="table-responsive">
+            <table class="table table-centered table-nowrap mb-0 rounded text-center" id="datatable">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="border-0 rounded-start">id</th>
+                        <th class="border-0">Agente</th>
+                        <th class="border-0">Comisión</th>
+                        <th class="border-0">Fecha</th>
+                        <th class="border-0">Venta</th>
+                        <th class="border-0 rounded-end">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for venta in ventas %}
+                    <tr>
+                        <td class="text-primary fw-bold">{{ venta.id}}</td>
+                        <td>{{ venta.cliente }}</td>
+                        <td>{{ venta.segmento }}</td>
+                        <td>{{ venta.agente }}</td>
+                        <td>${{ venta.cotizacion }}</td>
+                        <td>{{ venta.descripcion }}</td>
+                        <td>
+                            <a data-id="{{venta.id}}" class="btn btn-info">Calcular comisión</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock content %}
 
