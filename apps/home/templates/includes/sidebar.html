@@ -147,6 +147,25 @@
           <span class="sidebar-text">Usuarios</span>
         </a>
       </li>
+      {% if request.user.is_superuser %}
+      <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
+      <li class="nav-item">
+        <a href="{% url 'register' %}" class="nav-link">
+          <span class="sidebar-icon">
+            <i class="icon icon-xs fas fa-users-medical text-success"></i>
+          </span>
+          <span class="sidebar-text">Registrar usuarios</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'admin:index' %}" class="nav-link">
+          <span class="sidebar-icon">
+            <i class="icon icon-xs fas fa-users-crown text-info"></i>
+          </span>
+          <span class="sidebar-text">Administrar web</span>
+        </a>
+      </li>
+      {% endif %}
       <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
       <li class="nav-item">
         <a href="{% url 'logout' %}" class="nav-link">
