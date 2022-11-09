@@ -8,7 +8,7 @@ from django.db.models import Sum, Count
 from django.db.models.functions import ExtractMonth
 import datetime
 
-from apps.ventas_compras.ventas.models import Ventas
+from apps.ventas_compras.ventas.models import VentasDetalles
 
 
 @login_required(login_url="/login/")
@@ -24,24 +24,24 @@ def index(request):
     ventas_anuales = detalle_ventas \
         .annotate(mes=ExtractMonth('venta__fecha_orden_compra')) \
         .values('mes') \
-        .annotate(total=Sum('cotizacion')) \
+        .annotate(total=Sum('venta__cotizacion')) \
         .order_by('mes')
         
     # ? Ventas por clasificacion
     ventas_clasificacion = detalle_ventas \
-        .values('clasificacion') \
-        .annotate(total=Sum('cotizacion'), cantidad=Count('clasificacion')) \
+        .values('venta__clasificacion') \
+        .annotate(total=Sum('venta__cotizacion'), cantidad=Count('venta__clasificacion')) \
     
-    total_ventas_clasificacion = detalle_ventas.aggregate(total=Sum('cotizacion'), cantidad=Count('clasificacion'))
+    total_ventas_clasificacion = detalle_ventas.aggregate(total=Sum('venta__cotizacion'), cantidad=Count('venta__clasificacion'))
 
     # ? Ventas por segmento
     ventas_segmento = detalle_ventas \
-        .values('segmento') \
-        .annotate(total=Sum('cotizacion'), cantidad=Count('segmento'))
+        .values('venta__segmento') \
+        .annotate(total=Sum('venta__cotizacion'), cantidad=Count('venta__segmento'))
         
     # ? Ventas por vendedor
     ventas_vendedor = detalle_ventas \
-        .values('agente') \
+        .values('venta__agente') \
         .annotate(
             total=Sum('monto_USD'),
             cantidad=Count('venta'),
