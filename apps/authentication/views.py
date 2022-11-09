@@ -38,7 +38,6 @@ def register_user(request):
         if request.method == "POST":
             form = SignUpForm(request.POST)
             if form.is_valid():
-                form.save()
                 _first_name = form.cleaned_data.get("first_name")
                 _last_name = form.cleaned_data.get("last_name")
                 _email = form.cleaned_data.get("email")
@@ -70,7 +69,7 @@ def register_user(request):
                     '''
                     success = True
 
-                    return redirect("/login/")
+                    return redirect("/register")
             else:
                 msg = 'El formulario no es válido.'
         else:
