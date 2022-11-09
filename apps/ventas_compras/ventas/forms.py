@@ -30,13 +30,13 @@ class VentasForm(forms.ModelForm):
             )
         return segmento
 
-    def clean_states(self):
-        states = self.cleaned_data['states']
-        if states == 'SELECCIONE':
+    def clean_estado(self):
+        estado = self.cleaned_data['estado']
+        if estado == 'SELECCIONE':
             raise ValidationError(
                 _('Seleccione un estado'),
             )
-        return states
+        return estado
 
     def clean_agente(self):
         agente = self.cleaned_data['agente']
@@ -79,7 +79,7 @@ class VentasForm(forms.ModelForm):
         super(VentasForm, self).__init__(*args, **kwargs)
         self.fields['cliente'].empty_label = 'SELECCIONE'
         self.fields['segmento'].empty_label = 'SELECCIONE'
-        self.fields['estados'].empty_label = 'SELECCIONE'
+        self.fields['estado'].empty_label = 'SELECCIONE'
         self.fields['agente'].empty_label = 'SELECCIONE'
         for field_name, field in self.fields.items():
             field.widget.attrs['onkeyup'] = 'javascript:this.value=this.value.toUpperCase()'
@@ -92,24 +92,10 @@ class VentasForm(forms.ModelForm):
 class DetallesVentasForm(forms.ModelForm):
     class Meta:
         model = VentasDetalles
-        fields = '__all__'
-        exclude = ['media']
-        widgets = {
-            'fecha_factura': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
-        }
-
-    def clean_comision(self):
-        comision = self.cleaned_data['comision']
-        return comision
-    
+        exclude = ['factura', 'comision']
     
     def clean_concepto(self):
         return self.cleaned_data['concepto']
-
-
-    def clean_factura(self):
-        factura = self.cleaned_data['factura']
-        return factura            
 
 
     def clean_monto_USD(self):
@@ -150,6 +136,4 @@ class DetallesVentasForm(forms.ModelForm):
             field.widget.attrs['placeholder'] = field.label
             field.widget.attrs['autocomplete'] = 'off'
             field.widget.attrs['accept'] = ''
-            if field_name in ['fecha_factura']:
-                field.widget.attrs['onkeyup'] = ''
                 

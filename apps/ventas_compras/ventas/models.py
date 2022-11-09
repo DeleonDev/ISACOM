@@ -47,9 +47,9 @@ states = [
 class Ventas(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente', serialize=False)
     segmento = models.CharField(choices=segment_options(), max_length=50, default=None, verbose_name='segmento')
-    estados = models.CharField(max_length=50, verbose_name='Estado', default=None, choices=states)
+    estado = models.CharField(max_length=50, verbose_name='Estado', default=None, choices=states)
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Agente')
-    cotizacion = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Cotización')
+    cotizacion = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Cotización', editable=False)
     descripcion = models.TextField(verbose_name='Descripción')
     clasificacion = models.CharField(choices=clasification_options(), max_length=50, default=None, verbose_name='Clasificación')
     orden_compra = models.CharField(max_length=50, verbose_name='Orden de compra')
@@ -64,7 +64,7 @@ class Ventas(models.Model):
         verbose_name_plural = 'Ventas'
     
 class VentasDetalles(models.Model):
-    comision = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Comisión')
+    comision = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Comisión', editable=False, default=0)
     concepto = models.CharField(max_length=50, verbose_name='Concepto')
     factura = models.FileField(upload_to="documentos/", verbose_name='Factura', blank=True, null=True)  
     monto_USD = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Monto en USD')
