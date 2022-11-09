@@ -68,13 +68,10 @@ def register_user(request):
                     <h5>Contrasena: <strong>"{_password}"</strong></h5>
                     '''
                     success = True
-
-                    return redirect("/register")
             else:
                 msg = 'El formulario no es válido.'
         else:
             form = SignUpForm()
-
         return render(request, "registration/register.html", {"form": form, "msg": msg, "success": success})
     else: return redirect('/')
 
