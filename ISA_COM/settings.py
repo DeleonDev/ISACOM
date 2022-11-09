@@ -15,6 +15,7 @@ import os
 import locale
 from dotenv import load_dotenv
 from django.contrib.messages import constants as messages
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, '.env'))
@@ -78,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -96,8 +98,8 @@ DATABASES = {
         'NAME': os.getenv('NAME'),  # Nombre de la base de datos PostgreSQL
         'USER': 'postgres',  # Usuario de la base de datos PostgreSQL
         'PASSWORD': os.getenv('PASSWORD'),  # Contraseña de usuario PostgreSQL
-        # 'HOST': os.getenv('HOST'),  # Ubicacion de la base de datos
-        # 'PORT': os.getenv('PORT'),  # Puerto de la base de datos
+        'HOST': os.getenv('HOST'),  # Ubicacion de la base de datos
+        'PORT': os.getenv('PORT'),  # Puerto de la base de datos
     }
 }
 
@@ -169,7 +171,7 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Sistema de administracion de ventas y almacenamiento",
 
     # Copyright on the footer
-    "copyright": "Inside Bussiness México",
+    "copyright": "JIRAFFE SOLUCIONES Y SERVICIOS",
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
     "user_avatar": None,

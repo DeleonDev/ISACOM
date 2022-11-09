@@ -66,7 +66,7 @@ class Ventas(models.Model):
 class VentasDetalles(models.Model):
     comision = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Comisión', editable=False, default=0)
     concepto = models.CharField(max_length=50, verbose_name='Concepto')
-    factura = models.FileField(upload_to="documentos/", verbose_name='Factura', blank=True, null=True)  
+    factura = models.FileField(upload_to="facturas/", verbose_name='Factura', blank=True, null=True)  
     monto_USD = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Monto en USD')
     monto_MN = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Monto en MN')
     incentivo = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Incentivo')
