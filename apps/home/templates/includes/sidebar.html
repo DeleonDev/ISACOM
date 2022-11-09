@@ -144,6 +144,25 @@
           <span class="sidebar-text">Usuarios</span>
         </a>
       </li>
+      {% if request.user.is_superuser %}
+      <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
+      <li class="nav-item">
+        <a href="{% url 'register' %}" class="nav-link">
+          <span class="sidebar-icon">
+            <i class="icon icon-xs fa fa-user-plus text-success"></i>
+          </span>
+          <span class="sidebar-text">Registro de personal</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'admin:index' %}" class="nav-link">
+          <span class="sidebar-icon">
+            <i class="icon icon-xs fa-solid fa-toolbox text-info"></i>
+          </span>
+          <span class="sidebar-text">Administrar web</span>
+        </a>
+      </li>
+      {% endif %}
       <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
       <li class="nav-item">
         <a href="{% url 'logout' %}" class="nav-link">
@@ -154,7 +173,7 @@
                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
             </svg>
           </span>
-          <span class="sidebar-text">cerrar sesión</span>
+          <span class="sidebar-text">Cerrar sesión</span>
         </a>
       </li>
     </ul>

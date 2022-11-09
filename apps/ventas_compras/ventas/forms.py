@@ -94,35 +94,14 @@ class VentasForm(forms.ModelForm):
 class DetallesVentasForm(forms.ModelForm):
     class Meta:
         model = VentasDetalles
-        fields = '__all__'
-        widgets = {
-            'fecha_factura': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
-        }
-
-    def clean_comision(self):
-        comision = self.cleaned_data['comision']
-        return comision
-    
+        exclude = ['factura', 'comision']
     
     def clean_concepto(self):
         return self.cleaned_data['concepto']
 
 
-    def clean_factura(self):
-        factura = self.cleaned_data['factura']
-        
-        return factura            
-
-    def clean_fecha_factura(self):
-        fecha_factura = self.cleaned_data['fecha_factura']
-        if fecha_factura > date.today():
-            return'La fecha de factura no puede ser mayor a la fecha actual'
-        return fecha_factura
-    
-
     def clean_monto_USD(self):
         monto_USD = self.cleaned_data['monto_USD']
-       
         return monto_USD
     
     def clean_monto_MXN(self):
@@ -158,5 +137,5 @@ class DetallesVentasForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
             field.widget.attrs['placeholder'] = field.label
             field.widget.attrs['autocomplete'] = 'off'
-            if field_name in ['fecha_factura']:
-                field.widget.attrs['onkeyup'] = ''
+            field.widget.attrs['accept'] = ''
+                

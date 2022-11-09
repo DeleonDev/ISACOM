@@ -1,0 +1,15 @@
+<form action="{% url 'cargar_factura' id %}" method="get" enctype="multipart/form-data">
+    <div class="modal-header">
+        <h5 class="modal-title w-100 text-center text-uppercase" id="exampleModalLabel">Cargar Factura</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="factura">Factura</label>
+            <input type="file" class="form-control" name="factura" id="factura">
+        </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-success">Subir</button>
+    </div>
+</form>

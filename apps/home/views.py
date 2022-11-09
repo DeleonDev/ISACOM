@@ -16,25 +16,23 @@ def index(request):
     primer_dia = datetime.date(datetime.date.today().year, 1, 1)
     ultimo_dia = datetime.date(datetime.date.today().year, 12, 31)
     
-    detalle_ventas = Ventas.objects.filter(
-        fecha_orden_compra__range=(primer_dia, ultimo_dia)
+    detalle_ventas = VentasDetalles.objects.filter(
+        venta__fecha_orden_compra__range=(primer_dia, ultimo_dia)
     )
     
     # ? Ventas anuales
     ventas_anuales = detalle_ventas \
-        .annotate(mes=ExtractMonth('fecha_orden_compra')) \
+        .annotate(mes=ExtractMonth('venta__fecha_orden_compra')) \
         .values('mes') \
         .annotate(total=Sum('cotizacion')) \
         .order_by('mes')
-    
-    
+        
     # ? Ventas por clasificacion
     ventas_clasificacion = detalle_ventas \
         .values('clasificacion') \
         .annotate(total=Sum('cotizacion'), cantidad=Count('clasificacion')) \
     
     total_ventas_clasificacion = detalle_ventas.aggregate(total=Sum('cotizacion'), cantidad=Count('clasificacion'))
-
 
     # ? Ventas por segmento
     ventas_segmento = detalle_ventas \
@@ -45,8 +43,9 @@ def index(request):
     ventas_vendedor = detalle_ventas \
         .values('agente') \
         .annotate(
-            total=Sum('cotizacion'),
-            cantidad=Count('id'),
+            total=Sum('monto_USD'),
+            cantidad=Count('venta'),
+            promedio=Sum('monto_USD') / Count('venta')
         )
         
     context = {

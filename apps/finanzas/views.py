@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from apps.finanzas.generar_pdf import pdf_create
 from apps.ventas_compras.ventas.forms import DetallesVentasForm
@@ -23,7 +24,7 @@ def agregar_pago_factura(request, orden_compra_id):
     venta_detalles = VentasDetalles.objects
     
     historial_pagos = venta_detalles.filter(venta_id=orden_compra_id) \
-        .order_by('fecha_factura')
+        .order_by('comision')
     
     saldo_restante = venta_detalles.filter(venta_id=orden_compra_id) \
         .aggregate(total=venta.cotizacion-Sum('importe_USD'))['total']
@@ -70,3 +71,8 @@ def generar_pdf(self, factura):
     response['Content-Disposition'] = f'attachment; filename=Factura_{factura}.pdf'
     response.write(open(route, 'rb').read())
     return response
+
+
+def cargar_factura(request, id):
+    
+    return render(request, 'includes/factura_modal.html', {'id':id})

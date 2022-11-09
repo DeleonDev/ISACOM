@@ -3,8 +3,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect, render
 from django.shortcuts import render
 from django.db import transaction
-from apps.ventas_compras.ventas.forms import DetallesVentasForm, VentasForm
-from apps.ventas_compras.ventas.models import Ventas, VentasDetalles
+from apps.ventas_compras.ventas.forms import  VentasForm
+from apps.ventas_compras.ventas.models import Ventas
 from django.contrib import messages
 # Create your views here.
 
