@@ -169,7 +169,7 @@
         },
         xAxis: {
             categories: [
-                {% for venta in ventas_vendedor %}'{{venta.agente|agente_name}}', {% endfor %}
+                {% for venta in ventas_vendedor %}'{{venta.venta__agente|agente_name}}', {% endfor %}
             ],
             crosshair: true,
             type: 'Vendedores'
@@ -204,9 +204,9 @@
                 colorByPoint: true,
                 data: [ 
                     {% for venta in ventas_vendedor %}{
-                        name: "{{venta.agente|agente_name}}",
+                        name: "{{venta.venta__agente|agente_name}}",
                         y: {{venta.total}},
-                        z: {{venta.cantidad}},
+                        z: {{venta.cantidad}}
                     }, {% endfor %}
                 ]
             }

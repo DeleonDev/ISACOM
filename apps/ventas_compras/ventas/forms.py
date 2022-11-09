@@ -5,7 +5,6 @@ import re
 from datetime import date
 from .models import Ventas, VentasDetalles
 
-1
 class VentasForm(forms.ModelForm):
     class Meta:
         model = Ventas

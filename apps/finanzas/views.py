@@ -1,8 +1,13 @@
+import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from apps.ventas_compras.ventas.forms import DetallesVentasForm
 from apps.ventas_compras.ventas.models import Ventas, VentasDetalles
+from django.db import transaction
 from django.db.models import Sum
+from django.core.files.storage import FileSystemStorage
+from django.views.decorators.csrf import requires_csrf_token
+
 
 # Create your views here.
 def finanzas(request):
@@ -32,6 +37,7 @@ def agregar_pago_factura(request, orden_compra_id):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.venta_id = orden_compra_id
+            instance.fecha_pago = datetime.date.today()
             instance.save()
             messages.success(request, 'Pago registrado con éxito')
             return redirect('agregar_pago_factura', orden_compra_id)
@@ -50,7 +56,26 @@ def agregar_pago_factura(request, orden_compra_id):
     
     return render(request, 'agregar_pago_factura.html', context)
 
-
+@transaction.atomic
+@requires_csrf_token
 def cargar_factura(request, id):
-    
-    return render(request, 'includes/factura_modal.html', {'id':id})
+    venta_detalle = get_object_or_404(VentasDetalles, id=id)
+    if request.method == 'POST' and request.FILES['factura']:
+        try:
+            with transaction.atomic():
+                myfile = request.FILES['factura']
+                fs = FileSystemStorage()
+                filename = fs.save(myfile.name, myfile)
+                uploaded_file_url = fs.url(filename)
+                # update or create
+                VentasDetalles.objects.update_or_create(
+                    id=id,
+                    defaults={
+                        'factura': uploaded_file_url,
+                        'fecha_factura': datetime.date.today()
+                    }
+                )
+                messages.success(request, 'Factura cargada con éxito')
+        except: messages.error(request, 'Ha ocurrido un error al cargar la factura')
+        return redirect('agregar_pago_factura', venta_detalle.venta_id)
+    return render(request, 'includes/factura_modal.html', {'id': id})
