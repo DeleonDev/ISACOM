@@ -3,17 +3,11 @@
 {% block title %}Sesión cerrada{% endblock title %}
 
 {% block content %}
-<h4 class="mt-20">Sesión cerrada</h4>
+<h4 class="mt-20 text-center text-danger">Sesión cerrada</h4>
 
 <div class="d-flex justify-content-center align-items-center mt-20">
     <span>
-        <a href="{% url 'login' %}" class="text-bold text-info">Volver al inicio de sesión</a>
-    </span>
-</div>
-
-<div class="d-flex justify-content-center align-items-center mt-20">
-    <span>
-        <a href="{% url 'home' %}" class="text-bold text-info mt-20">
+        <br><a href="{% url 'home' %}" class="text-bold text-info mt-20">
             <i class="fa fa-arrow-circle-left text-info"></i>
             Regresar al inicio
         </a>
