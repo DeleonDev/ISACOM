@@ -162,6 +162,16 @@
           <span class="sidebar-text">Administrar web</span>
         </a>
       </li>
+      {% elif not request.user.is_superuser %}
+      <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
+      <li class="nav-item {% if 'datos_personales' in segment %} active {% endif %}">
+        <a href="{% url 'datos_personales' %}" class="nav-link">
+          <span class="sidebar-icon">
+            <i class="icon icon-xs fa-solid fa-address-card me-2"></i>
+          </span>
+          <span class="sidebar-text">Datos personales</span>
+        </a>
+      </li>
       {% endif %}
       <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
       <li class="nav-item">
