@@ -1,6 +1,7 @@
 import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.urls import reverse_lazy
 from apps.ventas_compras.ventas.forms import DetallesVentasForm
 from apps.ventas_compras.ventas.models import Ventas, VentasDetalles
 from django.db import transaction
@@ -79,3 +80,30 @@ def cargar_factura(request, id):
         except: messages.error(request, 'Ha ocurrido un error al cargar la factura')
         return redirect('agregar_pago_factura', venta_detalle.venta_id)
     return render(request, 'includes/factura_modal.html', {'id': id})
+
+
+
+def ventas_detalles(request, id):
+    ventas_detalles = get_object_or_404(VentasDetalles, id=id)
+    print(ventas_detalles.id)
+    if request.method == 'POST':
+        form = DetallesVentasForm(request.POST, instance=ventas_detalles)
+        if form.is_valid():
+            with transaction.atomic():
+                instance = form.save(commit=False)
+                instance.venta_id = ventas_detalles.venta_id
+                instance.save()
+                messages.success(request, 'Registro exitoso')
+                return redirect('ventas_detalles', id)
+        else:
+            print(form.errors)
+            messages.error(request, 'Error al registrar')
+    else:
+        form = DetallesVentasForm(instance=ventas_detalles)
+        print(form)
+        
+    context = {
+        'id': id,
+        'form': form,
+    }
+    return render(request, 'detalles_finanza.html', context)

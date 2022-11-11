@@ -3,11 +3,10 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect, render
 from django.shortcuts import render
 from django.db import transaction
-from apps.ventas_compras.ventas.forms import  VentasForm
-from apps.ventas_compras.ventas.models import Ventas, VentasDetalles
+from apps.ventas_compras.ventas.forms import VentasForm
+from apps.ventas_compras.ventas.models import Ventas
 from django.contrib import messages
 import os
-from django.db.models import Sum
 # Create your views here.
 
 
@@ -54,5 +53,13 @@ def registro(request):
     return render(request, 'nuevo_registro.html', {'form': form})
 
 
-def comisiones (request):
+def comisiones(request):
+    venta = float(input('Ingresa el valor de venta: '))
+    if venta >= 200000:
+        comision = venta*0.07
+    else:
+        comision = venta*0.02
+    print('Valor de comision: ' + repr(comision))
+    print()
+    os.system('pause')
     return render(request, 'comisiones.html')
