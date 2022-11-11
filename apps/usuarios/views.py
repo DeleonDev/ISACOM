@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.db import transaction
 from django.contrib import messages
 from django.views.decorators.csrf import requires_csrf_token
-from django.contrib.auth.models import User, Group
-from apps.usuarios.models import Trabajadores
-from .forms import DatosPersonalesForm
+from django.contrib.auth.models import User
+from apps.usuarios.models import Trabajadores, Cliente
+from .forms import ClienteForm, DatosPersonalesForm
 
 # Create your views here.
 def usuarios(request):
@@ -14,6 +14,57 @@ def usuarios(request):
     context = {'usuarios': usuarios}
     
     return render(request, 'usuarios.html', context)
+
+
+def clientes(request):
+    clientes = Cliente.objects.filter(agente__usuario=request.user)
+    
+    context = {'clientes': clientes}
+    
+    return render(request, 'clientes.html', context)
+
+
+def agregar_cliente(request):
+    user = request.user
+    agente = get_object_or_404(Trabajadores, usuario=user)
+    form = ClienteForm()
+    
+    if request.method == 'POST':
+        form = ClienteForm(request.POST, instance=Cliente())
+        if form.is_valid():
+            try:
+                with transaction.atomic():
+                    instance = form.save(commit=False)
+                    instance.agente = agente
+                    instance.save()
+                messages.success(request, 'Cliente agregado correctamente')
+                return redirect(reverse_lazy('clientes'))
+            except Exception as e:
+                print(form.errors, e)
+                messages.error(request, 'Error al agregar cliente')
+    
+    context = {'form': form}
+    return render(request, 'agregar_cliente.html', context)
+
+
+def editar_cliente(request, id):
+    cliente = get_object_or_404(Cliente, id=id)
+    form = ClienteForm(instance=cliente)
+    
+    if request.method == 'POST':
+        form = ClienteForm(request.POST, instance=cliente)
+        if form.is_valid():
+            try:
+                with transaction.atomic():
+                    form.save()
+                messages.success(request, 'Cliente actualizado correctamente')
+                return redirect(reverse_lazy('clientes'))
+            except Exception as e:
+                print(form.errors, e)
+                messages.error(request, 'Error al actualizar cliente')
+    
+    context = {'form': form}
+    return render(request, 'editar_cliente.html', context)
 
 
 @requires_csrf_token

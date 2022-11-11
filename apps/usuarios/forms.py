@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 import re
-from .models import Trabajadores
+from .models import Trabajadores, Cliente
 
 class DatosPersonalesForm(forms.ModelForm):
     class Meta:
@@ -81,3 +81,38 @@ class DatosPersonalesForm(forms.ModelForm):
             field.widget.attrs['onkeyup'] = ''
         if field_name in ['numero_exterior']:
             field.widget.attrs['required'] = ''
+
+
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = Cliente
+        fields = '__all__'
+        
+    def clean_nombre(self):
+        return self.cleaned_data['nombre']
+    
+    def clean_regimen(self):
+        regimen = self.cleaned_data['regimen']
+        if regimen == 'SELECCIONE':
+            raise ValidationError(
+                _('Seleccione un régimen'),
+            )
+        return regimen
+
+    def clean_rfc(self):
+        rfc = self.cleaned_data['rfc']
+        if not re.match(r'^[A-Z]{4}[0-9]{6}[A-Z,0-9]{3}$', rfc):
+            raise ValidationError(
+                _('Ingrese un RFC válido'),
+            )
+        return rfc
+    
+    
+    def __init__(self, *args, **kwargs):
+        super(ClienteForm, self).__init__(*args, **kwargs)
+        self.fields['regimen'].empty_label = 'SELECCIONE'
+        for field_name, field in self.fields.items():
+            field.widget.attrs['onkeyup'] = 'javascript:this.value=this.value.toUpperCase()'
+            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['autocomplete'] = 'off'
+            field.widget.attrs['placeholder'] = field.label

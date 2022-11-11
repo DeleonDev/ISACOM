@@ -1,6 +1,6 @@
 from django.db import models
-
 from apps.usuarios.models import Trabajadores, Cliente
+
 from apps.ventas_compras.ventas.options import segment_options
 from apps.usuarios.options import *
 

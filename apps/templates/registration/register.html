@@ -19,9 +19,7 @@
 </div>
 
 <form method="post" action="" class="mt-4">
-
     {% csrf_token %}
-
     <div class="form-group mb-4">
         <label for="email">Nombre(s)</label>
         <div class="input-group">
@@ -83,7 +81,8 @@
     </div>
     <!-- Rol -->
     <div class="form-group mb-4">
-        <label> <small class="text-info">Clic en el campo para desplegar roles <i class="fa fa-sort-down"></i></small></label>
+        <label>Rol <small class="text-info">Clic en el campo para desplegar roles <i
+                    class="fa fa-sort-down"></i></small></label>
         <select name="rol" class="form-control" id="rol" required>
             <option value="AGENTE">AGENTE</option>
             <option value="ADMINISTRADOR">ADMINISTRADOR</option>
@@ -95,7 +94,7 @@
         </select>
     </div>
     <!-- ./Rol -->
-    
+
     <div class="d-grid">
         <button type="submit" name="register" class="btn btn-gray-800">Registrar Usuario</button>
         <a href="{% url 'home' %}" class="text-bold text-info text-center mt-4">
