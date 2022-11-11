@@ -1,137 +1,109 @@
-{% extends "layouts/base-fullscreen.html" %}
+{% extends "layouts/base-fullscreen.html" %} {% load static %}
 
-{% load static %}
-
-{% block title %} Registrarse {% endblock %}
-
-
-{% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
+<div class="text-center text-md-center mb-4 mt-md-0">
+    <h1 class="mb-0 h3">
+        Registrar personal de trabajo
+    </h1>
+    <br />
+    <p>
+        {% if msg %}
+        <span class="text-danger">
+            {{ msg | safe }}
+        </span>
+        {% else %}
+        Ingrese los datos
+        {% endif %}
+    </p>
+</div>
 
-<main>
-    <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
-        <div class="container">
+<form method="post" action="" class="mt-4">
 
-         
-                        <div class="text-center text-md-center mb-4 mt-md-0">
-                            <h1 class="mb-0 h3">
-                                Registrarse
-                            </h1>
-                            <br />
-                            <p>
-                                {% if msg %}
-                                {{ msg | safe }}
-                                {% else %}
-                                
-                                {% endif %}
-                            </p>
-                        </div>
+    {% csrf_token %}
 
-                        {% if success %}
+    <div class="form-group mb-4">
+        <label for="email">Nombre(s)</label>
+        <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">
+                <span class="fas fa-user-circle"></span>
+            </span>
+            {{ form.first_name }}
+        </div>
+        <span class="text-danger">{{ form.first_name.errors }}</span>
+    </div>
 
-                        <div class="d-grid">
-                            <a href="{% url 'login' %}" class="btn btn-gray-800">Iniciar sesión</a>
-                        </div>
+    <div class="form-group mb-4">
+        <label for="email">Apellido(s)</label>
+        <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">
+                <span class="fas fa-user-circle"></span>
+            </span>
+            {{ form.last_name }}
+        </div>
+        <span class="text-danger">{{ form.last_name.errors }}</span>
+    </div>
 
-                        {% else %}
+    <!-- Form -->
+    <div class="form-group mb-4">
+        <label for="email">Correo electronico</label>
+        <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">
+                <span class="fas fa-envelope"></span>
+            </span>
+            {{ form.email }}
+        </div>
+        <span class="text-danger">{{ form.email.errors }}</span>
+    </div>
+    <!-- End of Form -->
+    <div class="form-group">
 
-                        <form method="post" action="" class="mt-4">
+        <!-- Form -->
+        <div class="form-group mb-4" hidden>
+            <label for="password">Contraseña</label>
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon2">
+                    <span class="fas fa-unlock-alt"></span>
+                </span>
+                {{ form.password1 }}
+            </div>
+            <span class="text-danger">{{ form.password1.errors }}</span>
+        </div>
+        <div class="form-group mb-4" hidden>
+            <label for="password">Confirmar Contraseña </label>
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon2">
+                    <span class="fas fa-unlock-alt"></span>
+                </span>
+                {{ form.password2 }}
+            </div>
+            <span class="text-danger">{{ form.password2.errors }}</span>
+        </div>
 
-                            {% csrf_token %}
-
-                            <div class="form-group mb-4">
-                                <label for="email">Nombre(s)</label>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1">
-                                        <span class="fas fa-user-circle"></span>
-                                    </span>
-                                    {{ form.first_name }}
-                                </div>
-                                <span class="text-danger">{{ form.first_name.errors }}</span>
-                            </div>
-
-                            <div class="form-group mb-4">
-                                <label for="email">Apellido(s)</label>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1">
-                                        <span class="fas fa-user-circle"></span>
-                                    </span>
-                                    {{ form.last_name }}
-                                </div>
-                                <span class="text-danger">{{ form.last_name.errors }}</span>
-                            </div>
-
-                            <!-- Form -->
-                            <div class="form-group mb-4">
-                                <label for="email">Correo electronico</label>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1">
-                                        <span class="fas fa-envelope"></span>
-                                    </span>
-                                    {{ form.email }}
-                                </div>
-                                <span class="text-danger">{{ form.email.errors }}</span>
-                            </div>
-                            <!-- End of Form -->
-                            <div class="form-group">
-
-                                <!-- Form -->
-                                <div class="form-group mb-4" hidden>
-                                    <label for="password">Contraseña</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text" id="basic-addon2">
-                                            <span class="fas fa-unlock-alt"></span>
-                                        </span>
-                                        {{ form.password1 }}
-                                    </div>
-                                    <span class="text-danger">{{ form.password1.errors }}</span>
-                                </div>
-                                <div class="form-group mb-4" hidden>
-                                    <label for="password">Confirmar Contraseña </label>
-                                    <div class="input-group">
-                                        <span class="input-group-text" id="basic-addon2">
-                                            <span class="fas fa-unlock-alt"></span>
-                                        </span>
-                                        {{ form.password2 }}
-                                    </div>
-                                    <span class="text-danger">{{ form.password2.errors }}</span>
-                                </div>
-
-                            </div>
-                            <!-- Rol -->
-                            <div class="form-group mb-4">
-                                <label>Rol</label>
-                                <select name="rol" class="form-control" id="rol" required>
-                                    <option value="ADMINISTRADOR">ADMINISTRADOR</option>
-                                    <option value="GERENTE">GERENTE</option>
-                                    <option value="USAURIO_VENTAS">USAURIO_VENTAS</option>
-                                    <option value="COMPRAS">COMPRAS</option>
-                                    <option value="ALMACEN">ALMACEN</option>
-                                    <option value="FINANZAS">FINANZAS</option>
-                                </select>
-                            </div>
-                            <!-- ./Rol -->
-                            
-                            <div class="d-grid">
-                                <button type="submit" name="register" class="btn btn-gray-800">Registrar Usuario</button>
-                            </div>
-                        </form>
-                        <br />
-                        <div class="d-flex justify-content-center align-items-center mt-4">
-                            <span class="fw-normal">
-                                <a href="{% url 'home' %}" class="text-bold text-info mt-20">
-                                    <i class="fa fa-arrow-circle-left text-info"></i>
-                                    Regresar al inicio
-                                </a>
-                            </span>
-                        
-                        </div>
-
-                        {% endif %}
-                    </div>
-    </section>
-</main>
+    </div>
+    <!-- Rol -->
+    <div class="form-group mb-4">
+        <label> <small class="text-info">Clic en el campo para desplegar roles <i class="fa fa-sort-down"></i></small></label>
+        <select name="rol" class="form-control" id="rol" required>
+            <option value="AGENTE">AGENTE</option>
+            <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+            <option value="GERENTE">GERENTE</option>
+            <option value="USAURIO_VENTAS">USUARIO DE VENTAS</option>
+            <option value="COMPRAS">COMPRAS</option>
+            <option value="ALMACEN">ALMACEN</option>
+            <option value="FINANZAS">FINANZAS</option>
+        </select>
+    </div>
+    <!-- ./Rol -->
+    
+    <div class="d-grid">
+        <button type="submit" name="register" class="btn btn-gray-800">Registrar Usuario</button>
+        <a href="{% url 'home' %}" class="text-bold text-info text-center mt-4">
+            <i class="fa fa-arrow-circle-left text-info"></i>
+            Regresar al inicio
+        </a>
+    </div>
+</form>
 
 {% endblock content %}
 
