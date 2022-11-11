@@ -1,6 +1,6 @@
 from django import template
 import calendar
-from apps.usuarios.models import Agente
+from apps.usuarios.models import Trabajadores
 register = template.Library()
 
 @register.filter
@@ -10,4 +10,4 @@ def month_name(month_number):
 
 @register.filter
 def agente_name(agente_id):
-    return Agente.objects.get(id=agente_id)
+    return Trabajadores.objects.get(id=agente_id)

@@ -1,39 +1,29 @@
-{% extends "layouts/base.html" %}
-
-{% load static %}
+{% extends "layouts/base.html" %} {% load static %}
 
 {% block title %}Usuarios{% endblock %}
 
-{% block stylesheets %}{% endblock stylesheets %}
 {% block content %}
-<h6>AGENTES</h6>
 <div class="card shadow">
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-centered table-nowrap mb-0 rounded text-center" id="datatable">
                 <thead class="thead-light">
                     <tr>
-                        <th class="border-0 rounded-start">id</th>
-                        <th class="border-0">AGENTE</th>
-                        <th class="border-0">CURP</th>
-                        <th class="border-0">RFC</th>
-                        <th class="border-0">GRADO DE ESTUDIOS</th>
-                        <th class="border-0">COLONIA</th>
-                        <th class="border-0">CLASIFICACIÓN</th>
-                        <th class="border-0">ORDEN DE COMPRA</th>
+                        <th class="border-0 rounded-start">#</th>
+                        <th class="border-0">Username</th>
+                        <th class="border-0">Nombre</th>
+                        <th class="border-0">Ultimo inicio de sesion</th>
+                        <th class="border-0 roundend-end">Fecha de creacion</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for usuario in usuarios %}
                     <tr>
-                        <td class="text-primary fw-bold">{{ usuario.id}}</td>
-                        <td>{{ usuario.usuario.agente }}</td>
-                        <td>{{ usuario.curp }}</td>
-                        <td>{{ usuario.rfc}}</td>
-                        <td>{{ usuario.grado_estudio }}</td>
-                        <td>{{ usuario.colonia }}</td>
-                        <td>{{ usuario.cp }}</td>
-                        <td>{{ usuario.genero }}</td>
+                        <td class="text-primary fw-bold">{{ forloop.counter }}</td>
+                        <td>{{ usuario.username}}</td>
+                        <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
+                        <td>{{ usuario.last_login|default_if_none:'No ha iniciado sesion' }}</td>
+                        <td>{{ usuario.date_joined }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

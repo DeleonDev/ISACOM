@@ -1,6 +1,6 @@
 from django.db import models
+from apps.usuarios.models import Trabajadores, Cliente
 
-from apps.usuarios.models import Agente, Cliente
 from apps.ventas_compras.ventas.options import segment_options
 from apps.usuarios.options import *
 
@@ -48,7 +48,7 @@ class Ventas(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente', serialize=False)
     segmento = models.CharField(choices=segment_options(), max_length=50, default=None, verbose_name='segmento')
     estado = models.CharField(max_length=50, verbose_name='Estado', default=None, choices=states)
-    agente = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Agente')
+    agente = models.ForeignKey(Trabajadores, limit_choices_to={'rol__name': 'AGENTE'}, on_delete=models.CASCADE, verbose_name='Agente')
     cotizacion = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Cotización')
     descripcion = models.TextField(verbose_name='Descripción')
     clasificacion = models.CharField(choices=clasification_options(), max_length=50, default=None, verbose_name='Clasificación')

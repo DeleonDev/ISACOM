@@ -1,0 +1,55 @@
+{% extends "layouts/base.html" %} {% load static %}
+
+
+{% block title %}Editar cliente: <b>{{ form.nombre.value }}</b>{% endblock title %}
+
+
+{% block breadcrumb %}
+<a href="{% url 'clientes'%}" class="btn btn-primary float-end">Regresar</a>
+{% endblock breadcrumb %}
+
+
+{% block content %}
+<div class="card border-0 shadow">
+    <form method="POST"">
+        {% csrf_token %} {{ form.non_field_errors }}
+        <div class="card-body">
+            {{ form.as_p }}
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <button id="cancel-cliente-details-edit" type="button" class="btn btn-danger" hidden>Cancelar</button>
+            <button id="save-cliente-details-edit" type="submit" class="btn btn-success" hidden>Guardar</button>
+            <button id="edit-cliente-details" type="button" class="btn btn-secondary">Editar</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+<script>
+    function disabledForm() {
+        $('#cancel-cliente-details-edit').prop('hidden', true);
+        $('#save-cliente-details-edit').prop('hidden', true);
+        $('#edit-cliente-details').prop('hidden', false);
+        $('#id_nombre').prop('disabled', true);
+        $('#id_regimen').prop('disabled', true);
+        $('#id_RFC').prop('disabled', true);
+    }
+
+    $(document).ready(function () {
+        disabledForm();
+        $('#edit-cliente-details').click(function () {
+            console.log('click');
+            $('#cancel-cliente-details-edit').prop('hidden', false);
+            $('#save-cliente-details-edit').prop('hidden', false);
+            $('#edit-cliente-details').prop('hidden', true);
+            $('#id_nombre').prop('disabled', false);
+            $('#id_regimen').prop('disabled', false);
+            $('#id_RFC').prop('disabled', false);
+        });
+        $('#cancel-cliente-details-edit').click(function () {
+            disabledForm();
+        });
+    });
+</script>
+{% endblock javascripts %}

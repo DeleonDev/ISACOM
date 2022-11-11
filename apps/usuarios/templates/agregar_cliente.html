@@ -1,0 +1,26 @@
+{% extends "layouts/base.html" %} {% load static %}
+
+{% block title %}Agregar cliente{% endblock title %}
+
+{% block breadcrumb %}
+<a href="{% url 'clientes' %}" class="btn btn-primary float-end">
+    Regresar
+</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="card border-0 shadow">
+    <form method="POST" action="{% url 'agregar_cliente' %}" validate>
+        {% csrf_token %} {{ form.non_field_errors }}
+        <div class="card-body">
+            {{ form.as_p }}
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+            <button type="submit" class="btn btn-success float-end">
+                <i class="fas fa-save mr-2"></i>
+                Guardar
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
