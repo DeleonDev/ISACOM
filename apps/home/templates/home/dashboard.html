@@ -74,7 +74,7 @@
                 dataLabels: {
                     enabled: true
                 },
-                enableMouseTracking: false
+                enableMouseTracking: true
             }
         },
         series: [{
@@ -114,7 +114,7 @@
             name: 'Total',
             colorByPoint: true,
             data: [{% for venta in ventas_clasificacion %}{
-                name: '{{venta.clasificacion}}',
+                name: '{{venta.venta__clasificacion}}',
                 y: {{venta.total}},
                 z: {{venta.cantidad}}
             }, {% endfor %}]
@@ -150,7 +150,7 @@
             colorByPoint: true,
             data: [
                 {% for venta in ventas_segmento %}{
-                    name: '{{venta.segmento}}',
+                    name: '{{venta.venta__segmento}}',
                     y: {{venta.total}},
                     z: {{venta.cantidad}}
                 }, {% endfor %}

@@ -7,7 +7,7 @@
 {% endblock breadcrumb %}
 
 {% block content %}
-<div class="card border-0 shadow">
+<div class="card border-0 shadow mb-4" {% if saldo_restante <= 0 %} hidden {% endif %}>
     <div class="card-header border-bottom d-flex align-items-center justify-content-between">
         <h2 class="fs-5 fw-bold mb-0">Agregar un pago</h2>
     </div>
@@ -156,7 +156,7 @@
     </form>
 </div>
 
-<div class="card border-0 shadow mt-4">
+<div class="card border-0 shadow">
     <div class="card-header border-bottom d-flex align-items-center justify-content-between">
         <h2 class="fs-5 fw-bold mb-0">Historial de pagos</h2>
     </div>
@@ -182,7 +182,7 @@
                         <td>${{ pago.tipo_cambio_factura }}</td>
                         <td>{{ pago.concepto }}</td>
                         <td>{{ pago.fecha_pago }}</td>
-                        <td>{{ pago.fecha_factura|default_if_none:"No se ha agregado factura" }}</td>
+                        <td {%if not pago.fecha_factura%}class="text-danger"{%endif%}>{{ pago.fecha_factura|default_if_none:"No se ha agregado factura" }}</td>
                         <td>
                             <a href="{% url 'detalles' pago.id %}" class="btn btn-info">Detalles</a>
                             {% if pago.factura %}
@@ -209,7 +209,7 @@
                 <h4 class="fs-5 fw-bold mb-0">Total: ${{ venta.cotizacion }} USD</h4>
             </div>
             <div class="col-md-6 mb-4">
-                <h4 class="fs-5 fw-bold mb-0">Saldo restante: ${{ saldo_restante }} USD</h4>
+                <h4 class="fs-5 fw-bold mb-0">Saldo restante: ${{ saldo_restante|default_if_none:venta.cotizacion }} USD</h4>
             </div>
         </div>
     </div>

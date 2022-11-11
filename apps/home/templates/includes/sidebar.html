@@ -173,6 +173,16 @@
         </a>
       </li>
       {% endif %}
+      {% if user.groups.all.0.name == 'AGENTE' %}
+      <li class="nav-item">
+        <a href="{% url 'clientes' %}" class="nav-link">
+          <span class="sidebar-icon">
+            <i class="icon icon-xs fa fa-user-tag"></i>
+          </span>
+          <span class="sidebar-text">Clientes</span>
+        </a>
+      </li>
+      {% endif %}
       <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
       <li class="nav-item">
         <a href="{% url 'logout' %}" class="nav-link">

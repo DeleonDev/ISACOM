@@ -2,8 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 from apps.usuarios.options import *
 
+regimen = [
+    ('SELECCIONE', 'SELECCIONE'),
+    ('PERSONA MORAL', 'PERSONA MORAL'),
+    ('PERSONA FISICA', 'PERSONA FISICA'),
+]
 
-# ! Creacion de diccionario de estados acá
 class Trabajadores(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Usuario', editable=False)
     fecha_nacimiento = models.DateField(verbose_name='Fecha de nacimiento', blank=True, null=True)
@@ -20,7 +24,7 @@ class Trabajadores(models.Model):
     
     
     def __str__(self):
-        return  self.usuario.get_full_name()
+        return self.usuario.get_full_name()
         
     class Meta:
         db_table = "ISACOM_TRABAJADORES"
@@ -30,21 +34,21 @@ class Trabajadores(models.Model):
 
 # * Clientes
 class Cliente(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Usuario', editable=False)
-    identificacion = models.CharField(max_length=18, verbose_name='CURP')
+    nombre = models.CharField(max_length=250, verbose_name='Nombre')
+    regimen = models.CharField(choices=regimen, max_length=50, default=None, verbose_name='Regimen')
     RFC = models.CharField(max_length=13, verbose_name='RFC')
-    pagina_web = models.CharField(max_length=255, verbose_name='Página Web')
     agente = models.ForeignKey(
         Trabajadores,
         limit_choices_to={'rol__name': 'AGENTE'},
         on_delete=models.CASCADE,
         verbose_name='Agente',
         blank=True,
-        null=True
+        null=True,
+        editable=False
     )
     
     def __str__(self):
-        return self.usuario.get_full_name()
+        return self.nombre
     
     class Meta:
         db_table = "ISACOM_CLIENTE"

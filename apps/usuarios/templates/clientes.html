@@ -1,0 +1,68 @@
+{% extends "layouts/base.html" %} {% load static %}
+
+{% block title %}Mis clientes{% endblock title %}
+
+{% block breadcrumb %}
+<a href="{% url 'agregar_cliente' %}" class="btn btn-primary float-end">
+    <i class="fas fa-plus mr-2"></i>
+    Agregar cliente
+</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="card border-0 shadow">
+    <div class="card-header border-bottom d-flex align-items-center justify-content-between">
+        <h2 class="fs-5 fw-bold mb-0">Buscar para efectuar un pago</h2>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-centered table-nowrap mb-0 rounded" id="clientes">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="border-0 rounded-start">#</th>
+                        <th class="border-0">Nombre del cliente</th>
+                        <th class="border-0 d-none d-md-table-cell d-lg-table-cell d-xl-table-cell">Regimen</th>
+                        <th class="border-0 d-none d-md-table-cell d-lg-table-cell d-xl-table-cell">Rfc</th>
+                        {% if user.groups.all.0.name == 'AGENTE' %}
+                        <th class="border-0 rounded-end">Acciones</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ cliente.nombre }}</td>
+                        <td class="d-none d-md-table-cell d-lg-table-cell d-xl-table-cell">{{ cliente.regimen }}</td>
+                        <td class="d-none d-md-table-cell d-lg-table-cell d-xl-table-cell">{{ cliente.RFC }}</td>
+                        {% if user.groups.all.0.name == 'AGENTE' %}
+                        <td>
+                            <a href="{% url 'editar_cliente' cliente.id %}" class="btn btn-info d-inline-flex align-items-center">
+                                Editar
+                            </a>
+                        </td>
+                        {% endif %}              
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block javascripts %}
+<script>
+    const dataTable = new simpleDatatables.DataTable("#clientes", {
+        searchable: true,
+        fixedHeight: true,
+        sortable: false,
+        labels: {
+            placeholder: "Buscar...",
+            perPage: "{select} registros por página",
+            noRows: "No hay registros",
+            info: "Mostrando {start} a {end} de {rows} registros",
+        },
+    });
+</script>
+{% endblock javascripts %}
