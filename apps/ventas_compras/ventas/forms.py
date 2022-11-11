@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 import re
 from datetime import date
-from .models import Ventas, VentasDetalles
+from .models import ComisionesVentas, Ventas, VentasDetalles
 
 class VentasForm(forms.ModelForm):
     class Meta:
@@ -138,3 +138,38 @@ class DetallesVentasForm(forms.ModelForm):
             field.widget.attrs['autocomplete'] = 'off'
             field.widget.attrs['accept'] = ''
                 
+                
+class ComisionesForm(forms.ModelForm):
+    class Meta:
+        model = ComisionesVentas
+        fields = '__all__'
+    
+    def clean_comision(self):
+        comision = self.cleaned_data['comision']
+        return comision
+    
+    def clean_fecha_inicio(self):
+        fecha_inicio = self.cleaned_data['fecha_inicio']
+        if fecha_inicio > date.today():
+            raise ValidationError(
+                _('La fecha de inicio no puede ser mayor a la fecha actual'),
+            )
+        return fecha_inicio
+    
+    def clean_fecha_fin(self):
+        fecha_fin = self.cleaned_data['fecha_fin']
+        if fecha_fin > date.today():
+            raise ValidationError(
+                _('La fecha de fin no puede ser mayor a la fecha actual'),
+            )
+        return fecha_fin
+    
+    
+    def __init__(self, *args, **kwargs):
+        super(ComisionesForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['onkeyup'] = 'javascript:this.value=this.value.toUpperCase()'
+            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['placeholder'] = field.label
+            field.widget.attrs['autocomplete'] = 'off'
+            field.widget.attrs['accept'] = ''

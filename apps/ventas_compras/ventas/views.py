@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.shortcuts import render
 from django.db import transaction
 from apps.ventas_compras.ventas.forms import VentasForm
-from apps.ventas_compras.ventas.models import Ventas
+from apps.ventas_compras.ventas.models import ComisionesVentas, Ventas
 from django.contrib import messages
 import os
 # Create your views here.
@@ -54,12 +54,18 @@ def registro(request):
 
 
 def comisiones(request):
-    venta = float(input('Ingresa el valor de venta: '))
-    if venta >= 200000:
-        comision = venta*0.07
+    comisiones = ComisionesVentas.objects.all().order_by('fecha_inicio')
+    return render(request, 'comisiones.html', {'comisiones': comisiones})
+
+
+def comisiones_registro(request, id):
+    comision = get_object_or_404(ComisionesVentas, id=id)
+    if request.method == 'POST' and request.FILES['factura']:
+        comisiones = ComisionesVentas.objects.all().order_by('fecha_inicio')
+        if comisiones >= 200000:
+            comisiones = comisiones*0.07
+        else:
+            comisiones = comisiones*0.02
     else:
-        comision = venta*0.02
-    print('Valor de comision: ' + repr(comision))
-    print()
-    os.system('pause')
-    return render(request, 'comisiones.html')
+        comisiones = ComisionesVentas.objects.all().order_by('fecha_inicio')
+    return render(request, 'comisiones_registro.html', {'comisiones': comisiones,   'id': id})

@@ -91,7 +91,7 @@ class ComisionesVentas(models.Model):
     fecha_fin = models.DateField(verbose_name='Fecha de fin')
     
     def __str__(self):
-        return f'{self.agente} - {self.comision} ({self.fecha})'
+        return f'{self.agente} - {self.comision}'
     
     class Meta:
         db_table = "ISACOM_COMISIONES"
