@@ -2,7 +2,8 @@
 from django.db import transaction
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-
+from django.core.mail import get_connection, EmailMultiAlternatives
+from ISA_COM.settings import EMAIL_HOST_USER
 from apps.authentication.register import SetAuthGroup
 from .forms import LoginForm, SignUpForm
 
@@ -43,41 +44,68 @@ def register_user(request):
                 _email = form.cleaned_data.get("email")
                 _password = form.cleaned_data.get("password1")
                 _rol = request.POST.get("rol", None)
-                with transaction.atomic():
-                    # ? Registrar usuario
-                    usuario = SetAuthGroup()
-                    username = usuario.username(
-                        first_name=_first_name,
-                        last_name=_last_name,
-                    )
-                    
-                    user = usuario.create_user(
-                        username=username,
-                        password=_password,
-                        first_name=_first_name,
-                        last_name=_last_name,
-                        email=_email
-                    )
-                    
-                    group = usuario.create_group(name=_rol)
-                    
-                    usuario.user_group_add(user, group)
 
-                    msg = f'''
-                    <h4>Usuario <strong>"{username}"</strong> registrado correctamente</h4>
-                    <h5>Contrasena: <strong>"{_password}"</strong></h5>
-                    '''
-                    success = True
+                try:
+                    
+               
+                    with transaction.atomic():
+                        # ? Registrar usuario
+                        usuario = SetAuthGroup()
+                        username = usuario.username(
+                            first_name=_first_name,
+                            last_name=_last_name,
+                        )
+                        
+                        user = usuario.create_user(
+                            username=username,
+                            password=_password,
+                            first_name=_first_name,
+                            last_name=_last_name,
+                            email=_email
+                        )
+                        
+                        group = usuario.create_group(name=_rol)
+                        
+                        usuario.user_group_add(user, group)
+                        
+                        msg = f'''
+                        <h5>Usuario <strong>"{username}"</strong> registrado correctamente</h5>
+                        <h5>Se ha enviado un correo con los datos al email: <strong>"{_email}"</strong></h5>
+                        '''
+                        content = f'''
+                        <h5>Usuario <strong>"{username}"</strong></h5>
+                        <h5>Contrasena: <strong>"{_password}"</strong></h5>
+                        '''
 
-                    return redirect("/register")
+                        send_user_mail( _email, content)
+                        form = SignUpForm()
+                except:
+                    msg = 'Error al validar formulario'
             else:
-                msg = 'El formulario no es válido.'
+                msg = 'Error al validar formulario'
         else:
             form = SignUpForm()
 
-        return render(request, "registration/register.html", {"form": form, "msg": msg, "success": success})
+        return render(request, 'registration/register.html', {'form': form, 'msg': msg, 'success': success})
     else: return redirect('/')
 
-def logout_view(request):
-    logout(request)
-    return redirect('/')
+
+def send_user_mail( email, content=''):
+    connection = get_connection()
+    connection.open()
+
+    host_subject = 'Credenciales de acceso'
+
+    text_content = content
+                    
+
+    message = EmailMultiAlternatives(
+        host_subject,
+        text_content,
+        EMAIL_HOST_USER,
+        [email]
+    )
+
+    message.attach_alternative(text_content, 'text/html')
+    message.send()
+    connection.close()
