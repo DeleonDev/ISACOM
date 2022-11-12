@@ -64,7 +64,6 @@ class Ventas(models.Model):
         verbose_name_plural = 'Ventas'
     
 class VentasDetalles(models.Model):
-    comision = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Comisión', editable=False, default=0)
     concepto = models.CharField(max_length=50, verbose_name='Concepto')
     fecha_pago = models.DateField(verbose_name='Fecha de pago', editable=False, null=True)
     factura = models.FileField(verbose_name='Factura', editable=False, null=True)
@@ -85,3 +84,4 @@ class VentasDetalles(models.Model):
         verbose_name = 'Venta detalle'
         verbose_name_plural = 'Ventas detalles'
     
+        

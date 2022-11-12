@@ -27,7 +27,7 @@ def agregar_pago_factura(request, orden_compra_id):
     venta_detalles = VentasDetalles.objects
     
     historial_pagos = venta_detalles.filter(venta_id=orden_compra_id) \
-        .order_by('comision')
+        .order_by('incentivo')
     
     saldo_restante = venta_detalles.filter(venta_id=orden_compra_id) \
         .aggregate(total=venta.cotizacion-Sum('importe_USD'))['total']
@@ -79,3 +79,30 @@ def cargar_factura(request, id):
         except: messages.error(request, 'Ha ocurrido un error al cargar la factura')
         return redirect('agregar_pago_factura', venta_detalle.venta_id)
     return render(request, 'includes/factura_modal.html', {'id': id})
+
+
+
+def ventas_detalles(request, id):
+    ventas_detalles = get_object_or_404(VentasDetalles, id=id)
+    print(ventas_detalles.id)
+    if request.method == 'POST':
+        form = DetallesVentasForm(request.POST, instance=ventas_detalles)
+        if form.is_valid():
+            with transaction.atomic():
+                instance = form.save(commit=False)
+                instance.venta_id = ventas_detalles.venta_id
+                instance.save()
+                messages.success(request, 'Registro exitoso')
+                return redirect('ventas_detalles', id)
+        else:
+            print(form.errors)
+            messages.error(request, 'Error al registrar')
+    else:
+        form = DetallesVentasForm(instance=ventas_detalles)
+        print(form)
+        
+    context = {
+        'id': id,
+        'form': form,
+    }
+    return render(request, 'detalles_finanza.html', context)

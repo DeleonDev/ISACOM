@@ -3,15 +3,56 @@
 {% block title %}Ventas - Comisiones{% endblock title %}
 
 {% block breadcrumb %} 
-<a href="{% url 'ventas'%}" class="btn btn-primary float-end ">Regresar</a>
+<a href="{% url 'ventas'%}" class="btn btn-primary float-end  ">Regresar</a>
+<a href="{% url 'comisiones_registro'%}" class="btn btn-primary float-end me-2">Agregar comisión</a>
 {% endblock breadcrumb %}
 
-
-
 {% block content %}
+<div class="card border-0 shadow">
+    <div class="card-header border-bottom d-flex align-items-center justify-content-between">
+        <h2 class="fs-5 fw-bold mb-0">Comisiones</h2>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-centered table-nowrap mb-0 rounded text-center" id="datatable">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="border-0 rounded-start">id</th>
+                        <th class="border-0">Agente</th>
+                        <th class="border-0">Comisión</th>
+                        <th class="border-0">Fecha inicio</th>
+                        <th class="border-0">Fecha fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comision in comisiones %}
+                    <tr>
+                        <td class="text-primary fw-bold">{{ comision.id}}</td>
+                        <td>{{ comision.trabajadores }}</td>
+                        <td>{{ comision.comision }}</td>
+                        <td>{{ comision.fecha_inicio }}</td>
+                        <td>{{ comision.fecha_fin }}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock content %}
 
-
-
 {% block javascripts %}
+<script>
+    const dataTable = new simpleDatatables.DataTable("#datatable", {
+        searchable: true,
+        fixedHeight: true,
+        sortable: false,
+        labels: {
+            placeholder: "Buscar..." , 
+            perPage: "{select} registros por página",
+            noRows: "No hay registros",
+            info: "Mostrando {start} de {end} de {rows} registros",
+        },
+    });
+</script>
 {% endblock javascripts %}

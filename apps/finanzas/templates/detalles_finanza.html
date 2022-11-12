@@ -1,17 +1,19 @@
 {% extends "layouts/base.html" %} {% load static %}
 
-{% block title %}Pago orden de venta #<strong>{{venta.orden_compra}}</strong>{% endblock %}
+
+{% block title %}Detalles{% endblock title %}
+
 
 {% block breadcrumb %}
-<a href="{% url 'finanzas'%}" class="btn btn-primary float-end">Regresar</a>
+
 {% endblock breadcrumb %}
 
 {% block content %}
-<div class="card border-0 shadow mb-4" {% if saldo_restante <= 0 %} hidden {% endif %}>
+<div class="card border-0 shadow">
     <div class="card-header border-bottom d-flex align-items-center justify-content-between">
-        <h2 class="fs-5 fw-bold mb-0">Agregar un pago</h2>
+        <h2 class="fs-5 fw-bold mb-0">Detalles del pago</h2>
     </div>
-    <form method="POST" action="{% url 'agregar_pago_factura' venta.id %}">
+    <form method="POST" action="{% url 'ventas_detalles' id %}">
         {% csrf_token %} {{ form.non_field_errors }}
         <div class="card-body">
             <div class="row">
@@ -26,7 +28,6 @@
                             {% endfor %}
                         </ul>
                         {% endif %}
-
                     </div>
                 </div>
                 <div class="col-md-5 mb-4">
@@ -131,7 +132,6 @@
                             {% endfor %}
                         </ul>
                         {% endif %}
-
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
@@ -145,110 +145,50 @@
                             {% endfor %}
                         </ul>
                         {% endif %}
-
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card-footer d-flex justify-content-center">
-            <button type="submit" class="btn btn-success">Guardar</button>
+        <div class="card-footer d-flex justify-content-between">
+            <button id="cancel-sales-details-edit" type="button" class="btn btn-danger" hidden>Cancelar</button>
+            <button id="save-sales-details-edit" type="submit" class="btn btn-success" hidden>Guardar</button>
+            <button id="edit-sales-details" type="button" class="btn btn-secondary">Editar</button>
         </div>
     </form>
 </div>
-
-<div class="card border-0 shadow">
-    <div class="card-header border-bottom d-flex align-items-center justify-content-between">
-        <h2 class="fs-5 fw-bold mb-0">Historial de pagos</h2>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-centered table-nowrap mb-0 rounded" id="historial-pagos">
-                <thead class="thead-light">
-                    <tr>
-                        <th class="border-0 rounded-start">#</th>
-                        <th class="border-0">Importe</th>
-                        <th class="border-0">Tipo Cambio MN</th>
-                        <th class="border-0">Concepto</th>
-                        <th class="border-0">Fecha Pago</th>
-                        <th class="border-0">Fecha Factura</th>
-                        <th class="border-0 rounded-end">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for pago in historial_pagos %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>${{ pago.importe_USD }}</td>
-                        <td>${{ pago.tipo_cambio_factura }}</td>
-                        <td>{{ pago.concepto }}</td>
-                        <td>{{ pago.fecha_pago }}</td>
-                        <td {%if not pago.fecha_factura%}class="text-danger"{%endif%}>{{ pago.fecha_factura|default_if_none:"No se ha agregado factura" }}</td>
-                        <td>
-                            <a href="{% url 'ventas_detalles' pago.id %}" class="btn btn-info">Detalles</a>
-                            {% if pago.factura %}
-                            <a href="{{pago.factura}}" class="btn btn-info" target="_blank">
-                                <i class="fas fa-eye mr-2"></i>
-                                Ver Factura
-                            </a>
-                            {% else %}
-                            <button type="button" class="btn btn-info btn-factura" data-url="{% url 'cargar_factura' pago.id %}">
-                                <i class="fas fa-file-upload mr-2"></i>
-                                Cargar Factura
-                            </button>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="card-footer">
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <h4 class="fs-5 fw-bold mb-0">Total: ${{ venta.cotizacion }} USD</h4>
-            </div>
-            <div class="col-md-6 mb-4">
-                <h4 class="fs-5 fw-bold mb-0">Saldo restante: ${{ saldo_restante|default_if_none:venta.cotizacion }} USD</h4>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- modal -->
-<div class="modal fade" id="cargar_factura">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-        </div>
-    </div>
-</div>
-
 {% endblock content %}
-
 {% block javascripts %}
 <script>
-    const dataTable = new simpleDatatables.DataTable("#historial-pagos", {
-        searchable: true,
-        fixedHeight: true,
-        sortable: false,
-        labels: {
-            placeholder: "Buscar...",
-            perPage: "{select} registros por página",
-            noRows: "No hay registros",
-            info: "Mostrando {start} a {end} de {rows} registros",
-        },
-    });
-    
-    $('.btn-factura').on('click',function(){
-        let url = $(this).data('url');
-        $.ajax({
-            url: url,
-            type: "get",
-            success: function (data) {
-                $('#cargar_factura .modal-content').html(data);
-                $('#cargar_factura').modal("show");
-            },
+    function disabledForm() {
+        $('#cancel-sales-details-edit').prop('hidden', true);
+        $('#save-sales-details-edit').prop('hidden', true);
+        $('#edit-sales-details').prop('hidden', false);
+        $('#id_concepto').prop('disabled', true);
+        $('#id_monto_USD').prop('disabled', true);
+        $('#id_monto_MN').prop('disabled', true);
+        $('#id_incentivo').prop('disabled', true);
+        $('#id_tipo_cambio_factura').prop('disabled', true);
+        $('#id_tipo_cambio_oc').prop('disabled', true);
+        $('#id_importe_USD').prop('disabled', true);
+    }
+    $(document).ready(function () {
+        disabledForm();
+        $('#edit-sales-details').click(function () {
+            $('#cancel-sales-details-edit').prop('hidden', false);
+            $('#save-sales-details-edit').prop('hidden', false);
+            $('#edit-sales-details').prop('hidden', true);
+            $('#id_concepto').prop('disabled', false);
+            $('#id_monto_USD').prop('disabled', false);
+            $('#id_monto_MN').prop('disabled', false);
+            $('#id_incentivo').prop('disabled', false);
+            $('#id_tipo_cambio_factura').prop('disabled', false);
+            $('#id_tipo_cambio_oc').prop('disabled', false);
+            $('#id_importe_USD').prop('disabled', false);
+        });
+        $('#cancel-sales-details-edit').click(function () {
+            disabledForm();
         });
     });
 </script>
+
 {% endblock javascripts %}

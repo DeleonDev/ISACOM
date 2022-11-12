@@ -93,7 +93,7 @@ class VentasForm(forms.ModelForm):
 class DetallesVentasForm(forms.ModelForm):
     class Meta:
         model = VentasDetalles
-        exclude = ['factura', 'comision']
+        exclude = [ 'comision']
     
     def clean_concepto(self):
         return self.cleaned_data['concepto']
@@ -137,4 +137,5 @@ class DetallesVentasForm(forms.ModelForm):
             field.widget.attrs['placeholder'] = field.label
             field.widget.attrs['autocomplete'] = 'off'
             field.widget.attrs['accept'] = ''
+                
                 
