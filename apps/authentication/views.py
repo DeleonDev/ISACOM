@@ -72,6 +72,7 @@ def register_user(request):
                         <h5>Usuario <strong>"{username}"</strong> registrado correctamente</h5>
                         <h5>Se ha enviado un correo con los datos al email: <strong>"{_email}"</strong></h5>
                         '''
+                        
                         content = f'''
                         <h5>Usuario <strong>"{username}"</strong></h5>
                         <h5>Contrasena: <strong>"{_password}"</strong></h5>
