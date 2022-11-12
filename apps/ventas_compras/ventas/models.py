@@ -1,6 +1,6 @@
 from django.db import models
+from apps.usuarios.models import Trabajadores, Cliente
 
-from apps.usuarios.models import Agente, Cliente
 from apps.ventas_compras.ventas.options import segment_options
 from apps.usuarios.options import *
 
@@ -48,8 +48,8 @@ class Ventas(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Cliente', serialize=False)
     segmento = models.CharField(choices=segment_options(), max_length=50, default=None, verbose_name='segmento')
     estado = models.CharField(max_length=50, verbose_name='Estado', default=None, choices=states)
-    agente = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Agente')
-    cotizacion = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Cotización', editable=False)
+    agente = models.ForeignKey(Trabajadores, limit_choices_to={'rol__name': 'AGENTE'}, on_delete=models.CASCADE, verbose_name='Agente')
+    cotizacion = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Cotización')
     descripcion = models.TextField(verbose_name='Descripción')
     clasificacion = models.CharField(choices=clasification_options(), max_length=50, default=None, verbose_name='Clasificación')
     orden_compra = models.CharField(max_length=50, verbose_name='Orden de compra')
@@ -64,9 +64,10 @@ class Ventas(models.Model):
         verbose_name_plural = 'Ventas'
     
 class VentasDetalles(models.Model):
-    comision = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Comisión', editable=False, default=0)
     concepto = models.CharField(max_length=50, verbose_name='Concepto')
-    factura = models.FileField(upload_to="facturas/", verbose_name='Factura', blank=True, null=True)  
+    fecha_pago = models.DateField(verbose_name='Fecha de pago', editable=False, null=True)
+    factura = models.FileField(verbose_name='Factura', editable=False, null=True)
+    fecha_factura = models.DateField(verbose_name='Fecha de factura', editable=False, blank=True, null=True)
     monto_USD = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Monto en USD')
     monto_MN = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Monto en MN')
     incentivo = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Incentivo')
@@ -83,3 +84,4 @@ class VentasDetalles(models.Model):
         verbose_name = 'Venta detalle'
         verbose_name_plural = 'Ventas detalles'
     
+        

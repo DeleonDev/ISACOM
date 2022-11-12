@@ -1,0 +1,87 @@
+{% extends "layouts/base.html" %} {% load static %}
+
+{% block title %}Ventas - Calcular comisiones{% endblock title %}
+
+{% block breadcrumb %}
+<a href="{% url 'comisiones'%}" class="btn btn-primary float-end ">Regresar</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="card border-0 shadow">
+    <div class="card-header border-bottom d-flex align-items-center justify-content-between">
+        <h2 class="fs-5 fw-bold mb-0">Calcular comisiones</h2>
+    </div>
+    <div class="card-body">
+        <form action="{% url 'comisiones_registro' %}" method="POST">
+            {% csrf_token %} {{ form.non_field_errors }}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.trabajadores.label_tag }}
+                        {{ form.trabajadores }}
+                        {% if form.trabajadores.errors %}
+                        <ul>
+                            {% for error in form.trabajadores.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+
+                        <div class="form-group">
+                            {{ form.fecha_inicio.label_tag }}
+                            {{ form.fecha_inicio }}
+                            {% if form.fecha_inicio.errors %}
+                            <ul>
+                                {% for error in form.fecha_inicio.errors %}
+                                <li>{{ error|safe }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form.fecha_fin.label_tag }}
+                        {{ form.fecha_fin }}
+                        {% if form.fecha_fin.errors %}
+                        <ul>
+                            {% for error in form.fecha_fin.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="cold-md-6">
+                    <div class="form-group">
+                        {{ form.comision.label_tag }}
+                        {{ form.comision }}
+                        {% if form.comision.errors %}
+                        <ul>
+                            {% for error in form.comision.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <button type="submit" class="btn btn-success m-auto">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+
+{% endblock scripts %}
