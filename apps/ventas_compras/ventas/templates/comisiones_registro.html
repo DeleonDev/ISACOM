@@ -2,7 +2,7 @@
 
 {% block title %}Ventas - Calcular comisiones{% endblock title %}
 
-{% block breadcrumb %} 
+{% block breadcrumb %}
 <a href="{% url 'comisiones'%}" class="btn btn-primary float-end ">Regresar</a>
 {% endblock breadcrumb %}
 
@@ -12,16 +12,16 @@
         <h2 class="fs-5 fw-bold mb-0">Calcular comisiones</h2>
     </div>
     <div class="card-body">
-        <form action="{% url 'comisiones' %}" method="POST">
+        <form action="{% url 'comisiones_registro' %}" method="POST">
             {% csrf_token %} {{ form.non_field_errors }}
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        {{ form.agente.label_tag }}
-                        {{ form.agente }}
-                        {% if form.agente.errors %}
+                        {{ form.trabajadores.label_tag }}
+                        {{ form.trabajadores }}
+                        {% if form.trabajadores.errors %}
                         <ul>
-                            {% for error in form.agente.errors %}
+                            {% for error in form.trabajadores.errors %}
                             <li>{{ error|safe }}</li>
                             {% endfor %}
                         </ul>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                        
+
                         <div class="form-group">
                             {{ form.fecha_inicio.label_tag }}
                             {{ form.fecha_inicio }}
@@ -60,22 +60,28 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                    
+                <div class="cold-md-6">
+                    <div class="form-group">
+                        {{ form.comision.label_tag }}
+                        {{ form.comision }}
+                        {% if form.comision.errors %}
+                        <ul>
+                            {% for error in form.comision.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                </div>
+            <div class="card-footer d-flex justify-content-between">
+                <button type="submit" class="btn btn-success m-auto">Guardar</button>
             </div>
         </form>
     </div>
-</div>  
+</div>
 {% endblock content %}
 
-{% block scripts %} 
+{% block scripts %}
 
 {% endblock scripts %}

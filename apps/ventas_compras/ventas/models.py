@@ -84,23 +84,4 @@ class VentasDetalles(models.Model):
         verbose_name = 'Venta detalle'
         verbose_name_plural = 'Ventas detalles'
     
-class ComisionesVentas(models.Model):
-    agente = models.ForeignKey(Agente, on_delete=models.CASCADE, verbose_name='Agente')
-    comision = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Comisión')
-    fecha_inicio = models.DateField(verbose_name='Fecha de inicio')
-    fecha_fin = models.DateField(verbose_name='Fecha de fin')
-    
-    def __str__(self):
-        return f'{self.agente} - {self.comision}'
-    
-    class Meta:
-        db_table = "ISACOM_COMISIONES"
-        verbose_name = 'Comisión'
-        verbose_name_plural = 'Comisiones'
         
-        
-class Compras(models.Model):
-    fecha = models.DateField(verbose_name='Fecha')
-    ventas  = models.ForeignKey(Ventas, on_delete=models.CASCADE, verbose_name='Venta')
-    descripcion = models.TextField(verbose_name='Descripción')
-    

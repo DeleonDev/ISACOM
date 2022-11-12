@@ -1,12 +1,16 @@
+import decimal
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, render
 from django.shortcuts import render
 from django.db import transaction
+from apps.ventas_compras.compras.forms import ComisionesForm
 from apps.ventas_compras.ventas.forms import VentasForm
-from apps.ventas_compras.ventas.models import ComisionesVentas, Ventas
+from apps.ventas_compras.compras.models import Comisiones
+from apps.ventas_compras.ventas.models import Ventas
 from django.contrib import messages
 import os
+from django.db.models import Sum
 # Create your views here.
 
 
@@ -54,18 +58,37 @@ def registro(request):
 
 
 def comisiones(request):
-    comisiones = ComisionesVentas.objects.all().order_by('fecha_inicio')
+    comisiones = Comisiones.objects.all().order_by('fecha_inicio')
     return render(request, 'comisiones.html', {'comisiones': comisiones})
 
 
-def comisiones_registro(request, id):
-    comision = get_object_or_404(ComisionesVentas, id=id)
-    if request.method == 'POST' and request.FILES['factura']:
-        comisiones = ComisionesVentas.objects.all().order_by('fecha_inicio')
-        if comisiones >= 200000:
-            comisiones = comisiones*0.07
+@transaction.atomic()
+def comisiones_registro(request):
+    if request.method == 'POST': 
+        form = ComisionesForm(request.POST, instance=Comisiones())
+        if form.is_valid():
+            with transaction.atomic():
+                instance = form.save(commit=False)
+                if form.cleaned_data.get('comision') <500000:
+                    instance.comision = 0
+                elif form.cleaned_data.get("comision")>= 500000 and form.cleaned_data.get("comision") <= 999999:
+                    instance.comision = form.cleaned_data.get("comision") * decimal.Decimal(0.05)
+                elif form.cleaned_data.get("comision") >= 1000000 and form.cleaned_data.get("comision") <= 1499999:
+                    instance.comision = form.cleaned_data.get("comision") * decimal.Decimal(0.07)
+                elif form.cleaned_data.get("comision") >= 1500000 and form.cleaned_data.get("comision") <= 1999999:
+                    instance.comision = form.cleaned_data.get("comision") * decimal.Decimal(0.09)
+                elif form.cleaned_data.get("comision") >= 2000000 and form.cleaned_data.get("comision") <= 2499999:
+                    instance.comision = form.cleaned_data.get("comision") * decimal.Decimal(0.11)
+                elif form.cleaned_data.get("comision") >= 2500000 and form.cleaned_data.get("comision") <= 2999999:
+                    instance.comision = form.cleaned_data.get("comision") * decimal.Decimal(0.13)
+                instance.save()
+                messages.success(request, 'Registro exitoso')
+                return redirect(reverse_lazy('comisiones'))
         else:
-            comisiones = comisiones*0.02
+            print(form.errors)
+            messages.error(request, 'Error al registrar')
     else:
-        comisiones = ComisionesVentas.objects.all().order_by('fecha_inicio')
-    return render(request, 'comisiones_registro.html', {'comisiones': comisiones,   'id': id})
+        form = ComisionesForm()
+        comisiones = None
+    contexto = {'form': form, 'comisiones': comisiones}
+    return render(request, 'comisiones_registro.html', contexto)

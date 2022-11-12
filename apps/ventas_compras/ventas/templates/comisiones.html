@@ -3,7 +3,8 @@
 {% block title %}Ventas - Comisiones{% endblock title %}
 
 {% block breadcrumb %} 
-<a href="{% url 'ventas'%}" class="btn btn-primary float-end ">Regresar</a>
+<a href="{% url 'ventas'%}" class="btn btn-primary float-end  ">Regresar</a>
+<a href="{% url 'comisiones_registro'%}" class="btn btn-primary float-end me-2">Agregar comisión</a>
 {% endblock breadcrumb %}
 
 {% block content %}
@@ -21,20 +22,17 @@
                         <th class="border-0">Comisión</th>
                         <th class="border-0">Fecha inicio</th>
                         <th class="border-0">Fecha fin</th>
-                        <th class="border-0 rounded-end">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for comision in comisiones %}
                     <tr>
                         <td class="text-primary fw-bold">{{ comision.id}}</td>
-                        <td>{{ comision.agente }}</td>
+                        <td>{{ comision.trabajadores }}</td>
                         <td>{{ comision.comision }}</td>
                         <td>{{ comision.fecha_inicio }}</td>
-                        <td>${{ comision.fecha_fin }}</td>
-                        <td>
-                            <a href="{% url 'comisiones_registro' comision.id %}" class="btn btn-primary btn-sm">Editar</a>
-                            </td>
+                        <td>{{ comision.fecha_fin }}</td>
+                        
                     </tr>
                     {% endfor %}
                 </tbody>
