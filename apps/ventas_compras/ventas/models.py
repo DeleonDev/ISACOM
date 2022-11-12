@@ -77,7 +77,7 @@ class VentasDetalles(models.Model):
     venta = models.ForeignKey(Ventas, on_delete=models.CASCADE, verbose_name='Venta', editable=False)
     
     def __str__(self):
-        return f'{self.venta} - {self.factura}'
+        return f'{self.venta} - {self.concepto} ({self.monto_USD})'
     
     class Meta:
         db_table = "ISACOM_VENTAS_DETALLES"
