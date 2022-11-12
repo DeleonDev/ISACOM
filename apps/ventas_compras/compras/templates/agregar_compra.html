@@ -1,0 +1,68 @@
+{% extends "layouts/base.html" %}
+
+{% load static %}
+
+{% block title %} Compras {% endblock %}
+
+
+{% block stylesheets %}{% endblock stylesheets %}
+{% block breadcrumb %}
+<a href="{% url 'compras'%}" class="btn btn-primary float-end ">Regresar</a>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="card border-0 shadow">
+    <div class="card-header border-bottom d-flex align-items-center justify-content-between">
+        <h2 class="fs-5 fw-bold mb-0">Historial de entregas</h2>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{% url 'agregar_compra' %}">
+            {% csrf_token %} {{ form.non_field_errors }}
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <div class="form-group">
+                        {{ form.orden_compra.label_tag }}
+                        {{ form.orden_compra }}
+                        {% if form.orden_compra.errors %}
+                        <ul>
+                            {% for error in form.orden_compra.errors %}
+                            <li>{{ error|safe }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-5 mb-4">
+                    <div class="form-group">
+                        {{ form.fecha_entrega_estimada.label_tag }}
+                        {{ form.fecha_entrega_estimada }}
+                        {% if form.fecha_entrega_estimada.errors %}
+                        <ul>
+                            {% for error in form.fecha_entrega_estimada.errors %}
+                            <li> {{ error|safe}}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="form-group">
+                        {{ form.fecha_entrega.label_tag }}
+                        {{ form.fecha_entrega }}
+                        {% if form.fecha_entrega.errors %}
+                        <ul>
+                            {% for error in form.fecha_entrega.errors %}
+                            <li> {{ error|safe}}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{%endblock content%}
